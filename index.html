@@ -1,486 +1,506 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BALVI — Streetwear</title>
-<meta name="description" content="BALVI — More than just clothes. Premium streetwear.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BALVI | Admin Dashboard</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-:root {
-  --black: #101010;
-  --red: #8d1822;
-  --cream: #f3f0e9;
-  --white: #ffffff;
-}
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #111;
+      color: #f5f1e9;
+      font-family: Arial, sans-serif;
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
 
-html { scroll-behavior: smooth; }
+    .brand {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 4px;
+    }
 
-body {
-  background: var(--cream);
-  color: var(--black);
-  font-family: 'Inter', sans-serif;
-}
+    .brand span {
+      color: #d92828;
+    }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+    h1 {
+      font-size: 24px;
+      margin-top: 30px;
+    }
 
-.announcement {
-  background: var(--red);
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
+    .card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
 
-header {
-  background: var(--black);
-  color: white;
-  padding: 20px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    input, select, button {
+      font: inherit;
+      padding: 12px;
+      border-radius: 5px;
+    }
 
-.logo {
-  font-family: 'Oswald', sans-serif;
-  font-size: 35px;
-  font-weight: 700;
-  letter-spacing: 3px;
-}
+    input, select {
+      width: 100%;
+      background: #111;
+      border: 1px solid #444;
+      color: white;
+      margin: 7px 0 15px;
+    }
 
-.logo span { color: #a32230; }
+    button {
+      border: 0;
+      background: #d92828;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-nav {
-  display: flex;
-  gap: 28px;
-  font-size: 11px;
-  letter-spacing: 1px;
-}
+    button:disabled {
+      opacity: .6;
+    }
 
-nav a:hover { color: #c52b39; }
+    .hidden {
+      display: none;
+    }
 
-.cart {
-  border: 1px solid #555;
-  padding: 10px 15px;
-  font-size: 11px;
-}
+    .message {
+      margin: 12px 0;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
 
-.hero {
-  min-height: 580px;
-  background:
-    linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.12)),
-    url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=2000&q=85')
-    center 45% / cover;
-  display: flex;
-  align-items: center;
-  padding: 70px 8%;
-  color: white;
-}
+    .error {
+      color: #ff7777;
+    }
 
-.hero-content { max-width: 580px; }
+    .success {
+      color: #7ee59b;
+    }
 
-.eyebrow {
-  color: #e1a3a6;
-  font-size: 10px;
-  letter-spacing: 4px;
-  margin-bottom: 20px;
-}
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 12px;
+    }
 
-.hero h1 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(55px, 9vw, 110px);
-  line-height: .95;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
-}
+    .orders {
+      display: grid;
+      gap: 15px;
+    }
 
-.hero h1 span { color: #a32330; }
+    .order {
+      background: #1c1c1c;
+      border: 1px solid #383838;
+      padding: 18px;
+      border-radius: 8px;
+    }
 
-.hero p {
-  color: #ddd;
-  font-size: 13px;
-  line-height: 1.8;
-  margin-bottom: 30px;
-}
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #383838;
+      padding-bottom: 12px;
+    }
 
-.button {
-  display: inline-block;
-  padding: 16px 27px;
-  background: var(--red);
-  color: white;
-  border: 1px solid var(--red);
-  font-size: 11px;
-  letter-spacing: 2px;
-  transition: .2s;
-}
+    .order h3 {
+      margin: 0 0 10px;
+    }
 
-.button:hover {
-  background: transparent;
-  color: white;
-}
+    .details {
+      line-height: 1.9;
+      color: #ddd;
+      overflow-wrap: anywhere;
+    }
 
-.section {
-  padding: 75px 6%;
-}
+    .items {
+      background: #111;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 5px;
+      line-height: 1.9;
+    }
 
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-bottom: 35px;
-  gap: 15px;
-}
+    .status-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
 
-.section-heading small {
-  color: var(--red);
-  font-size: 10px;
-  letter-spacing: 3px;
-}
+    .status-row select {
+      margin: 0;
+    }
 
-.section-heading h2 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(35px, 5vw, 55px);
-  margin-top: 8px;
-}
+    .empty {
+      text-align: center;
+      color: #aaa;
+      padding: 30px 10px;
+    }
 
-.view-all {
-  font-size: 10px;
-  letter-spacing: 1px;
-  border-bottom: 1px solid;
-  padding-bottom: 5px;
-}
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+      }
 
-.products {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
+      .toolbar {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
 
-.product-image {
-  background: #e8e4dc;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  position: relative;
-}
+      .status-row {
+        grid-template-columns: 1fr;
+      }
 
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .5s;
-}
-
-.product-card:hover img { transform: scale(1.04); }
-
-.tag {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--black);
-  color: white;
-  padding: 8px 10px;
-  font-size: 9px;
-  letter-spacing: 1px;
-}
-
-.product-info {
-  padding: 16px 0;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.product-info h3 {
-  font-size: 12px;
-  margin-bottom: 8px;
-}
-
-.product-info p {
-  color: #777;
-  font-size: 11px;
-}
-
-.price {
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.add-button {
-  display: block;
-  width: 100%;
-  background: transparent;
-  border: 1px solid #222;
-  padding: 13px;
-  font-size: 10px;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-.add-button:hover {
-  background: var(--black);
-  color: white;
-}
-
-.story {
-  background: var(--black);
-  color: white;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 430px;
-}
-
-.story-image {
-  min-height: 350px;
-  background: url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1200&q=85')
-  center / cover;
-}
-
-.story-content {
-  padding: 65px 12%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.story-content h2 {
-  font-family: 'Oswald', sans-serif;
-  font-size: clamp(38px, 5vw, 60px);
-  line-height: 1;
-  margin: 20px 0;
-}
-
-.story-content p {
-  color: #bbb;
-  font-size: 12px;
-  line-height: 2;
-  margin-bottom: 25px;
-}
-
-footer {
-  background: #0a0a0a;
-  color: white;
-  padding: 55px 6% 25px;
-}
-
-.footer-top {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
-  padding-bottom: 45px;
-}
-
-.footer-brand p {
-  max-width: 290px;
-  color: #999;
-  font-size: 12px;
-  line-height: 1.9;
-  margin-top: 15px;
-}
-
-.footer-column h4 {
-  font-size: 10px;
-  letter-spacing: 2px;
-  margin-bottom: 20px;
-}
-
-.footer-column a {
-  display: block;
-  color: #aaa;
-  font-size: 12px;
-  margin-bottom: 13px;
-}
-
-.footer-column a:hover { color: white; }
-
-.footer-bottom {
-  border-top: 1px solid #333;
-  padding-top: 22px;
-  color: #888;
-  font-size: 10px;
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-@media (max-width: 700px) {
-  header { padding: 17px 5%; }
-  .logo { font-size: 29px; }
-  nav { gap: 12px; font-size: 9px; }
-  .cart { padding: 8px; font-size: 9px; }
-  .hero { min-height: 510px; padding: 50px 6%; }
-  .section { padding: 55px 5%; }
-  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .product-info { flex-direction: column; }
-  .story { grid-template-columns: 1fr; }
-  .story-image { min-height: 300px; }
-  .story-content { padding: 45px 7%; }
-  .footer-top { grid-template-columns: 1fr 1fr; }
-  .footer-brand { grid-column: 1 / -1; }
-  .footer-bottom { flex-direction: column; }
-}
-
-@media (max-width: 380px) {
-  nav { gap: 8px; }
-  .logo { font-size: 25px; }
-}
-</style>
+      .status-row button {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="container">
+    <div class="brand">BAL<span>V</span>I</div>
+    <h1>لوحة إدارة الطلبات</h1>
 
-<div class="announcement">
-  BALVI — MORE THAN JUST CLOTHES.
-</div>
+    <section class="card" id="loginCard">
+      <h3>تسجيل دخول المدير</h3>
 
-<header>
-  <a class="logo" href="#">BAL<span>V</span>I</a>
-
-  <nav>
-    <a href="#home">HOME</a>
-    <a href="#shop">SHOP</a>
-    <a href="#story">ABOUT</a>
-  </nav>
-
-  <a class="cart" href="#shop">BAG (<span id="cart-count">0</span>)</a>
-</header>
-
-<main>
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <div class="eyebrow">THE STREETWEAR MOVEMENT</div>
-      <h1>MORE THAN<br>JUST <span>CLOTHES.</span></h1>
       <p>
-        Built for those who move differently.<br>
-        Discover the BALVI collection.
+        أدخل مفتاح الإدارة السري الذي حفظته في Vercel
+        باسم ADMIN_API_TOKEN.
       </p>
-      <a href="#shop" class="button">EXPLORE COLLECTION ↗</a>
-    </div>
-  </section>
 
-  <section class="section" id="shop">
-    <div class="section-heading">
-      <div>
-        <small>THE FIRST DROP</small>
-        <h2>HOODIES & SWEATSHIRTS</h2>
+      <form id="loginForm">
+        <label for="token">مفتاح الإدارة</label>
+        <input
+          id="token"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="أدخل المفتاح السري"
+        >
+
+        <button type="submit" id="loginButton">
+          دخول
+        </button>
+      </form>
+
+      <div id="loginMessage" class="message"></div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="card">
+        <div class="toolbar">
+          <input
+            id="search"
+            placeholder="ابحث بالاسم أو رقم الهاتف أو رقم الطلب"
+          >
+
+          <select id="filterStatus">
+            <option value="">كل الحالات</option>
+            <option value="new">جديد</option>
+            <option value="confirmed">تم التأكيد</option>
+            <option value="shipped">تم الشحن</option>
+            <option value="delivered">تم التسليم</option>
+            <option value="cancelled">ملغي</option>
+          </select>
+        </div>
+
+        <button id="refreshButton" type="button">
+          تحديث الطلبات
+        </button>
+
+        <button id="logoutButton" type="button"
+          style="background:#444;margin-right:8px">
+          تسجيل الخروج
+        </button>
+
+        <div id="dashboardMessage" class="message"></div>
       </div>
-      <span class="view-all">BALVI ORIGINALS</span>
-    </div>
 
-    <div class="products">
+      <div id="orders" class="orders"></div>
+    </section>
+  </main>
 
-      <article class="product-card">
-        <div class="product-image">
-          <span class="tag">NEW DROP</span>
-          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=85" alt="Black streetwear hoodie">
-        </div>
-        <div class="product-info">
-          <div>
-            <h3>ESSENTIAL BLACK HOODIE</h3>
-            <p>Heavyweight streetwear</p>
-          </div>
-          <div class="price">EGP —</div>
-        </div>
-        <button class="add-button" onclick="addToBag('ESSENTIAL BLACK HOODIE')">ADD TO BAG +</button>
-      </article>
+  <script>
+    const STATUS_LABELS = {
+      new: "جديد",
+      confirmed: "تم التأكيد",
+      shipped: "تم الشحن",
+      delivered: "تم التسليم",
+      cancelled: "ملغي"
+    };
 
-      <article class="product-card">
-        <div class="product-image">
-          <span class="tag">BALVI ESSENTIALS</span>
-          <img src="https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=800&q=85" alt="Streetwear sweatshirt">
-        </div>
-        <div class="product-info">
-          <div>
-            <h3>OVERSIZED SWEATSHIRT</h3>
-            <p>Relaxed fit</p>
-          </div>
-          <div class="price">EGP —</div>
-        </div>
-        <button class="add-button" onclick="addToBag('OVERSIZED SWEATSHIRT')">ADD TO BAG +</button>
-      </article>
+    let adminToken = "";
+    let allOrders = [];
 
-      <article class="product-card">
-        <div class="product-image">
-          <span class="tag">LIMITED</span>
-          <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=800&q=85" alt="Minimal sweatshirt">
-        </div>
-        <div class="product-info">
-          <div>
-            <h3>CORE CREWNECK</h3>
-            <p>Everyday essential</p>
-          </div>
-          <div class="price">EGP —</div>
-        </div>
-        <button class="add-button" onclick="addToBag('CORE CREWNECK')">ADD TO BAG +</button>
-      </article>
+    const loginCard = document.getElementById("loginCard");
+    const dashboard = document.getElementById("dashboard");
+    const loginMessage = document.getElementById("loginMessage");
+    const dashboardMessage = document.getElementById("dashboardMessage");
+    const ordersElement = document.getElementById("orders");
 
-    </div>
-  </section>
+    function showMessage(element, message, type = "") {
+      element.textContent = message;
+      element.className = "message " + type;
+    }
 
-  <section class="story" id="story">
-    <div class="story-image"></div>
-    <div class="story-content">
-      <div class="eyebrow">THE BALVI MINDSET</div>
-      <h2>OWN YOUR<br>OWN LANE.</h2>
-      <p>
-        More than just clothes. A mindset, an identity,
-        and a way to express yourself without saying a word.
-        This is BALVI.
-      </p>
-      <a href="#shop" class="button">DISCOVER BALVI ↗</a>
-    </div>
-  </section>
-</main>
+    async function apiRequest(url, options = {}) {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...(options.headers || {}),
+          Authorization: "Bearer " + adminToken
+        }
+      });
 
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <a class="logo" href="#">BAL<span>V</span>I</a>
-      <p>MORE THAN JUST CLOTHES.<br>Streetwear made for your own lane.</p>
-    </div>
+      const data = await response.json().catch(() => ({}));
 
-    <div class="footer-column">
-      <h4>EXPLORE</h4>
-      <a href="#home">Home</a>
-      <a href="#shop">Shop All</a>
-      <a href="#story">Our Story</a>
-    </div>
+      if (!response.ok) {
+        throw new Error(data.error || "حصل خطأ في الاتصال بالخادم.");
+      }
 
-    <div class="footer-column">
-      <h4>INFORMATION</h4>
-      <a href="mailto:hello@balvi.com">Contact</a>
-      <a href="#shop">Shipping & Returns</a>
-    </div>
-  </div>
+      return data;
+    }
 
-  <div class="footer-bottom">
-    <span>© 2026 BALVI. ALL RIGHTS RESERVED.</span>
-    <span>MADE FOR YOUR OWN LANE.</span>
-  </div>
-</footer>
+    document.getElementById("loginForm").addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
 
-<script>
-let cartCount = 0;
+        const button = document.getElementById("loginButton");
+        adminToken = document.getElementById("token").value.trim();
 
-function addToBag(product) {
-  cartCount++;
-  document.getElementById('cart-count').textContent = cartCount;
-  alert(product + ' added to your bag!');
-}
-</script>
+        if (!adminToken) {
+          showMessage(loginMessage, "أدخل مفتاح الإدارة.", "error");
+          return;
+        }
 
+        button.disabled = true;
+        button.textContent = "جاري التحقق...";
+
+        try {
+          await loadOrders();
+
+          loginCard.classList.add("hidden");
+          dashboard.classList.remove("hidden");
+        } catch (error) {
+          adminToken = "";
+          showMessage(loginMessage, error.message, "error");
+        } finally {
+          button.disabled = false;
+          button.textContent = "دخول";
+        }
+      }
+    );
+
+    async function loadOrders() {
+      showMessage(dashboardMessage, "جاري تحميل الطلبات...");
+
+      const data = await apiRequest("/api/admin/orders");
+
+      allOrders = Array.isArray(data)
+        ? data
+        : Array.isArray(data.orders)
+          ? data.orders
+          : [];
+
+      renderOrders();
+
+      showMessage(
+        dashboardMessage,
+        "عدد الطلبات: " + allOrders.length,
+        "success"
+      );
+    }
+
+    function renderOrders() {
+      const query = document.getElementById("search")
+        .value.trim().toLowerCase();
+
+      const statusFilter = document.getElementById("filterStatus").value;
+
+      const filtered = allOrders.filter(order => {
+        const searchable = [
+          order.order_number,
+          order.id,
+          order.customer_name,
+          order.phone,
+          order.governorate
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(query) &&
+          (!statusFilter || order.status === statusFilter);
+      });
+
+      if (!filtered.length) {
+        ordersElement.innerHTML =
+          '<div class="card empty">مفيش طلبات مطابقة للبحث.</div>';
+        return;
+      }
+
+      ordersElement.innerHTML = filtered.map((order, index) => {
+        const orderId = String(order.id || "");
+        const displayId = order.order_number || order.id || "غير متاح";
+
+        const items = Array.isArray(order.items)
+          ? order.items.map(item => `
+              <div>
+                ${escapeHTML(item.name || item.product_id || "منتج")}
+                — المقاس: ${escapeHTML(item.size || "-")}
+                — الكمية: ${Number(item.quantity) || 0}
+                — السعر: ${Number(item.price) || 0} جنيه
+              </div>
+            `).join("")
+          : "تفاصيل المنتجات غير متاحة";
+
+        const subtotal = Number(order.subtotal) || 0;
+        const shipping = Number(order.shipping) || 0;
+        const total = order.total != null
+          ? Number(order.total)
+          : subtotal + shipping;
+
+        const createdAt = order.created_at
+          ? new Date(order.created_at).toLocaleString("ar-EG")
+          : "غير متاح";
+
+        return `
+          <article class="order">
+            <div class="order-top">
+              <h3>طلب #${escapeHTML(displayId)}</h3>
+              <strong>${escapeHTML(STATUS_LABELS[order.status] || order.status || "غير محدد")}</strong>
+            </div>
+
+            <div class="details">
+              <div>👤 العميل: ${escapeHTML(order.customer_name || "-")}</div>
+              <div>📞 الهاتف: ${escapeHTML(order.phone || "-")}</div>
+              <div>📍 المحافظة: ${escapeHTML(order.governorate || "-")}</div>
+              <div>🏠 العنوان: ${escapeHTML(order.address || "-")}</div>
+              <div>🕒 تاريخ الطلب: ${escapeHTML(createdAt)}</div>
+              <div>💵 الدفع: الدفع عند الاستلام</div>
+            </div>
+
+            <div class="items">${items}</div>
+
+            <div class="details">
+              قيمة المنتجات: ${subtotal} جنيه<br>
+              الشحن: ${shipping} جنيه<br>
+              <strong>الإجمالي: ${total} جنيه</strong>
+            </div>
+
+            <div class="status-row" style="margin-top:15px">
+              <select id="status-${index}" aria-label="حالة الطلب">
+                ${Object.entries(STATUS_LABELS).map(([value, label]) => `
+                  <option value="${value}" ${order.status === value ? "selected" : ""}>
+                    ${label}
+                  </option>
+                `).join("")}
+              </select>
+
+              <button type="button"
+                data-order-id="${escapeHTML(orderId)}"
+                data-status-index="${index}"
+                class="save-status">
+                حفظ الحالة
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      ordersElement.querySelectorAll(".save-status").forEach(button => {
+        button.addEventListener("click", async () => {
+          await updateStatus(button);
+        });
+      });
+    }
+
+    async function updateStatus(button) {
+      const orderId = button.dataset.orderId;
+      const index = button.dataset.statusIndex;
+      const status = document.getElementById("status-" + index).value;
+
+      if (!orderId) {
+        alert("رقم الطلب غير متاح.");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "جاري الحفظ...";
+
+      try {
+        await apiRequest("/api/admin/orders", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            id: orderId,
+            status
+          })
+        });
+
+        showMessage(dashboardMessage, "تم تحديث حالة الطلب.", "success");
+        await loadOrders();
+      } catch (error) {
+        showMessage(dashboardMessage, error.message, "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "حفظ الحالة";
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    document.getElementById("refreshButton").addEventListener(
+      "click",
+      async () => {
+        try {
+          await loadOrders();
+        } catch (error) {
+          showMessage(dashboardMessage, error.message, "error");
+        }
+      }
+    );
+
+    document.getElementById("search").addEventListener("input", renderOrders);
+    document.getElementById("filterStatus").addEventListener("change", renderOrders);
+
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      adminToken = "";
+      allOrders = [];
+
+      document.getElementById("token").value = "";
+      dashboard.classList.add("hidden");
+      loginCard.classList.remove("hidden");
+
+      ordersElement.innerHTML = "";
+      showMessage(loginMessage, "تم تسجيل الخروج.");
+    });
+  </script>
 </body>
 </html>
