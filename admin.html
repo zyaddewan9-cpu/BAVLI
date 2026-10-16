@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BALVI | Admin Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #111;
+      color: #f5f1e9;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .brand {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 4px;
+    }
+
+    .brand span {
+      color: #d92828;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    input, select, button {
+      font: inherit;
+      padding: 12px;
+      border-radius: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      background: #111;
+      border: 1px solid #444;
+      color: white;
+      margin: 7px 0 15px;
+    }
+
+    button {
+      border: 0;
+      background: #d92828;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      margin: 12px 0;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .error {
+      color: #ff7777;
+    }
+
+    .success {
+      color: #7ee59b;
+    }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 12px;
+    }
+
+    .orders {
+      display: grid;
+      gap: 15px;
+    }
+
+    .order {
+      background: #1c1c1c;
+      border: 1px solid #383838;
+      padding: 18px;
+      border-radius: 8px;
+    }
+
+    .order-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #383838;
+      padding-bottom: 12px;
+    }
+
+    .order h3 {
+      margin: 0 0 10px;
+    }
+
+    .details {
+      line-height: 1.9;
+      color: #ddd;
+      overflow-wrap: anywhere;
+    }
+
+    .items {
+      background: #111;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 5px;
+      line-height: 1.9;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .status-row select {
+      margin: 0;
+    }
+
+    .empty {
+      text-align: center;
+      color: #aaa;
+      padding: 30px 10px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .status-row {
+        grid-template-columns: 1fr;
+      }
+
+      .status-row button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <div class="brand">BAL<span>V</span>I</div>
+    <h1>لوحة إدارة الطلبات</h1>
+
+    <section class="card" id="loginCard">
+      <h3>تسجيل دخول المدير</h3>
+
+      <p>
+        أدخل مفتاح الإدارة السري الذي حفظته في Vercel
+        باسم ADMIN_API_TOKEN.
+      </p>
+
+      <form id="loginForm">
+        <label for="token">مفتاح الإدارة</label>
+        <input
+          id="token"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="أدخل المفتاح السري"
+        >
+
+        <button type="submit" id="loginButton">
+          دخول
+        </button>
+      </form>
+
+      <div id="loginMessage" class="message"></div>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <div class="card">
+        <div class="toolbar">
+          <input
+            id="search"
+            placeholder="ابحث بالاسم أو رقم الهاتف أو رقم الطلب"
+          >
+
+          <select id="filterStatus">
+            <option value="">كل الحالات</option>
+            <option value="new">جديد</option>
+            <option value="confirmed">تم التأكيد</option>
+            <option value="shipped">تم الشحن</option>
+            <option value="delivered">تم التسليم</option>
+            <option value="cancelled">ملغي</option>
+          </select>
+        </div>
+
+        <button id="refreshButton" type="button">
+          تحديث الطلبات
+        </button>
+
+        <button id="logoutButton" type="button"
+          style="background:#444;margin-right:8px">
+          تسجيل الخروج
+        </button>
+
+        <div id="dashboardMessage" class="message"></div>
+      </div>
+
+      <div id="orders" class="orders"></div>
+    </section>
+  </main>
+
+  <script>
+    const STATUS_LABELS = {
+      new: "جديد",
+      confirmed: "تم التأكيد",
+      shipped: "تم الشحن",
+      delivered: "تم التسليم",
+      cancelled: "ملغي"
+    };
+
+    let adminToken = "";
+    let allOrders = [];
+
+    const loginCard = document.getElementById("loginCard");
+    const dashboard = document.getElementById("dashboard");
+    const loginMessage = document.getElementById("loginMessage");
+    const dashboardMessage = document.getElementById("dashboardMessage");
+    const ordersElement = document.getElementById("orders");
+
+    function showMessage(element, message, type = "") {
+      element.textContent = message;
+      element.className = "message " + type;
+    }
+
+    async function apiRequest(url, options = {}) {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...(options.headers || {}),
+          Authorization: "Bearer " + adminToken
+        }
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || "حصل خطأ في الاتصال بالخادم.");
+      }
+
+      return data;
+    }
+
+    document.getElementById("loginForm").addEventListener(
+      "submit",
+      async event => {
+        event.preventDefault();
+
+        const button = document.getElementById("loginButton");
+        adminToken = document.getElementById("token").value.trim();
+
+        if (!adminToken) {
+          showMessage(loginMessage, "أدخل مفتاح الإدارة.", "error");
+          return;
+        }
+
+        button.disabled = true;
+        button.textContent = "جاري التحقق...";
+
+        try {
+          await loadOrders();
+
+          loginCard.classList.add("hidden");
+          dashboard.classList.remove("hidden");
+        } catch (error) {
+          adminToken = "";
+          showMessage(loginMessage, error.message, "error");
+        } finally {
+          button.disabled = false;
+          button.textContent = "دخول";
+        }
+      }
+    );
+
+    async function loadOrders() {
+      showMessage(dashboardMessage, "جاري تحميل الطلبات...");
+
+      const data = await apiRequest("/api/admin/orders");
+
+      allOrders = Array.isArray(data)
+        ? data
+        : Array.isArray(data.orders)
+          ? data.orders
+          : [];
+
+      renderOrders();
+
+      showMessage(
+        dashboardMessage,
+        "عدد الطلبات: " + allOrders.length,
+        "success"
+      );
+    }
+
+    function renderOrders() {
+      const query = document.getElementById("search")
+        .value.trim().toLowerCase();
+
+      const statusFilter = document.getElementById("filterStatus").value;
+
+      const filtered = allOrders.filter(order => {
+        const searchable = [
+          order.order_number,
+          order.id,
+          order.customer_name,
+          order.phone,
+          order.governorate
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(query) &&
+          (!statusFilter || order.status === statusFilter);
+      });
+
+      if (!filtered.length) {
+        ordersElement.innerHTML =
+          '<div class="card empty">مفيش طلبات مطابقة للبحث.</div>';
+        return;
+      }
+
+      ordersElement.innerHTML = filtered.map((order, index) => {
+        const orderId = String(order.id || "");
+        const displayId = order.order_number || order.id || "غير متاح";
+
+        const items = Array.isArray(order.items)
+          ? order.items.map(item => `
+              <div>
+                ${escapeHTML(item.name || item.product_id || "منتج")}
+                — المقاس: ${escapeHTML(item.size || "-")}
+                — الكمية: ${Number(item.quantity) || 0}
+                — السعر: ${Number(item.price) || 0} جنيه
+              </div>
+            `).join("")
+          : "تفاصيل المنتجات غير متاحة";
+
+        const subtotal = Number(order.subtotal) || 0;
+        const shipping = Number(order.shipping) || 0;
+        const total = order.total != null
+          ? Number(order.total)
+          : subtotal + shipping;
+
+        const createdAt = order.created_at
+          ? new Date(order.created_at).toLocaleString("ar-EG")
+          : "غير متاح";
+
+        return `
+          <article class="order">
+            <div class="order-top">
+              <h3>طلب #${escapeHTML(displayId)}</h3>
+              <strong>${escapeHTML(STATUS_LABELS[order.status] || order.status || "غير محدد")}</strong>
+            </div>
+
+            <div class="details">
+              <div>👤 العميل: ${escapeHTML(order.customer_name || "-")}</div>
+              <div>📞 الهاتف: ${escapeHTML(order.phone || "-")}</div>
+              <div>📍 المحافظة: ${escapeHTML(order.governorate || "-")}</div>
+              <div>🏠 العنوان: ${escapeHTML(order.address || "-")}</div>
+              <div>🕒 تاريخ الطلب: ${escapeHTML(createdAt)}</div>
+              <div>💵 الدفع: الدفع عند الاستلام</div>
+            </div>
+
+            <div class="items">${items}</div>
+
+            <div class="details">
+              قيمة المنتجات: ${subtotal} جنيه<br>
+              الشحن: ${shipping} جنيه<br>
+              <strong>الإجمالي: ${total} جنيه</strong>
+            </div>
+
+            <div class="status-row" style="margin-top:15px">
+              <select id="status-${index}" aria-label="حالة الطلب">
+                ${Object.entries(STATUS_LABELS).map(([value, label]) => `
+                  <option value="${value}" ${order.status === value ? "selected" : ""}>
+                    ${label}
+                  </option>
+                `).join("")}
+              </select>
+
+              <button type="button"
+                data-order-id="${escapeHTML(orderId)}"
+                data-status-index="${index}"
+                class="save-status">
+                حفظ الحالة
+              </button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      ordersElement.querySelectorAll(".save-status").forEach(button => {
+        button.addEventListener("click", async () => {
+          await updateStatus(button);
+        });
+      });
+    }
+
+    async function updateStatus(button) {
+      const orderId = button.dataset.orderId;
+      const index = button.dataset.statusIndex;
+      const status = document.getElementById("status-" + index).value;
+
+      if (!orderId) {
+        alert("رقم الطلب غير متاح.");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "جاري الحفظ...";
+
+      try {
+        await apiRequest("/api/admin/orders", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            id: orderId,
+            status
+          })
+        });
+
+        showMessage(dashboardMessage, "تم تحديث حالة الطلب.", "success");
+        await loadOrders();
+      } catch (error) {
+        showMessage(dashboardMessage, error.message, "error");
+      } finally {
+        button.disabled = false;
+        button.textContent = "حفظ الحالة";
+      }
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    document.getElementById("refreshButton").addEventListener(
+      "click",
+      async () => {
+        try {
+          await loadOrders();
+        } catch (error) {
+          showMessage(dashboardMessage, error.message, "error");
+        }
+      }
+    );
+
+    document.getElementById("search").addEventListener("input", renderOrders);
+    document.getElementById("filterStatus").addEventListener("change", renderOrders);
+
+    document.getElementById("logoutButton").addEventListener("click", () => {
+      adminToken = "";
+      allOrders = [];
+
+      document.getElementById("token").value = "";
+      dashboard.classList.add("hidden");
+      loginCard.classList.remove("hidden");
+
+      ordersElement.innerHTML = "";
+      showMessage(loginMessage, "تم تسجيل الخروج.");
+    });
+  </script>
+</body>
+</html>
