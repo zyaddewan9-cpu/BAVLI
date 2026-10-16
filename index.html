@@ -1,242 +1,737 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BALVI — Hoodies Collection</title>
+<meta name="theme-color" content="#111111">
+<meta name="description" content="BALVI Streetwear — Hoodies made for your own style.">
+<title>BALVI® — Streetwear Essentials</title>
 
 <style>
 :root {
-  --red: #f01422;
-  --black: #111;
-  --gray: #777;
-  --line: #eee;
+  --black: #111111;
+  --white: #ffffff;
+  --red: #e63232;
+  --gray: #777777;
+  --light: #f4f4f4;
+  --line: #e5e5e5;
 }
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   color: var(--black);
-  background: #fff;
+  background: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
 }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-a { text-decoration: none; color: inherit; }
+
+body, button, input, select, textarea {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button, input, select, textarea {
+  font-size: inherit;
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* HEADER */
 
 header {
-  padding: 16px 5%;
+  min-height: 76px;
+  padding: 0 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
+  background: #fff;
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
-  background: white;
   z-index: 10;
 }
-.logo {
-  font-size: 29px;
-  font-weight: 1000;
-  letter-spacing: 4px;
-}
-.logo span { color: var(--red); }
 
-.header-btn {
-  background: white;
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  border-radius: 4px;
-}
-.hero {
-  background: #111;
-  color: white;
-  padding: 60px 7%;
-  text-align: center;
-}
-.hero small {
-  color: var(--red);
-  letter-spacing: 4px;
-  font-weight: bold;
-}
-.hero h1 {
-  font-size: clamp(45px, 8vw, 85px);
-  margin: 20px 0;
+.logo {
+  font-size: 30px;
+  font-weight: 1000;
+  letter-spacing: 5px;
   line-height: 1;
-  font-style: italic;
 }
-.hero h1 span { color: var(--red); }
-.hero p { color: #ccc; line-height: 1.8; }
-.btn {
-  display: inline-block;
+
+.logo .red {
+  color: var(--red);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.cart-button {
+  background: white;
+  border: 1px solid #d8d8d8;
+  padding: 12px 15px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+.cart-button:hover {
+  background: var(--black);
+  color: white;
+  border-color: var(--black);
+}
+
+/* HERO */
+
+.hero {
+  background: var(--black);
+  color: white;
+  min-height: 500px;
+  padding: 85px 7% 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "BALVI";
+  position: absolute;
+  font-size: clamp(140px, 28vw, 360px);
+  font-weight: 1000;
+  letter-spacing: -12px;
+  color: rgba(255,255,255,.025);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 25px 0;
+  font-size: clamp(58px, 11vw, 125px);
+  font-weight: 1000;
+  letter-spacing: -4px;
+  line-height: .87;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  color: var(--red);
+}
+
+.hero-description {
+  color: #c4c4c4;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 25px auto;
+  max-width: 450px;
+}
+
+.primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 25px;
+  margin-top: 12px;
   background: var(--red);
   color: white;
-  border: 0;
-  padding: 14px 22px;
-  margin-top: 12px;
-  font-weight: bold;
-  border-radius: 3px;
+  border: 1px solid var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: .2s;
 }
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 35px 16px;
+
+.primary-button:hover {
+  background: white;
+  color: var(--black);
+  border-color: white;
 }
-.section-title {
+
+/* TICKER */
+
+.ticker {
+  overflow: hidden;
+  background: var(--red);
+  color: white;
+  padding: 13px 0;
   text-align: center;
-  margin-bottom: 28px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  word-spacing: 12px;
 }
-.section-title small {
+
+/* COLLECTION */
+
+.container {
+  max-width: 1400px;
+  padding: 75px 5%;
+  margin: auto;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.section-heading small {
   color: var(--red);
-  font-weight: bold;
+  font-size: 10px;
+  font-weight: 900;
   letter-spacing: 3px;
 }
-.section-title h2 {
-  font-size: 32px;
-  margin: 8px 0;
+
+.section-heading h2 {
+  margin: 10px 0 0;
+  font-size: clamp(30px, 5vw, 50px);
+  line-height: 1;
+  font-weight: 1000;
+  letter-spacing: -1.5px;
+  text-transform: uppercase;
 }
+
+.section-heading p {
+  color: var(--gray);
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 230px;
+  text-align: right;
+}
+
 .products {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: 18px;
 }
+
 .product {
-  border: 1px solid var(--line);
+  min-width: 0;
+}
+
+.product-image-wrap {
+  position: relative;
   overflow: hidden;
+  background: #f1f1f1;
+  aspect-ratio: 3 / 4;
 }
-.product img {
-  width: 100%;
-  height: 280px;
-  object-fit: contain;
-  background: #f7f7f7;
+
+.product-image-wrap img {
   display: block;
-  cursor: pointer;
-}
-.product-info { padding: 14px; }
-.product h3 {
-  font-size: 15px;
-  margin: 0 0 8px;
-}
-.product p {
-  font-size: 12px;
-  color: var(--gray);
-}
-.price {
-  font-size: 17px;
-  font-weight: bold;
-  margin: 12px 0;
-}
-.product button {
   width: 100%;
-  padding: 11px;
+  height: 100%;
+  object-fit: contain;
+  transition: transform .35s ease;
+}
+
+.product:hover .product-image-wrap img {
+  transform: scale(1.035);
+}
+
+.product-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 7px 9px;
+  background: white;
+  color: var(--black);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.product-info {
+  padding: 17px 0 0;
+}
+
+.product-title-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.product h3 {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.product-price {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.product-description {
+  color: var(--gray);
+  font-size: 11px;
+  margin: 9px 0 15px;
+}
+
+.product-button {
+  width: 100%;
+  min-height: 43px;
+  background: white;
+  border: 1px solid #222;
+  color: var(--black);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: .2s;
+}
+
+.product-button:hover {
   background: var(--black);
   color: white;
-  border: 0;
 }
-.product button:hover { background: var(--red); }
+
+/* BRAND STRIP */
+
+.brand-strip {
+  padding: 55px 6%;
+  background: #f2f2f2;
+  text-align: center;
+}
+
+.brand-strip small {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: var(--red);
+}
+
+.brand-strip h2 {
+  margin: 15px 0 10px;
+  font-size: clamp(30px, 6vw, 58px);
+  font-weight: 1000;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+
+.brand-strip p {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* FOOTER */
+
+footer {
+  background: var(--black);
+  color: white;
+  padding: 45px 6% 25px;
+}
+
+.footer-top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 25px;
+  padding-bottom: 35px;
+}
+
+.footer-description {
+  max-width: 300px;
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.footer-label {
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #888;
+  font-size: 10px;
+}
+
+/* MODALS */
 
 .panel {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0009;
-  z-index: 20;
+  z-index: 30;
+  background: rgba(0,0,0,.75);
   justify-content: center;
   align-items: center;
   padding: 12px;
 }
-.panel.open { display: flex; }
-.panel-content {
-  background: white;
-  width: min(500px, 100%);
-  max-height: 90vh;
-  overflow: auto;
-  padding: 22px;
-  border-radius: 5px;
+
+.panel.open {
+  display: flex;
 }
+
+.panel-content {
+  width: min(500px, 100%);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: white;
+  padding: 23px;
+}
+
 .panel-head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 15px;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 12px;
+  padding-bottom: 15px;
+  margin-bottom: 18px;
 }
+
+.panel-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
 .close {
-  background: white;
   border: 0;
-  font-size: 25px;
+  background: white;
+  font-size: 27px;
+  line-height: 1;
 }
+
+.detail-image {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+  background: #f2f2f2;
+}
+
+.detail-price {
+  font-size: 20px;
+  font-weight: 900;
+  margin: 18px 0;
+}
+
+.field-label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.form input,
+.form select,
+.form textarea,
+.detail-select,
+.detail-quantity {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px;
+  border: 1px solid #d8d8d8;
+  border-radius: 0;
+  background: white;
+  color: var(--black);
+}
+
+.detail-note {
+  color: var(--gray);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.full-button {
+  width: 100%;
+  min-height: 47px;
+  border: 0;
+  margin-top: 16px;
+  background: var(--black);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.full-button:hover {
+  background: var(--red);
+}
+
 .cart-item {
   display: grid;
-  grid-template-columns: 65px 1fr;
-  gap: 12px;
-  padding: 12px 0;
+  grid-template-columns: 75px minmax(0, 1fr);
+  gap: 13px;
+  padding: 15px 0;
   border-bottom: 1px solid var(--line);
 }
+
 .cart-item img {
-  width: 65px;
-  height: 75px;
+  width: 75px;
+  height: 90px;
   object-fit: contain;
-  background: #f5f5f5;
+  background: #f2f2f2;
 }
-.cart-item p { font-size: 12px; }
+
+.cart-item strong {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cart-item p {
+  color: var(--gray);
+  font-size: 11px;
+  margin: 7px 0;
+}
+
 .qty {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .qty button {
+  width: 29px;
+  height: 29px;
   background: white;
   border: 1px solid #ddd;
-  padding: 5px 10px;
 }
+
 .total {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin: 14px 0;
-  font-weight: bold;
+  gap: 12px;
+  margin: 13px 0;
+  font-size: 12px;
 }
+
+.total.final {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 15px;
+  font-weight: 900;
+}
+
 .form {
   display: grid;
   gap: 10px;
+  margin-top: 22px;
 }
-.form input, .form select, .form textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+
+.form h3 {
+  font-size: 15px;
+  text-transform: uppercase;
 }
-.form .btn { width: 100%; }
+
+.form input,
+.form select,
+.form textarea {
+  margin: 0;
+}
+
+.form .full-button {
+  margin-top: 4px;
+}
+
 .notice {
   display: none;
   padding: 12px;
   background: #fff0f0;
   color: #900;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.empty {
+  padding: 30px 0;
+  text-align: center;
+  color: var(--gray);
   font-size: 13px;
 }
-.empty {
-  text-align: center;
-  padding: 25px 0;
-  color: var(--gray);
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 16px;
+  }
+
+  .container {
+    padding: 55px 5%;
+  }
+
+  .hero {
+    min-height: 440px;
+  }
 }
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 30px 15px;
-}
-footer p {
-  color: #bbb;
-  font-size: 12px;
-  line-height: 1.8;
-}
-@media(max-width:850px) {
-  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .product img { height: 220px; }
-}
-@media(max-width:400px) {
-  .product img { height: 170px; }
-  .product-info { padding: 9px; }
-  .hero { padding: 45px 15px; }
+
+@media (max-width: 520px) {
+  header {
+    min-height: 68px;
+    padding: 0 5%;
+  }
+
+  .logo {
+    font-size: 25px;
+    letter-spacing: 4px;
+  }
+
+  .header-right {
+    gap: 10px;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .cart-button {
+    padding: 10px;
+    font-size: 10px;
+  }
+
+  .hero {
+    min-height: 430px;
+    padding: 65px 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(55px, 15vw, 78px);
+    letter-spacing: -2px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .hero-description {
+    font-size: 12px;
+  }
+
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading p {
+    text-align: left;
+    margin-top: 15px;
+  }
+
+  .section-heading h2 {
+    font-size: 36px;
+  }
+
+  .product h3 {
+    font-size: 11px;
+  }
+
+  .product-price {
+    font-size: 11px;
+  }
+
+  .product-info {
+    padding-top: 12px;
+  }
+
+  .product-description {
+    font-size: 10px;
+    min-height: 24px;
+  }
+
+  .product-button {
+    font-size: 9px;
+    letter-spacing: 1px;
+    min-height: 40px;
+  }
+
+  .brand-strip {
+    padding: 45px 18px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .panel-content {
+    padding: 17px;
+  }
 }
 </style>
 </head>
@@ -244,53 +739,108 @@ footer p {
 <body>
 
 <header>
-  <a class="logo" href="#">B<span>A</span>LVI</a>
-  <button class="header-btn" onclick="openCart()">
-    🛍️ السلة (<span id="count">0</span>)
-  </button>
+  <a class="logo" href="#" aria-label="BALVI Home">
+    B<span class="red">A</span>LVI
+  </a>
+
+  <div class="header-right">
+    <a class="nav-link" href="#shop">Shop Hoodies</a>
+    <button class="cart-button" onclick="openCart()">
+      BAG (<span id="count">0</span>)
+    </button>
+  </div>
 </header>
 
 <section class="hero">
-  <small>BALVI / NEW DROP</small>
-  <h1>OWN YOUR<br><span>STYLE.</span></h1>
-  <p>هوديز مميزة لستايل مختلف.<br>
-  اختار الهودي المفضل عندك واطلبه لحد باب البيت.</p>
-  <a class="btn" href="#shop">اكتشف المجموعة ↓</a>
+  <div class="hero-content">
+    <div class="eyebrow">BALVI® / NEW DROP</div>
+
+    <h1>OWN YOUR<br><span>STYLE.</span></h1>
+
+    <p class="hero-description">
+      Streetwear essentials. Made to stand out.<br>
+      Find your fit. Make your statement.
+    </p>
+
+    <a class="primary-button" href="#shop">
+      SHOP THE COLLECTION &nbsp; ↓
+    </a>
+  </div>
 </section>
 
+<div class="ticker">
+  BALVI® &nbsp; / &nbsp; STREETWEAR &nbsp; / &nbsp;
+  OWN YOUR STYLE &nbsp; / &nbsp; BALVI®
+</div>
+
 <main class="container" id="shop">
-  <div class="section-title">
-    <small>THE HOODIE COLLECTION</small>
-    <h2>هوديز BALVI</h2>
-    <p>اختار تصميمك ومقاسك وضيفه للسلة.</p>
+  <div class="section-heading">
+    <div>
+      <small>THE LATEST DROP / 001</small>
+      <h2>HOODIE<br>COLLECTION.</h2>
+    </div>
+
+    <p>
+      Four essential designs.<br>
+      One signature attitude.<br>
+      Find your everyday uniform.
+    </p>
   </div>
 
   <div class="products" id="products"></div>
 </main>
 
+<section class="brand-strip">
+  <small>NOT MADE TO BLEND IN</small>
+  <h2>OWN YOUR STYLE.</h2>
+  <p>
+    Premium streetwear for everyday expression.<br>
+    Choose your hoodie. We'll bring it to your door.
+  </p>
+</section>
+
 <footer>
-  <div class="logo">B<span>A</span>LVI</div>
-  <p>Streetwear. Redefined.</p>
-  <p>الدفع عند الاستلام متاح<br>مصاريف الشحن: 80 جنيه</p>
-  <p>© 2026 BALVI. All rights reserved.</p>
+  <div class="footer-top">
+    <div>
+      <div class="logo">B<span class="red">A</span>LVI</div>
+      <p class="footer-description">
+        Streetwear essentials for those who do things their own way.
+        Make every fit count.
+      </p>
+    </div>
+
+    <div>
+      <div class="footer-label">DELIVERY & PAYMENT</div>
+      <p class="footer-description">
+        Cash on Delivery available.<br>
+        Shipping fee: EGP 80.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 BALVI®. ALL RIGHTS RESERVED.</span>
+    <span>STREETWEAR. REDEFINED.</span>
+  </div>
 </footer>
+
+<!-- PRODUCT DETAILS -->
 
 <div class="panel" id="productPanel"
      onclick="if(event.target===this)closeProduct()">
   <div class="panel-content">
     <div class="panel-head">
-      <h3 id="detailName">المنتج</h3>
-      <button class="close" onclick="closeProduct()">×</button>
+      <h3 id="detailName">Product</h3>
+      <button class="close" onclick="closeProduct()" aria-label="Close">×</button>
     </div>
 
-    <img id="detailImage" src="" alt=""
-         style="width:100%;height:230px;object-fit:contain;background:#f7f7f7">
+    <img id="detailImage" class="detail-image" src="" alt="">
 
-    <h3 id="detailPrice"></h3>
+    <div class="detail-price" id="detailPrice"></div>
 
-    <label for="detailSize">المقاس</label>
-    <select id="detailSize">
-      <option value="">اختار المقاس</option>
+    <label class="field-label" for="detailSize">Select Size</label>
+    <select class="detail-select" id="detailSize">
+      <option value="">Choose your size</option>
       <option value="S">S</option>
       <option value="M">M</option>
       <option value="L">L</option>
@@ -298,23 +848,28 @@ footer p {
       <option value="XXL">XXL</option>
     </select>
 
-    <p>اللون: حسب التصميم المعروض</p>
+    <label class="field-label" for="detailQty">Quantity</label>
+    <input class="detail-quantity" id="detailQty"
+           type="number" min="1" max="20" value="1">
 
-    <label for="detailQty">الكمية</label>
-    <input id="detailQty" type="number" min="1" max="20" value="1"
-           style="width:100%;padding:10px;margin-top:8px">
+    <p class="detail-note">
+      Premium streetwear fit. Cash on Delivery available.
+    </p>
 
-    <button class="btn" style="width:100%"
-            onclick="addToCart()">أضف للسلة</button>
+    <button class="full-button" onclick="addToCart()">
+      ADD TO BAG
+    </button>
   </div>
 </div>
+
+<!-- CART AND CHECKOUT -->
 
 <div class="panel" id="cartPanel"
      onclick="if(event.target===this)closeCart()">
   <div class="panel-content">
     <div class="panel-head">
-      <h3>سلة المشتريات</h3>
-      <button class="close" onclick="closeCart()">×</button>
+      <h3>Your Bag</h3>
+      <button class="close" onclick="closeCart()" aria-label="Close">×</button>
     </div>
 
     <div id="cartItems"></div>
@@ -323,62 +878,83 @@ footer p {
 </div>
 
 <script>
+/*
+  The image files are stored in the repository root,
+  beside index.html, so use filenames without "images/".
+*/
+
 const productsData = [
   {
     id: 1,
     name: "Black Logo Hoodie",
     price: 650,
-    image: "images/hoodie-black-logo.jpeg"
+    image: "hoodie-black-logo.jpeg"
   },
   {
     id: 2,
     name: "British Flag Hoodie",
     price: 650,
-    image: "images/hoodie-flag.jpeg"
+    image: "hoodie-flag.jpeg"
   },
   {
     id: 3,
-    name: "Plaid Lining Hoodie",
-    price: 750,
-    image: "images/hoodie-plaid.jpeg"
+    name: "Olive Logo Hoodie",
+    price: 650,
+    image: "hoodie-grey.jpeg"
   },
   {
     id: 4,
-    name: "Grey Graphic Hoodie",
-    price: 650,
-    image: "images/hoodie-grey.jpeg"
+    name: "Black Plaid-Lined Hoodie",
+    price: 750,
+    image: "hoodie-plaid.jpeg"
   }
 ];
+
+const SHIPPING_FEE = 80;
 
 let cart = [];
 let currentProduct = null;
 
-const money = n =>
-  "EGP " + Number(n).toLocaleString("en-US");
+const money = amount =>
+  "EGP " + Number(amount).toLocaleString("en-US");
 
 function renderProducts() {
-  document.getElementById("products").innerHTML =
-    productsData.map(p => `
-      <article class="product">
-        <img src="${p.image}"
-             alt="${p.name}"
-             loading="lazy"
-             onclick="openProduct(${p.id})">
+  const products = document.getElementById("products");
 
-        <div class="product-info">
-          <h3>${p.name}</h3>
-          <p>Premium Streetwear Hoodie</p>
-          <div class="price">${money(p.price)}</div>
-          <button onclick="openProduct(${p.id})">
-            اختار المقاس
-          </button>
+  products.innerHTML = productsData.map(product => `
+    <article class="product">
+      <div class="product-image-wrap">
+        <span class="product-tag">BALVI® ESSENTIALS</span>
+
+        <img
+          src="${product.image}"
+          alt="${product.name}"
+          loading="eager"
+          onerror="this.onerror=null;this.src='https://placehold.co/600x800/f1f1f1/111111?text=BALVI+HOODIE';"
+        >
+      </div>
+
+      <div class="product-info">
+        <div class="product-title-row">
+          <h3>${product.name}</h3>
+          <span class="product-price">${money(product.price)}</span>
         </div>
-      </article>
-    `).join("");
+
+        <p class="product-description">
+          Premium Streetwear / BALVI®
+        </p>
+
+        <button class="product-button"
+                onclick="openProduct(${product.id})">
+          SELECT SIZE +
+        </button>
+      </div>
+    </article>
+  `).join("");
 }
 
 function openProduct(id) {
-  currentProduct = productsData.find(p => p.id === id);
+  currentProduct = productsData.find(product => product.id === id);
   if (!currentProduct) return;
 
   document.getElementById("detailName").textContent =
@@ -387,11 +963,16 @@ function openProduct(id) {
   document.getElementById("detailPrice").textContent =
     money(currentProduct.price);
 
-  document.getElementById("detailImage").src =
-    currentProduct.image;
+  const detailImage = document.getElementById("detailImage");
+  detailImage.onerror = function() {
+    this.onerror = null;
+    this.src = "https://placehold.co/600x800/f1f1f1/111111?text=BALVI+HOODIE";
+  };
+  detailImage.src = currentProduct.image;
+  detailImage.alt = currentProduct.name;
 
   document.getElementById("detailSize").value = "";
-  document.getElementById("detailQty").value = 1;
+  document.getElementById("detailQty").value = "1";
 
   document.getElementById("productPanel").classList.add("open");
 }
@@ -404,23 +985,27 @@ function addToCart() {
   if (!currentProduct) return;
 
   const size = document.getElementById("detailSize").value;
-  const qty = Number(document.getElementById("detailQty").value);
+  const quantity = Number(document.getElementById("detailQty").value);
 
   if (!size) {
-    alert("من فضلك اختار المقاس.");
+    alert("Please select a size.");
     return;
   }
 
-  if (!Number.isInteger(qty) || qty < 1 || qty > 20) {
-    alert("اختار كمية من 1 إلى 20.");
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
+    alert("Please choose a quantity between 1 and 20.");
     return;
   }
 
   const key = currentProduct.id + "-" + size;
-  const existing = cart.find(i => i.key === key);
+  const existing = cart.find(item => item.key === key);
 
   if (existing) {
-    existing.quantity += qty;
+    if (existing.quantity + quantity > 20) {
+      alert("Maximum quantity per size is 20.");
+      return;
+    }
+    existing.quantity += quantity;
   } else {
     cart.push({
       key,
@@ -429,7 +1014,7 @@ function addToCart() {
       price: currentProduct.price,
       image: currentProduct.image,
       size,
-      quantity: qty
+      quantity
     });
   }
 
@@ -439,111 +1024,150 @@ function addToCart() {
 }
 
 function changeQty(key, amount) {
-  const item = cart.find(i => i.key === key);
+  const item = cart.find(product => product.key === key);
   if (!item) return;
 
   item.quantity += amount;
 
   if (item.quantity <= 0) {
-    cart = cart.filter(i => i.key !== key);
+    cart = cart.filter(product => product.key !== key);
   }
 
   renderCart();
 }
 
 function subtotal() {
-  return cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  return cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 }
 
 function renderCart() {
   document.getElementById("count").textContent =
-    cart.reduce((sum, i) => sum + i.quantity, 0);
+    cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const items = document.getElementById("cartItems");
-  const checkout = document.getElementById("checkoutArea");
+  const itemsElement = document.getElementById("cartItems");
+  const checkoutElement = document.getElementById("checkoutArea");
 
   if (!cart.length) {
-    items.innerHTML = '<div class="empty">السلة فاضية حاليًا.</div>';
-    checkout.innerHTML = "";
+    itemsElement.innerHTML =
+      '<div class="empty">Your bag is currently empty.</div>';
+
+    checkoutElement.innerHTML = "";
     return;
   }
 
-  items.innerHTML = cart.map(i => `
+  itemsElement.innerHTML = cart.map(item => `
     <div class="cart-item">
-      <img src="${i.image}" alt="${i.name}">
+      <img
+        src="${item.image}"
+        alt="${item.name}"
+        onerror="this.onerror=null;this.src='https://placehold.co/150x180/f1f1f1/111111?text=BALVI';"
+      >
+
       <div>
-        <strong>${i.name}</strong>
-        <p>المقاس: ${i.size}</p>
-        <p>${money(i.price)}</p>
+        <strong>${item.name}</strong>
+        <p>Size: ${item.size}</p>
+        <p>${money(item.price)}</p>
+
         <div class="qty">
-          <button onclick="changeQty('${i.key}',-1)">−</button>
-          <span>${i.quantity}</span>
-          <button onclick="changeQty('${i.key}',1)">+</button>
+          <button type="button"
+                  onclick="changeQty('${item.key}',-1)">−</button>
+          <span>${item.quantity}</span>
+          <button type="button"
+                  onclick="changeQty('${item.key}',1)">+</button>
         </div>
       </div>
     </div>
   `).join("");
 
-  checkout.innerHTML = `
+  checkoutElement.innerHTML = `
     <div class="total">
-      <span>المجموع الفرعي</span>
+      <span>Subtotal</span>
       <span>${money(subtotal())}</span>
     </div>
+
     <div class="total">
-      <span>الشحن</span>
-      <span>EGP 80</span>
+      <span>Shipping</span>
+      <span>${money(SHIPPING_FEE)}</span>
     </div>
-    <div class="total">
-      <span>الإجمالي</span>
-      <span>${money(subtotal() + 80)}</span>
+
+    <div class="total final">
+      <span>Total</span>
+      <span>${money(subtotal() + SHIPPING_FEE)}</span>
     </div>
 
     <form class="form" id="orderForm">
-      <h3>بيانات التوصيل</h3>
+      <h3>Delivery Details</h3>
 
-      <input id="customerName" placeholder="الاسم بالكامل" required>
-      <input id="customerPhone" type="tel"
-             placeholder="رقم الموبايل" required>
+      <input
+        id="customerName"
+        name="customer_name"
+        autocomplete="name"
+        placeholder="Full Name"
+        required
+      >
 
-      <select id="governorate" required>
-        <option value="">اختار المحافظة</option>
-        <option value="Cairo">القاهرة</option>
-        <option value="Giza">الجيزة</option>
-        <option value="Alexandria">الإسكندرية</option>
-        <option value="Gharbia">الغربية</option>
-        <option value="Dakahlia">الدقهلية</option>
-        <option value="Qalyubia">القليوبية</option>
-        <option value="Monufia">المنوفية</option>
-        <option value="Sharqia">الشرقية</option>
-        <option value="Beheira">البحيرة</option>
-        <option value="Kafr El Sheikh">كفر الشيخ</option>
-        <option value="Damietta">دمياط</option>
-        <option value="Port Said">بورسعيد</option>
-        <option value="Ismailia">الإسماعيلية</option>
-        <option value="Suez">السويس</option>
-        <option value="Fayoum">الفيوم</option>
-        <option value="Minya">المنيا</option>
-        <option value="Assiut">أسيوط</option>
-        <option value="Sohag">سوهاج</option>
-        <option value="Qena">قنا</option>
-        <option value="Luxor">الأقصر</option>
-        <option value="Aswan">أسوان</option>
-        <option value="Matrouh">مطروح</option>
-        <option value="Red Sea">البحر الأحمر</option>
-        <option value="North Sinai">شمال سيناء</option>
-        <option value="South Sinai">جنوب سيناء</option>
-        <option value="Beni Suef">بني سويف</option>
-        <option value="New Valley">الوادي الجديد</option>
+      <input
+        id="customerPhone"
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder="Mobile Number"
+        required
+      >
+
+      <select id="governorate" name="governorate" required>
+        <option value="">Select Governorate</option>
+        <option value="Cairo">Cairo</option>
+        <option value="Giza">Giza</option>
+        <option value="Alexandria">Alexandria</option>
+        <option value="Gharbia">Gharbia</option>
+        <option value="Dakahlia">Dakahlia</option>
+        <option value="Qalyubia">Qalyubia</option>
+        <option value="Monufia">Monufia</option>
+        <option value="Sharqia">Sharqia</option>
+        <option value="Beheira">Beheira</option>
+        <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+        <option value="Damietta">Damietta</option>
+        <option value="Port Said">Port Said</option>
+        <option value="Ismailia">Ismailia</option>
+        <option value="Suez">Suez</option>
+        <option value="Fayoum">Fayoum</option>
+        <option value="Minya">Minya</option>
+        <option value="Assiut">Assiut</option>
+        <option value="Sohag">Sohag</option>
+        <option value="Qena">Qena</option>
+        <option value="Luxor">Luxor</option>
+        <option value="Aswan">Aswan</option>
+        <option value="Matrouh">Matrouh</option>
+        <option value="Red Sea">Red Sea</option>
+        <option value="North Sinai">North Sinai</option>
+        <option value="South Sinai">South Sinai</option>
+        <option value="Beni Suef">Beni Suef</option>
+        <option value="New Valley">New Valley</option>
       </select>
 
-      <textarea id="customerAddress"
-                placeholder="العنوان بالتفصيل"
-                rows="3" required></textarea>
+      <textarea
+        id="customerAddress"
+        name="address"
+        autocomplete="street-address"
+        placeholder="Full Delivery Address"
+        rows="3"
+        required
+      ></textarea>
 
-      <div class="notice" id="checkoutNotice"></div>
+      <div class="notice" id="checkoutNotice" role="alert"></div>
 
-      <button class="btn" type="submit">تأكيد الطلب</button>
-      <p>الدفع نقدًا عند الاستلام.</p>
+      <button class="full-button" type="submit">
+        PLACE ORDER — CASH ON DELIVERY
+      </button>
+
+      <p class="detail-note">
+        Payment is collected when your order arrives.
+      </p>
     </form>
   `;
 
@@ -563,55 +1187,68 @@ function closeCart() {
 async function placeOrder(event) {
   event.preventDefault();
 
+  const form = document.getElementById("orderForm");
   const notice = document.getElementById("checkoutNotice");
-  const button = document.querySelector("#orderForm button[type=submit]");
+  const button = form.querySelector('button[type="submit"]');
 
-  const name = document.getElementById("customerName").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const governorate = document.getElementById("governorate").value;
-  const address = document.getElementById("customerAddress").value.trim();
+  const customerName =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const governorate =
+    document.getElementById("governorate").value;
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
 
   if (!cart.length) {
-    alert("السلة فاضية.");
+    alert("Your bag is empty.");
     return;
   }
 
   const payload = {
-    customer_name: name,
+    customer_name: customerName,
     phone,
     governorate,
     address,
-    items: cart.map(i => ({
-      id: i.id,
-      name: i.name,
-      quantity: i.quantity,
-      price: i.price,
-      size: i.size
+    items: cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      size: item.size
     })),
     subtotal: subtotal(),
-    shipping: 80,
+    shipping: SHIPPING_FEE,
     payment_method: "COD"
   };
 
   button.disabled = true;
-  button.textContent = "جاري إرسال الطلب...";
+  button.textContent = "PROCESSING ORDER...";
+
+  notice.style.display = "none";
+  notice.textContent = "";
 
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(payload)
     });
 
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok || !data.success) {
-      throw new Error(data.error || "تعذر تسجيل الطلب.");
+      throw new Error(data.error || "Unable to submit your order.");
     }
 
     alert(
-      "تم تسجيل طلبك بنجاح! رقم الطلب: " +
-      (data.order_number || data.order?.order_number || "تم التأكيد")
+      "Order placed successfully! Order number: " +
+      (data.order_number || data.order?.order_number || "Confirmed")
     );
 
     cart = [];
@@ -621,13 +1258,20 @@ async function placeOrder(event) {
   } catch (error) {
     notice.style.display = "block";
     notice.textContent =
-      "الطلب لم يُسجّل. تأكد من إعدادات API وأسعار المنتجات. " +
+      "Your order could not be submitted. Please try again or contact support. " +
       error.message;
   } finally {
     button.disabled = false;
-    button.textContent = "تأكيد الطلب";
+    button.textContent = "PLACE ORDER — CASH ON DELIVERY";
   }
 }
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeProduct();
+    closeCart();
+  }
+});
 
 renderProducts();
 renderCart();
