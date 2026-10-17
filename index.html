@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BALVI — Hoodies Only</title>
+<style>
+:root{--red:#f01422;--black:#111;--gray:#777;--line:#e9e9e9}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--black);background:#fff;font-family:Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.top{height:64px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:10;direction:ltr}
+.logo{font-weight:1000;font-size:30px;letter-spacing:5px}.logo span,.footlogo span{color:var(--red)}
+nav{display:flex;gap:25px;font-size:12px;font-weight:800;text-transform:uppercase}
+nav a:hover{color:var(--red)}.icons{display:flex;align-items:center;gap:13px}
+.icon{border:0;background:none;font-size:21px;position:relative}.badge{position:absolute;right:-7px;top:-6px;background:var(--red);color:white;border-radius:50%;font-size:10px;padding:3px 5px}
+.hero{display:grid;grid-template-columns:42% 58%;background:#f4f4f4;min-height:420px;direction:ltr}
+.hero-copy{padding:45px 10%;align-self:center}.kicker{font-size:11px;letter-spacing:3px;color:var(--red);font-weight:900;text-transform:uppercase}
+.hero h1{font-size:clamp(45px,6vw,78px);line-height:.9;letter-spacing:-3px;font-weight:1000;font-style:italic;margin:18px 0;text-transform:uppercase}
+.hero h1 span{color:var(--red)}.hero p{font-size:12px;letter-spacing:1px;line-height:1.8;text-transform:uppercase;font-weight:700}
+.btn{display:inline-flex;justify-content:space-between;align-items:center;gap:25px;background:var(--red);color:#fff;border:0;padding:14px 20px;font-size:11px;font-weight:900;text-transform:uppercase;margin-top:14px}
+.hero-photo{position:relative;min-height:420px;overflow:hidden;background:#eee}.hero-photo img{position:absolute;width:100%;height:100%;object-fit:contain;background:#fff}
+.scribble{position:absolute;right:6%;bottom:10%;font-size:22px;color:#fff;font-weight:1000;font-style:italic;text-shadow:0 2px 6px #000}
+.wrap{max-width:1300px;padding:0 4%;margin:auto}.section{padding:34px 0 22px}
+.heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:20px;direction:ltr}
+.heading small{font-size:10px;color:var(--red);letter-spacing:2px;font-weight:900;text-transform:uppercase}
+.heading h2{margin:5px 0 0;font-size:30px;text-transform:uppercase;letter-spacing:-1px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;direction:ltr}
+.product{border:1px solid var(--line);min-width:0}.photo{height:300px;background:#f7f7f7;position:relative;overflow:hidden;cursor:pointer}
+.photo img{width:100%;height:100%;object-fit:contain;transition:.3s}.product:hover .photo img{transform:scale(1.03)}
+.tag{position:absolute;top:9px;left:9px;background:var(--red);color:white;font-size:9px;font-weight:900;padding:5px 7px}
+.pinfo{padding:13px}.pname{font-size:13px;font-weight:900;cursor:pointer}.desc{color:#777;font-size:10px;margin-top:5px}
+.price-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:900;margin-top:13px}
+.add{border:1px solid #eee;background:#f5f5f5;width:34px;height:34px}.add:hover{background:var(--red);color:#fff}
+.banner{background:#111;color:white;margin:18px 0 35px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.banner h3{margin:0;font-size:24px;text-transform:uppercase}.banner p{color:#ccc;font-size:12px;margin-bottom:0}
+footer{border-top:1px solid #eee;padding:25px 4% 14px;direction:ltr}.footgrid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.footlogo{font-size:27px;letter-spacing:5px;font-weight:1000}footer p{font-size:11px;color:#777;line-height:1.7}
+.legal{border-top:1px solid #eee;margin-top:20px;padding-top:13px;display:flex;justify-content:space-between;font-size:9px;color:#777}
+.overlay{display:none;position:fixed;inset:0;background:#0008;z-index:30;align-items:center;justify-content:center;padding:16px}.overlay.open{display:flex}
+.modal{width:min(850px,100%);max-height:94vh;overflow:auto;background:white;display:grid;grid-template-columns:1fr 1fr;position:relative;direction:ltr}
+.modal-img{background:#f7f7f7;min-height:400px}.modal-img img{width:100%;height:100%;object-fit:contain}
+.modal-content{padding:30px}.x{position:absolute;right:12px;top:10px;background:#fff;border:0;font-size:25px;z-index:1}
+.modal h2{font-size:25px;margin:12px 0 7px}.modal-price{font-size:19px;font-weight:900;margin:16px 0}
+.option-label{font-size:11px;font-weight:900;margin:20px 0 9px}.swatches,.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.swatch{border:1px solid #ddd;background:white;padding:7px 10px;font-size:11px;display:flex;gap:6px;align-items:center}
+.swatch i{width:15px;height:15px;border-radius:50%;border:1px solid #ddd;display:inline-block}
+.swatch.selected,.size.selected{border:2px solid var(--red)}.size{width:42px;height:38px;background:white;border:1px solid #ddd;font-size:11px;font-weight:800}
+.quantity{display:flex;align-items:center;gap:14px}.quantity button{width:32px;height:32px;background:#fff;border:1px solid #ddd}
+.modal .btn{width:100%;justify-content:space-between}.modal-note{font-size:10px;color:#777;line-height:1.6}
+.cartpanel{position:fixed;inset:0;background:#0007;z-index:40;display:none;justify-content:flex-end}.cartpanel.open{display:flex}
+.cart{background:#fff;width:min(440px,100%);height:100%;overflow:auto;padding:22px;direction:ltr}
+.carthead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:14px}
+.carthead h2{font-size:20px;margin:0}.cartitem{display:grid;grid-template-columns:70px 1fr auto;gap:11px;padding:14px 0;border-bottom:1px solid #eee}
+.cartitem img{width:70px;height:80px;object-fit:contain;background:#f7f7f7}.cartitem strong{font-size:12px}
+.cartitem small{display:block;color:#777;margin-top:6px;font-size:10px}.qty{display:flex;gap:8px;align-items:center;margin-top:8px}
+.qty button{width:24px;height:24px;background:#fff;border:1px solid #ddd}.total{display:flex;justify-content:space-between;font-weight:900;margin:14px 0;font-size:12px}
+.form{display:grid;gap:10px}.form h3{font-size:15px;margin:18px 0 0}
+.form input,.form select,.form textarea{padding:12px;border:1px solid #ddd;width:100%;font-size:12px}
+.form .btn{width:100%;margin:0}.notice{display:none;padding:10px;font-size:12px;line-height:1.6;background:#fff1f1;color:#900}
+.empty{text-align:center;padding:35px 0;color:#777;font-size:13px}
+@media(max-width:800px){.top{height:58px;padding:0 12px}.logo{font-size:23px;letter-spacing:3px}nav{gap:10px;font-size:9px}.icons{gap:6px}
+.hero{grid-template-columns:1fr}.hero-photo{grid-row:1;min-height:290px}.hero-copy{grid-row:2;padding:27px 22px}.hero h1{font-size:53px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo{height:230px}.heading h2{font-size:24px}
+.banner{align-items:flex-start;flex-direction:column}.footgrid{grid-template-columns:1fr}.modal{grid-template-columns:1fr}.modal-img{min-height:230px;height:250px}.modal-content{padding:22px}}
+@media(max-width:430px){nav{gap:7px}nav a{font-size:8px}.icon.search,.icon.account{display:none}.hero-photo{min-height:250px}.hero h1{font-size:47px}.photo{height:190px}.pinfo{padding:9px}.heading h2{font-size:21px}}
+</style>
+</head>
+<body>
+<header class="top">
+<a href="#" class="logo">B<span>A</span>LVI</a>
+<nav><a href="#">Home</a><a href="#shop">Hoodies</a><a href="#about">About</a></nav>
+<div class="icons"><button class="icon search" onclick="document.getElementById('shop').scrollIntoView()">⌕</button><button class="icon account" onclick="document.getElementById('about').scrollIntoView()">♙</button><button class="icon" onclick="openCart()">♧<span class="badge" id="count">0</span></button></div>
+</header>
+<main>
+<section class="hero">
+<div class="hero-copy"><div class="kicker">BALVI / HOODIE DROP</div><h1>HOODIES<br>FOR THE<br><span>STREETS.</span></h1><p>Not made to fit in.<br>Made to stand out.</p><a class="btn" href="#shop">SHOP HOODIES <span>→</span></a></div>
+<div class="hero-photo"><img src="images/hoodie-black-logo.jpeg" alt="BALVI black hoodie"><div class="scribble">OWN YOUR STYLE.</div></div>
+</section>
+<div class="wrap">
+<section class="section" id="shop"><div class="heading"><div><small>FRESH FROM BALVI</small><h2>HOODIE COLLECTION</h2></div><span class="view">4 STYLES / NEW DROP</span></div><div class="products" id="products"></div></section>
+<section class="banner"><div><h3>ONLY HOODIES. ALL ATTITUDE.</h3><p>Choose your style, pick your size, and order cash on delivery.</p></div><a class="btn" href="#shop">EXPLORE DROP →</a></section>
+</div>
+</main>
+<footer id="about"><div class="footgrid"><div><div class="footlogo">B<span>A</span>LVI</div><p>Streetwear for those who move differently. Express yourself. Own your style.</p></div><div><h4>ORDER & DELIVERY</h4><p>Cash on delivery available.<br>Shipping: EGP 80.</p><p>Choose your hoodie, size, and color before adding it to your bag.</p></div></div><div class="legal"><span>© 2026 BALVI. ALL RIGHTS RESERVED.</span><span>MADE FOR THE STREETS.</span></div></footer>
+<div class="overlay" id="productModal" onclick="if(event.target===this)closeProduct()"><div class="modal"><button class="x" onclick="closeProduct()">×</button><div class="modal-img"><img id="detailImg" src="" alt=""></div><div class="modal-content"><div class="kicker">BALVI / HOODIES</div><h2 id="detailName"></h2><div class="modal-price" id="detailPrice"></div><p class="modal-note">Everyday streetwear. Designed for your own style.</p><div class="option-label">COLOR <span id="colorText">— Choose one</span></div><div class="swatches" id="colorOptions"></div><div class="option-label">SIZE <span id="sizeText">— Choose one</span></div><div class="sizes" id="sizeOptions"></div><div class="option-label">QUANTITY</div><div class="quantity"><button onclick="changeDetailQty(-1)">−</button><strong id="detailQty">1</strong><button onclick="changeDetailQty(1)">+</button></div><button class="btn" onclick="addDetailToCart()">ADD TO BAG <span>→</span></button><p class="modal-note">Cash on delivery available. Shipping: EGP 80.</p></div></div></div>
+<div class="cartpanel" id="cartPanel" onclick="if(event.target===this)closeCart()"><div class="cart"><div class="carthead"><h2>YOUR BAG (<span id="cartCount">0</span>)</h2><button class="icon" onclick="closeCart()">×</button></div><div id="cartItems"></div><div id="checkoutArea"></div></div></div>
+<script>
+const productsData=[
+{id:1,name:"Black Logo Hoodie",category:"HOODIES",price:650,tag:"NEW DROP",image:"images/hoodie-black-logo.jpeg",colors:[["Black","#111111"]],sizes:["S","M","L","XL","XXL"]},
+{id:2,name:"Union Flag Hoodie",category:"HOODIES",price:650,tag:"STATEMENT",image:"images/hoodie-flag.jpeg",colors:[["Navy / Red / White","#182746"]],sizes:["S","M","L","XL","XXL"]},
+{id:3,name:"Plaid Hood-Lining Hoodie",category:"HOODIES",price:750,tag:"SPECIAL",image:"images/hoodie-plaid.jpeg",colors:[["Black / Plaid","#111111"]],sizes:["S","M","L","XL","XXL"]},
+{id:4,name:"Grey Graphic Hoodie",category:"HOODIES",price:650,tag:"NEW",image:"images/hoodie-grey.jpeg",colors:[["Grey","#d8d8d8"]],sizes:["S","M","L","XL","XXL"]}
+];
+let cart=JSON.parse(localStorage.getItem("balvi-cart")||"[]"),currentProduct=null,detailQty=1,selectedColor=null,selectedSize=null;
+const money=n=>"EGP "+Number(n).toLocaleString("en-US");
+function renderProducts(){document.getElementById("products").innerHTML=productsData.map(p=>`<article class="product"><div class="photo" onclick="openProduct(${p.id})"><img src="${p.image}" alt="${p.name}" loading="lazy"><span class="tag">${p.tag}</span></div><div class="pinfo"><div class="pname" onclick="openProduct(${p.id})">${p.name}</div><div class="desc">${p.category} / STREETWEAR</div><div class="price-row"><span>${money(p.price)}</span><button class="add" onclick="openProduct(${p.id})">＋</button></div></div></article>`).join("")}
+function openProduct(id){window.location.href="product.html?id="+encodeURIComponent(id)}
+function closeProduct(){document.getElementById("productModal").classList.remove("open");document.body.style.overflow=""}
+function selectColor(color,el){selectedColor=color;document.querySelectorAll("#colorOptions .swatch").forEach(b=>b.classList.remove("selected"));el.classList.add("selected");document.getElementById("colorText").textContent="— "+color}
+function selectSize(size,el){selectedSize=size;document.querySelectorAll("#sizeOptions .size").forEach(b=>b.classList.remove("selected"));el.classList.add("selected");document.getElementById("sizeText").textContent="— "+size}
+function changeDetailQty(n){detailQty=Math.max(1,Math.min(20,detailQty+n));document.getElementById("detailQty").textContent=detailQty}
+function addDetailToCart(){if(!currentProduct)return;if(!selectedColor||!selectedSize){alert("Please choose a color and size first.");return}const key=[currentProduct.id,selectedSize,selectedColor].join("-");const existing=cart.find(i=>i.key===key);if(existing)existing.quantity+=detailQty;else cart.push({key,id:currentProduct.id,name:currentProduct.name,price:currentProduct.price,image:currentProduct.image,quantity:detailQty,size:selectedSize,color:selectedColor});renderCart();closeProduct();openCart()}
+function changeCartQty(key,n){const item=cart.find(i=>i.key===key);if(!item)return;item.quantity+=n;if(item.quantity<=0)cart=cart.filter(i=>i.key!==key);renderCart()}
+function removeItem(key){cart=cart.filter(i=>i.key!==key);renderCart()}
+function cartSubtotal(){return cart.reduce((sum,i)=>sum+i.price*i.quantity,0)}
+function renderCart(){localStorage.setItem("balvi-cart",JSON.stringify(cart));const count=cart.reduce((s,i)=>s+i.quantity,0);document.getElementById("count").textContent=count;document.getElementById("cartCount").textContent=count;const items=document.getElementById("cartItems");if(!cart.length){items.innerHTML='<div class="empty">Your bag is empty.<br><br>Time to find your style.</div>';document.getElementById("checkoutArea").innerHTML="";return}items.innerHTML=cart.map(i=>`<div class="cartitem"><img src="${i.image}" alt=""><div><strong>${i.name}</strong><small>${i.color} / ${i.size}</small><small>${money(i.price)}</small><div class="qty"><button onclick="changeCartQty('${i.key}',-1)">−</button><span>${i.quantity}</span><button onclick="changeCartQty('${i.key}',1)">+</button></div></div><div><strong>${money(i.price*i.quantity)}</strong><button class="icon" onclick="removeItem('${i.key}')">×</button></div></div>`).join("");document.getElementById("checkoutArea").innerHTML=`<div class="total"><span>Subtotal</span><span>${money(cartSubtotal())}</span></div><div class="total"><span>Shipping</span><span>EGP 80</span></div><div class="total"><span>Total</span><span>${money(cartSubtotal()+80)}</span></div><div class="form"><h3>Checkout — Cash on Delivery</h3><input id="customerName" placeholder="Full name" required><input id="customerPhone" type="tel" placeholder="Phone number" required><select id="governorate" required><option value="">Choose governorate</option><option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option><option>Monufia</option><option>Sharqia</option><option>Beheira</option><option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option><option>Ismailia</option><option>Suez</option><option>Fayoum</option><option>Beni Suef</option><option>Minya</option><option>Assiut</option><option>Sohag</option><option>Qena</option><option>Luxor</option><option>Aswan</option><option>Red Sea</option><option>Matrouh</option><option>New Valley</option><option>North Sinai</option><option>South Sinai</option></select><textarea id="customerAddress" placeholder="Full address" rows="2" required></textarea><div class="notice" id="checkoutNotice"></div><button class="btn" onclick="placeOrder()">CONFIRM ORDER <span>→</span></button><p class="modal-note">Payment in cash when your order arrives.</p></div>`}
+function openCart(){renderCart();document.getElementById("cartPanel").classList.add("open");document.body.style.overflow="hidden"}
+function closeCart(){document.getElementById("cartPanel").classList.remove("open");document.body.style.overflow=""}
+async function placeOrder(){const name=document.getElementById("customerName")?.value.trim(),phone=document.getElementById("customerPhone")?.value.trim(),governorate=document.getElementById("governorate")?.value,address=document.getElementById("customerAddress")?.value.trim(),notice=document.getElementById("checkoutNotice");const showError=msg=>{notice.style.display="block";notice.textContent=msg};if(!name||!phone||!governorate||!address){showError("Please fill in all fields.");return}if(!cart.length){showError("Your cart is empty.");return}const payload={customer_name:name,phone,governorate,address,items:cart.map(i=>({id:i.id,name:i.name,quantity:i.quantity,price:i.price,size:i.size,color:i.color})),subtotal:cartSubtotal(),shipping:80,payment_method:"COD"};const button=document.querySelector("#checkoutArea .btn");button.disabled=true;button.textContent="SENDING ORDER...";try{const response=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await response.json().catch(()=>({}));if(!response.ok||!data.success)throw new Error(data.error||"Order could not be saved.");alert("Thank you! Your order number is "+(data.order_number||data.order?.order_number||"confirmed")+".");cart=[];renderCart();closeCart()}catch(e){showError("Couldn't submit the order. Please try again. "+(e.message||""))}finally{if(button){button.disabled=false;button.innerHTML='CONFIRM ORDER <span>→</span>'}}}
+renderProducts();renderCart();
+</script>
+</body>
+</html>
