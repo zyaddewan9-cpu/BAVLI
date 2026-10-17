@@ -8,17 +8,10 @@
 <title>BALVI® — Streetwear Essentials</title>
 
 <style>
-:root {
-  --black:#111;
-  --white:#fff;
-  --red:#e63232;
-  --gray:#777;
-  --light:#f4f4f4;
-  --line:#e5e5e5;
-}
+:root{--black:#111;--white:#fff;--red:#e63232;--gray:#777;--light:#f4f4f4;--line:#e5e5e5}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:85px}
-body{margin:0;color:var(--black);background:white;font-family:Arial,Helvetica,sans-serif}
+body{margin:0;color:var(--black);background:#fff;font-family:Arial,Helvetica,sans-serif}
 button,input,select,textarea{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
 button{cursor:pointer}
@@ -31,43 +24,43 @@ header{min-height:72px;padding:0 6%;display:flex;align-items:center;justify-cont
 .header-right{display:flex;align-items:center;gap:20px}
 .nav-link{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
 .cart-button{background:#fff;border:1px solid #ddd;padding:12px 15px;font-size:11px;font-weight:900}
-.cart-button:hover{background:#111;color:white}
+.cart-button:hover{background:#111;color:#fff}
 
-.hero{background:#111;color:white;min-height:460px;padding:75px 7%;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero{background:#111;color:#fff;min-height:460px;padding:75px 7%;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
 .hero:before{content:"BALVI";position:absolute;font-size:clamp(150px,28vw,350px);font-weight:1000;letter-spacing:-12px;color:#ffffff08;pointer-events:none}
 .hero-content{position:relative}
 .eyebrow{color:var(--red);font-size:11px;font-weight:900;letter-spacing:5px}
 .hero h1{margin:25px 0;font-size:clamp(58px,11vw,120px);font-weight:1000;letter-spacing:-4px;line-height:.88;font-style:italic}
 .hero h1 span{color:var(--red)}
 .hero-description{color:#ccc;font-size:13px;line-height:1.8;margin:25px auto;max-width:430px}
-.primary-button{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:0 24px;margin-top:10px;background:var(--red);color:white;font-size:10px;font-weight:900;letter-spacing:2px}
-.primary-button:hover{background:white;color:#111}
+.primary-button{display:inline-flex;align-items:center;justify-content:center;min-height:49px;padding:0 24px;margin-top:10px;background:var(--red);color:#fff;font-size:10px;font-weight:900;letter-spacing:2px}
+.primary-button:hover{background:#fff;color:#111}
+.ticker{background:var(--red);color:#fff;padding:13px;text-align:center;font-size:10px;font-weight:900;letter-spacing:3px}
 
-.ticker{background:var(--red);color:white;padding:13px;text-align:center;font-size:10px;font-weight:900;letter-spacing:3px}
 .container{max-width:1400px;padding:70px 5%;margin:auto}
 .section-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:35px}
 .section-heading small{color:var(--red);font-size:10px;font-weight:900;letter-spacing:3px}
 .section-heading h2{margin:10px 0 0;font-size:clamp(32px,5vw,50px);font-weight:1000;line-height:1;letter-spacing:-1px}
 .section-heading p{color:var(--gray);font-size:12px;line-height:1.7;text-align:right}
 .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.product{min-width:0;cursor:pointer}
-.product-image-wrap{position:relative;overflow:hidden;background:#f1f1f1;aspect-ratio:3/4}
+.product{min-width:0}
+.product-image-wrap{position:relative;overflow:hidden;background:#f1f1f1;aspect-ratio:3/4;cursor:pointer}
 .product-image-wrap img{width:100%;height:100%;display:block;object-fit:contain;transition:transform .3s}
-.product:hover img{transform:scale(1.035)}
-.product-tag{position:absolute;top:12px;left:12px;background:white;padding:7px 9px;font-size:9px;font-weight:900;z-index:1}
+.product:hover .product-image-wrap img{transform:scale(1.035)}
+.product-tag{position:absolute;top:12px;left:12px;background:#fff;padding:7px 9px;font-size:9px;font-weight:900;z-index:1}
 .product-info{padding:15px 0 0}
 .product-title-row{display:flex;align-items:start;justify-content:space-between;gap:8px}
 .product h3{font-size:12px;line-height:1.5;margin:0;font-weight:900}
 .product-price{font-size:12px;font-weight:900;white-space:nowrap}
 .product-description{color:var(--gray);font-size:11px;margin:9px 0 13px}
-.product-button{width:100%;min-height:42px;background:white;border:1px solid #222;font-size:10px;font-weight:900;letter-spacing:1px}
-.product-button:hover{background:#111;color:white}
+.product-button{width:100%;min-height:42px;background:#fff;border:1px solid #222;font-size:10px;font-weight:900;letter-spacing:1px}
+.product-button:hover{background:#111;color:#fff}
 
 .brand-strip{padding:50px 6%;background:#f2f2f2;text-align:center}
 .brand-strip small{color:var(--red);font-size:10px;font-weight:900;letter-spacing:4px}
 .brand-strip h2{font-size:clamp(30px,6vw,55px);font-weight:1000;margin:15px 0}
 .brand-strip p{font-size:12px;line-height:1.8;color:#666}
-footer{background:#111;color:white;padding:42px 6% 25px}
+footer{background:#111;color:#fff;padding:42px 6% 25px}
 .footer-top{display:flex;justify-content:space-between;gap:25px;padding-bottom:30px}
 .footer-description{max-width:300px;color:#aaa;font-size:11px;line-height:1.8}
 .footer-label{color:var(--red);font-size:10px;font-weight:900;letter-spacing:2px}
@@ -75,10 +68,10 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 
 .panel{display:none;position:fixed;inset:0;z-index:30;background:#000b;justify-content:center;align-items:center;padding:12px}
 .panel.open{display:flex}
-.panel-content{width:min(620px,100%);max-height:94vh;overflow-y:auto;background:white;padding:22px}
+.panel-content{width:min(700px,100%);max-height:94vh;overflow-y:auto;background:#fff;padding:22px}
 .panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:13px;margin-bottom:16px}
 .panel-head h3{margin:0;font-size:17px;font-weight:900;text-transform:uppercase}
-.close{border:0;background:white;font-size:27px;line-height:1}
+.close{border:0;background:#fff;font-size:27px;line-height:1}
 .detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .detail-image{display:block;width:100%;height:330px;object-fit:contain;background:#f2f2f2}
 .thumbnails{display:flex;gap:8px;overflow-x:auto;margin-top:8px}
@@ -86,21 +79,21 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 .thumbnail.active{border:2px solid var(--red)}
 .detail-price{font-size:21px;font-weight:900;margin:12px 0}
 .field-label{display:block;margin:14px 0 7px;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
-.detail-select,.detail-quantity,.form input,.form select,.form textarea{width:100%;min-height:43px;padding:10px;border:1px solid #d8d8d8;background:white;color:#111;border-radius:0}
+.detail-select,.detail-quantity,.form input,.form select,.form textarea{width:100%;min-height:43px;padding:10px;border:1px solid #d8d8d8;background:#fff;color:#111;border-radius:0}
 .color-options{display:flex;gap:8px;flex-wrap:wrap}
-.color-choice{border:1px solid #ccc;background:white;padding:9px 12px;font-size:11px}
+.color-choice{border:1px solid #ccc;background:#fff;padding:9px 12px;font-size:11px}
 .color-choice.active{border:2px solid var(--red);font-weight:900}
 .detail-note{color:#777;font-size:11px;line-height:1.7}
-.full-button{width:100%;min-height:46px;border:0;margin-top:12px;background:#111;color:white;font-size:10px;font-weight:900;letter-spacing:1px}
+.full-button{width:100%;min-height:46px;border:0;margin-top:12px;background:#111;color:#fff;font-size:10px;font-weight:900;letter-spacing:1px}
 .full-button:hover{background:var(--red)}
 .full-button:disabled{opacity:.55;cursor:wait}
-.secondary-button{background:white;color:#111;border:1px solid #111}
+.secondary-button{background:#fff;color:#111;border:1px solid #111}
 .cart-item{display:grid;grid-template-columns:75px minmax(0,1fr);gap:13px;padding:14px 0;border-bottom:1px solid var(--line)}
 .cart-item img{width:75px;height:90px;object-fit:contain;background:#f2f2f2}
 .cart-item strong{font-size:12px;line-height:1.6}
 .cart-item p{color:#777;font-size:11px;margin:7px 0}
 .qty{display:flex;align-items:center;gap:12px}
-.qty button{width:29px;height:29px;background:white;border:1px solid #ddd}
+.qty button{width:29px;height:29px;background:#fff;border:1px solid #ddd}
 .total{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:13px 0;font-size:12px}
 .total.final{padding-top:14px;border-top:1px solid var(--line);font-size:15px;font-weight:900}
 .form{display:grid;gap:10px;margin-top:22px}
@@ -112,11 +105,25 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 
 @media(max-width:900px){.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 16px}.container{padding:55px 5%}}
 @media(max-width:520px){
- header{min-height:65px;padding:0 4%}.logo{font-size:24px;letter-spacing:4px}.header-right{gap:10px}.nav-link{display:none}.cart-button{padding:10px;font-size:10px}
- .hero{min-height:410px;padding:60px 16px}.hero h1{font-size:clamp(52px,15vw,76px);letter-spacing:-2px}.eyebrow{font-size:9px;letter-spacing:3px}
- .section-heading{display:block}.section-heading p{text-align:left}.section-heading h2{font-size:35px}.product h3,.product-price{font-size:10px}.product-description{font-size:10px;min-height:24px}.product-button{font-size:9px}
- .footer-top{flex-direction:column}.footer-bottom{flex-direction:column;align-items:start}
- .panel-content{padding:15px}.detail-layout{grid-template-columns:1fr;gap:10px}.detail-image{height:260px}
+ header{min-height:65px;padding:0 4%}
+ .logo{font-size:24px;letter-spacing:4px}
+ .header-right{gap:10px}
+ .nav-link{display:none}
+ .cart-button{padding:10px;font-size:10px}
+ .hero{min-height:410px;padding:60px 16px}
+ .hero h1{font-size:clamp(52px,15vw,76px);letter-spacing:-2px}
+ .eyebrow{font-size:9px;letter-spacing:3px}
+ .section-heading{display:block}
+ .section-heading p{text-align:left}
+ .section-heading h2{font-size:35px}
+ .product h3,.product-price{font-size:10px}
+ .product-description{font-size:10px;min-height:24px}
+ .product-button{font-size:9px}
+ .footer-top{flex-direction:column}
+ .footer-bottom{flex-direction:column;align-items:start}
+ .panel-content{padding:15px}
+ .detail-layout{grid-template-columns:1fr;gap:10px}
+ .detail-image{height:260px}
 }
 </style>
 </head>
@@ -126,7 +133,7 @@ footer{background:#111;color:white;padding:42px 6% 25px}
   <a class="logo" href="#" aria-label="BALVI Home">B<span class="red">A</span>LVI</a>
   <div class="header-right">
     <a class="nav-link" href="#shop">Shop Collection</a>
-    <button class="cart-button" onclick="openCart()">BAG (<span id="count">0</span>)</button>
+    <button class="cart-button" type="button" onclick="openCart()">BAG (<span id="count">0</span>)</button>
   </div>
 </header>
 
@@ -157,8 +164,14 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 
 <footer>
   <div class="footer-top">
-    <div><div class="logo">B<span class="red">A</span>LVI</div><p class="footer-description">Streetwear essentials for those who do things their own way. Make every fit count.</p></div>
-    <div><div class="footer-label">DELIVERY & PAYMENT</div><p class="footer-description">Cash on Delivery available.<br>Shipping fee: EGP 80.</p></div>
+    <div>
+      <div class="logo">B<span class="red">A</span>LVI</div>
+      <p class="footer-description">Streetwear essentials for those who do things their own way. Make every fit count.</p>
+    </div>
+    <div>
+      <div class="footer-label">DELIVERY & PAYMENT</div>
+      <p class="footer-description">Cash on Delivery available.<br>Shipping fee: EGP 80.</p>
+    </div>
   </div>
   <div class="footer-bottom"><span>© 2026 BALVI®. ALL RIGHTS RESERVED.</span><span>STREETWEAR. REDEFINED.</span></div>
 </footer>
@@ -166,7 +179,10 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 <!-- PRODUCT DETAILS -->
 <div class="panel" id="productPanel" onclick="if(event.target===this)closeProduct()">
  <div class="panel-content">
-  <div class="panel-head"><h3 id="detailName">Product</h3><button class="close" onclick="closeProduct()" aria-label="Close">×</button></div>
+  <div class="panel-head">
+   <h3 id="detailName">Product</h3>
+   <button class="close" type="button" onclick="closeProduct()" aria-label="Close">×</button>
+  </div>
   <div class="detail-layout">
    <div>
     <img id="detailImage" class="detail-image" src="" alt="">
@@ -178,13 +194,16 @@ footer{background:#111;color:white;padding:42px 6% 25px}
     <div class="color-options" id="colorOptions"></div>
     <label class="field-label" for="detailSize">Select Size</label>
     <select class="detail-select" id="detailSize">
-     <option value="">Choose your size</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+     <option value="">Choose your size</option>
+     <option value="S">S</option><option value="M">M</option>
+     <option value="L">L</option><option value="XL">XL</option>
+     <option value="XXL">XXL</option>
     </select>
     <label class="field-label" for="detailQty">Quantity</label>
-    <input class="detail-quantity" id="detailQty" type="number" min="1" max="10" value="1">
+    <input class="detail-quantity" id="detailQty" type="number" min="1" max="10" step="1" value="1">
     <p class="detail-note">Premium streetwear fit. Cash on Delivery available.</p>
-    <button class="full-button" onclick="addToCart(false)">ADD TO BAG</button>
-    <button class="full-button secondary-button" onclick="addToCart(true)">BUY NOW</button>
+    <button class="full-button" type="button" onclick="addToCart(false)">ADD TO BAG</button>
+    <button class="full-button secondary-button" type="button" onclick="addToCart(true)">BUY NOW</button>
    </div>
   </div>
  </div>
@@ -193,318 +212,391 @@ footer{background:#111;color:white;padding:42px 6% 25px}
 <!-- CART / CHECKOUT -->
 <div class="panel" id="cartPanel" onclick="if(event.target===this)closeCart()">
  <div class="panel-content">
-  <div class="panel-head"><h3>Your Bag</h3><button class="close" onclick="closeCart()" aria-label="Close">×</button></div>
+  <div class="panel-head">
+   <h3>Your Bag</h3>
+   <button class="close" type="button" onclick="closeCart()" aria-label="Close">×</button>
+  </div>
   <div id="cartItems"></div>
   <div id="checkoutArea"></div>
  </div>
 </div>
 
 <script>
+"use strict";
+
 const productsData = [
  {
   id:1,
   name:"Black Logo Hoodie",
   price:650,
-  colors:{
-   Black:["hoodie-black-logo.jpeg"]
-  }
+  colors:{Black:["hoodie-black-logo.jpeg"]}
  },
  {
   id:2,
   name:"British Flag Hoodie",
   price:650,
-  colors:{
-   Black:["hoodie-flag.jpeg"]
-  }
+  colors:{Black:["hoodie-flag.jpeg"]}
  },
  {
   id:3,
   name:"Olive Logo Hoodie",
   price:650,
-  colors:{
-   Olive:["hoodie-grey.jpeg"]
-  }
+  colors:{Olive:["hoodie-grey.jpeg"]}
  },
  {
   id:4,
   name:"Black Plaid-Lined Hoodie",
   price:750,
-  colors:{
-   Black:["hoodie-plaid.jpeg"]
-  }
+  colors:{Black:["hoodie-plaid.jpeg"]}
  }
 ];
 
-const SHIPPING_FEE=80;
-let cart=[];
-let currentProduct=null;
-let selectedColor=null;
-let selectedImageIndex=0;
+const SHIPPING_FEE = 80;
+const MAX_QUANTITY = 10;
 
-const money=n=>"EGP "+Number(n).toLocaleString("en-US");
+let cart = [];
+let currentProduct = null;
+let selectedColor = null;
+let selectedImageIndex = 0;
+let orderSubmitting = false;
 
-function imageFallback(img){
- img.onerror=null;
- img.src="https://placehold.co/600x800/f1f1f1/111111?text=BALVI+HOODIE";
+const money = n => "EGP " + Number(n).toLocaleString("en-US");
+
+function imageFallback(img) {
+  img.onerror = null;
+  img.src = "https://placehold.co/600x800/f1f1f1/111111?text=BALVI+HOODIE";
 }
 
-function getProductImage(product,color,index=0){
- const images=product.colors[color]||[];
- return images[index]||images[0]||"";
+function getProductImage(product, color, index = 0) {
+  const images = product.colors[color] || [];
+  return images[index] || images[0] || "";
 }
 
-function renderProducts(){
- document.getElementById("products").innerHTML=productsData.map(p=>`
-  <article class="product">
-   <div class="product-image-wrap" onclick="openProduct(${p.id})">
-    <span class="product-tag">BALVI® ESSENTIALS</span>
-    <img src="${getProductImage(p,Object.keys(p.colors)[0])}" alt="${p.name}" loading="lazy" onerror="imageFallback(this)">
-   </div>
-   <div class="product-info">
-    <div class="product-title-row"><h3>${p.name}</h3><span class="product-price">${money(p.price)}</span></div>
-    <p class="product-description">Premium Streetwear / BALVI®</p>
-    <button class="product-button" onclick="openProduct(${p.id})">VIEW PRODUCT +</button>
-   </div>
-  </article>
- `).join("");
+function renderProducts() {
+  document.getElementById("products").innerHTML = productsData.map(p => {
+    const firstColor = Object.keys(p.colors)[0];
+    return `
+      <article class="product">
+        <div class="product-image-wrap" onclick="openProduct(${p.id})">
+          <span class="product-tag">BALVI® ESSENTIALS</span>
+          <img src="${getProductImage(p, firstColor)}"
+               alt="${p.name}" loading="lazy"
+               onerror="imageFallback(this)">
+        </div>
+        <div class="product-info">
+          <div class="product-title-row">
+            <h3>${p.name}</h3>
+            <span class="product-price">${money(p.price)}</span>
+          </div>
+          <p class="product-description">Premium Streetwear / BALVI®</p>
+          <button class="product-button" type="button" onclick="openProduct(${p.id})">
+            VIEW PRODUCT +
+          </button>
+        </div>
+      </article>
+    `;
+  }).join("");
 }
 
-function openProduct(id){
- currentProduct=productsData.find(p=>p.id===id);
- if(!currentProduct)return;
- selectedColor=Object.keys(currentProduct.colors)[0];
- selectedImageIndex=0;
- document.getElementById("detailName").textContent=currentProduct.name;
- document.getElementById("detailPrice").textContent=money(currentProduct.price);
- document.getElementById("detailSize").value="";
- document.getElementById("detailQty").value="1";
- renderColorOptions();
- renderDetailImages();
- document.getElementById("productPanel").classList.add("open");
+function openProduct(id) {
+  currentProduct = productsData.find(p => p.id === id);
+  if (!currentProduct) return;
+
+  selectedColor = Object.keys(currentProduct.colors)[0];
+  selectedImageIndex = 0;
+
+  document.getElementById("detailName").textContent = currentProduct.name;
+  document.getElementById("detailPrice").textContent = money(currentProduct.price);
+  document.getElementById("detailSize").value = "";
+  document.getElementById("detailQty").value = "1";
+
+  renderColorOptions();
+  renderDetailImages();
+  document.getElementById("productPanel").classList.add("open");
 }
 
-function renderColorOptions(){
- const el=document.getElementById("colorOptions");
- el.innerHTML=Object.keys(currentProduct.colors).map(color=>`
-  <button type="button" class="color-choice ${color===selectedColor?"active":""}" onclick="selectColor('${color}')">${color}</button>
- `).join("");
+function renderColorOptions() {
+  const el = document.getElementById("colorOptions");
+
+  el.innerHTML = Object.keys(currentProduct.colors).map(color => `
+    <button type="button"
+      class="color-choice ${color === selectedColor ? "active" : ""}"
+      onclick="selectColor('${color}')">${color}</button>
+  `).join("");
 }
 
-function selectColor(color){
- if(!currentProduct.colors[color])return;
- selectedColor=color;
- selectedImageIndex=0;
- renderColorOptions();
- renderDetailImages();
+function selectColor(color) {
+  if (!currentProduct || !currentProduct.colors[color]) return;
+
+  selectedColor = color;
+  selectedImageIndex = 0;
+  renderColorOptions();
+  renderDetailImages();
 }
 
-function renderDetailImages(){
- const images=currentProduct.colors[selectedColor]||[];
- const main=document.getElementById("detailImage");
- main.onerror=function(){imageFallback(this)};
- main.src=getProductImage(currentProduct,selectedColor,selectedImageIndex);
- main.alt=currentProduct.name+" "+selectedColor;
+function renderDetailImages() {
+  if (!currentProduct) return;
 
- document.getElementById("detailThumbnails").innerHTML=images.map((src,index)=>`
-  <button type="button" style="padding:0;border:0;background:white" onclick="selectImage(${index})" aria-label="View product image ${index+1}">
-   <img class="thumbnail ${index===selectedImageIndex?"active":""}" src="${src}" alt="${currentProduct.name} view ${index+1}" onerror="imageFallback(this)">
-  </button>
- `).join("");
+  const images = currentProduct.colors[selectedColor] || [];
+  const main = document.getElementById("detailImage");
+
+  main.onerror = function() { imageFallback(this); };
+  main.src = getProductImage(currentProduct, selectedColor, selectedImageIndex);
+  main.alt = currentProduct.name + " " + selectedColor;
+
+  document.getElementById("detailThumbnails").innerHTML = images.map((src, index) => `
+    <button type="button" style="padding:0;border:0;background:white"
+      onclick="selectImage(${index})" aria-label="View product image ${index + 1}">
+      <img class="thumbnail ${index === selectedImageIndex ? "active" : ""}"
+        src="${src}" alt="${currentProduct.name} view ${index + 1}"
+        onerror="imageFallback(this)">
+    </button>
+  `).join("");
 }
 
-function selectImage(index){
- selectedImageIndex=index;
- renderDetailImages();
+function selectImage(index) {
+  if (!currentProduct) return;
+  const images = currentProduct.colors[selectedColor] || [];
+  if (index < 0 || index >= images.length) return;
+
+  selectedImageIndex = index;
+  renderDetailImages();
 }
 
-function closeProduct(){
- document.getElementById("productPanel").classList.remove("open");
+function closeProduct() {
+  document.getElementById("productPanel").classList.remove("open");
 }
 
-function addToCart(buyNow){
- if(!currentProduct)return;
- const size=document.getElementById("detailSize").value;
- const quantity=Number(document.getElementById("detailQty").value);
+function addToCart(buyNow) {
+  if (!currentProduct) return;
 
- if(!size){alert("Please select a size.");return}
- if(!Number.isInteger(quantity)||quantity<1||quantity>10){alert("Choose a quantity from 1 to 10.");return}
+  const size = document.getElementById("detailSize").value;
+  const quantity = Number(document.getElementById("detailQty").value);
 
- const key=currentProduct.id+"-"+selectedColor+"-"+size;
- const existing=cart.find(i=>i.key===key);
-
- if(existing){
-  if(existing.quantity+quantity>10){alert("Maximum quantity per item is 10.");return}
-  existing.quantity+=quantity;
- }else{
-  cart.push({
-   key,
-   id:currentProduct.id,
-   name:currentProduct.name,
-   price:currentProduct.price,
-   image:getProductImage(currentProduct,selectedColor),
-   size,
-   color:selectedColor,
-   quantity
-  });
- }
-
- renderCart();
- closeProduct();
- openCart();
-
- if(buyNow){
-  setTimeout(()=>{
-   const form=document.getElementById("orderForm");
-   if(form)form.scrollIntoView({behavior:"smooth",block:"start"});
-  },100);
- }
-}
-
-function changeQty(key,amount){
- const item=cart.find(i=>i.key===key);
- if(!item)return;
- item.quantity+=amount;
- if(item.quantity<=0)cart=cart.filter(i=>i.key!==key);
- if(item.quantity>10){item.quantity=10;alert("Maximum quantity per item is 10.")}
- renderCart();
-}
-
-function subtotal(){
- return cart.reduce((sum,item)=>sum+item.price*item.quantity,0);
-}
-
-function renderCart(){
- document.getElementById("count").textContent=cart.reduce((sum,item)=>sum+item.quantity,0);
- const itemsEl=document.getElementById("cartItems");
- const checkoutEl=document.getElementById("checkoutArea");
-
- if(!cart.length){
-  itemsEl.innerHTML='<div class="empty">Your bag is currently empty.</div>';
-  checkoutEl.innerHTML="";
-  return;
- }
-
- itemsEl.innerHTML=cart.map(item=>`
-  <div class="cart-item">
-   <img src="${item.image}" alt="${item.name}" onerror="imageFallback(this)">
-   <div>
-    <strong>${item.name}</strong>
-    <p>Color: ${item.color} · Size: ${item.size}</p>
-    <p>${money(item.price)}</p>
-    <div class="qty">
-     <button type="button" onclick="changeQty('${item.key}',-1)">−</button>
-     <span>${item.quantity}</span>
-     <button type="button" onclick="changeQty('${item.key}',1)">+</button>
-    </div>
-   </div>
-  </div>
- `).join("");
-
- checkoutEl.innerHTML=`
-  <div class="total"><span>Subtotal</span><span>${money(subtotal())}</span></div>
-  <div class="total"><span>Shipping</span><span>${money(SHIPPING_FEE)}</span></div>
-  <div class="total final"><span>Total</span><span>${money(subtotal()+SHIPPING_FEE)}</span></div>
-
-  <form class="form" id="orderForm">
-   <h3>Delivery Details</h3>
-   <input id="customerName" name="customer_name" autocomplete="name" placeholder="Full Name" required>
-   <input id="customerPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Mobile Number" required>
-   <select id="governorate" name="governorate" required>
-    <option value="">Select Governorate</option>
-    <option>Cairo</option><option>Giza</option><option>Alexandria</option>
-    <option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option>
-    <option>Monufia</option><option>Sharqia</option><option>Beheira</option>
-    <option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option>
-    <option>Ismailia</option><option>Suez</option><option>Fayoum</option>
-    <option>Minya</option><option>Assiut</option><option>Sohag</option>
-    <option>Qena</option><option>Luxor</option><option>Aswan</option>
-    <option>Matrouh</option><option>Red Sea</option><option>North Sinai</option>
-    <option>South Sinai</option><option>Beni Suef</option><option>New Valley</option>
-   </select>
-   <textarea id="customerAddress" name="address" autocomplete="street-address" placeholder="Full Delivery Address" rows="3" required></textarea>
-   <div class="notice" id="checkoutNotice" role="alert"></div>
-   <button class="full-button" type="submit">PLACE ORDER — CASH ON DELIVERY</button>
-   <p class="detail-note">Payment is collected when your order arrives. No installments.</p>
-  </form>
- `;
-
- document.getElementById("orderForm").addEventListener("submit",placeOrder);
-}
-
-function openCart(){
- renderCart();
- document.getElementById("cartPanel").classList.add("open");
-}
-
-function closeCart(){
- document.getElementById("cartPanel").classList.remove("open");
-}
-
-async function placeOrder(event){
- event.preventDefault();
-
- const form=document.getElementById("orderForm");
- const notice=document.getElementById("checkoutNotice");
- const button=form.querySelector('button[type="submit"]');
-
- const payload={
-  customer_name:document.getElementById("customerName").value.trim(),
-  phone:document.getElementById("customerPhone").value.trim(),
-  governorate:document.getElementById("governorate").value,
-  address:document.getElementById("customerAddress").value.trim(),
-  items:cart.map(item=>({
-   id:item.id,
-   quantity:item.quantity,
-   size:item.size,
-   color:item.color
-  })),
-  payment_method:"COD"
- };
-
- if(!cart.length){alert("Your bag is empty.");return}
-
- button.disabled=true;
- button.textContent="PROCESSING ORDER...";
- notice.style.display="none";
- notice.className="notice";
- notice.textContent="";
-
- try{
-  const response=await fetch("/api/orders",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify(payload)
-  });
-
-  const data=await response.json().catch(()=>({}));
-
-  if(!response.ok||!data.success){
-   throw new Error(data.error||"Unable to submit your order.");
+  if (!size) {
+    alert("Please select a size.");
+    return;
   }
 
-  notice.style.display="block";
-  notice.classList.add("success");
-  notice.textContent="Order placed successfully! Order number: "+(data.order_number||"Confirmed");
+  if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_QUANTITY) {
+    alert("Choose a quantity from 1 to 10.");
+    return;
+  }
 
-  alert("Order placed successfully! Order number: "+(data.order_number||"Confirmed"));
+  const key = currentProduct.id + "-" + selectedColor + "-" + size;
+  const existing = cart.find(item => item.key === key);
 
-  cart=[];
+  if (existing) {
+    if (existing.quantity + quantity > MAX_QUANTITY) {
+      alert("Maximum quantity per item is 10.");
+      return;
+    }
+    existing.quantity += quantity;
+  } else {
+    cart.push({
+      key,
+      id: currentProduct.id,
+      name: currentProduct.name,
+      price: currentProduct.price,
+      image: getProductImage(currentProduct, selectedColor),
+      size,
+      color: selectedColor,
+      quantity
+    });
+  }
+
   renderCart();
-  closeCart();
- }catch(error){
-  notice.style.display="block";
-  notice.textContent="Your order could not be submitted. "+error.message;
- }finally{
-  const currentButton=document.querySelector('#orderForm button[type="submit"]');
-  if(currentButton){
-   currentButton.disabled=false;
-   currentButton.textContent="PLACE ORDER — CASH ON DELIVERY";
+  closeProduct();
+  openCart();
+
+  if (buyNow) {
+    setTimeout(() => {
+      const form = document.getElementById("orderForm");
+      if (form) form.scrollIntoView({behavior:"smooth", block:"start"});
+    }, 150);
   }
- }
 }
 
-document.addEventListener("keydown",event=>{
- if(event.key==="Escape"){closeProduct();closeCart()}
+function changeQty(key, amount) {
+  const item = cart.find(i => i.key === key);
+  if (!item) return;
+
+  const nextQuantity = item.quantity + amount;
+
+  if (nextQuantity <= 0) {
+    cart = cart.filter(i => i.key !== key);
+  } else if (nextQuantity > MAX_QUANTITY) {
+    alert("Maximum quantity per item is 10.");
+    return;
+  } else {
+    item.quantity = nextQuantity;
+  }
+
+  renderCart();
+}
+
+function subtotal() {
+  return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
+
+function renderCart() {
+  document.getElementById("count").textContent =
+    cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const itemsEl = document.getElementById("cartItems");
+  const checkoutEl = document.getElementById("checkoutArea");
+
+  if (!cart.length) {
+    itemsEl.innerHTML = '<div class="empty">Your bag is currently empty.</div>';
+    checkoutEl.innerHTML = "";
+    return;
+  }
+
+  itemsEl.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <img src="${item.image}" alt="${item.name}" onerror="imageFallback(this)">
+      <div>
+        <strong>${item.name}</strong>
+        <p>Color: ${item.color} · Size: ${item.size}</p>
+        <p>${money(item.price)}</p>
+        <div class="qty">
+          <button type="button" onclick="changeQty('${item.key}',-1)" aria-label="Decrease quantity">−</button>
+          <span>${item.quantity}</span>
+          <button type="button" onclick="changeQty('${item.key}',1)" aria-label="Increase quantity">+</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  checkoutEl.innerHTML = `
+    <div class="total"><span>Subtotal</span><span>${money(subtotal())}</span></div>
+    <div class="total"><span>Shipping</span><span>${money(SHIPPING_FEE)}</span></div>
+    <div class="total final"><span>Total</span><span>${money(subtotal() + SHIPPING_FEE)}</span></div>
+
+    <form class="form" id="orderForm">
+      <h3>Delivery Details</h3>
+
+      <input id="customerName" name="customer_name" autocomplete="name"
+        placeholder="Full Name" required maxlength="120">
+
+      <input id="customerPhone" name="phone" type="tel" inputmode="tel"
+        autocomplete="tel" placeholder="Mobile Number" required maxlength="30">
+
+      <select id="governorate" name="governorate" required>
+        <option value="">Select Governorate</option>
+        <option>Cairo</option><option>Giza</option><option>Alexandria</option>
+        <option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option>
+        <option>Monufia</option><option>Sharqia</option><option>Beheira</option>
+        <option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option>
+        <option>Ismailia</option><option>Suez</option><option>Fayoum</option>
+        <option>Minya</option><option>Assiut</option><option>Sohag</option>
+        <option>Qena</option><option>Luxor</option><option>Aswan</option>
+        <option>Matrouh</option><option>Red Sea</option><option>North Sinai</option>
+        <option>South Sinai</option><option>Beni Suef</option><option>New Valley</option>
+      </select>
+
+      <textarea id="customerAddress" name="address" autocomplete="street-address"
+        placeholder="Full Delivery Address" rows="3" required maxlength="1000"></textarea>
+
+      <div class="notice" id="checkoutNotice" role="alert"></div>
+
+      <button class="full-button" type="submit">
+        PLACE ORDER — CASH ON DELIVERY
+      </button>
+      <p class="detail-note">Payment is collected when your order arrives. No installments.</p>
+    </form>
+  `;
+
+  document.getElementById("orderForm").addEventListener("submit", placeOrder);
+}
+
+function openCart() {
+  renderCart();
+  document.getElementById("cartPanel").classList.add("open");
+}
+
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+}
+
+async function placeOrder(event) {
+  event.preventDefault();
+
+  if (orderSubmitting) return;
+  if (!cart.length) {
+    alert("Your bag is empty.");
+    return;
+  }
+
+  const form = document.getElementById("orderForm");
+  const notice = document.getElementById("checkoutNotice");
+  const button = form.querySelector('button[type="submit"]');
+
+  const payload = {
+    customer_name: document.getElementById("customerName").value.trim(),
+    phone: document.getElementById("customerPhone").value.trim(),
+    governorate: document.getElementById("governorate").value,
+    address: document.getElementById("customerAddress").value.trim(),
+    items: cart.map(item => ({
+      id: item.id,
+      quantity: item.quantity,
+      size: item.size,
+      color: item.color
+    })),
+    payment_method: "COD"
+  };
+
+  orderSubmitting = true;
+  button.disabled = true;
+  button.textContent = "PROCESSING ORDER...";
+  notice.style.display = "none";
+  notice.className = "notice";
+  notice.textContent = "";
+
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Unable to submit your order. Please try again.");
+    }
+
+    const orderNumber = data.order_number || data.order_id || "Confirmed";
+
+    notice.style.display = "block";
+    notice.classList.add("success");
+    notice.textContent = "Order placed successfully! Order number: " + orderNumber;
+
+    alert("Order placed successfully! Order number: " + orderNumber);
+
+    cart = [];
+    renderCart();
+    closeCart();
+  } catch (error) {
+    notice.style.display = "block";
+    notice.textContent = "Your order could not be submitted. " +
+      (error.message || "Please try again.");
+  } finally {
+    orderSubmitting = false;
+
+    const currentButton = document.querySelector('#orderForm button[type="submit"]');
+    if (currentButton) {
+      currentButton.disabled = false;
+      currentButton.textContent = "PLACE ORDER — CASH ON DELIVERY";
+    }
+  }
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    closeProduct();
+    closeCart();
+  }
 });
 
 renderProducts();
