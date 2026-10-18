@@ -1,16 +1,10 @@
 
 const crypto = require("crypto");
 
-const PRODUCTS = {
-  "1": { name: "Essentials Hoodie", price: 650, colors: ["Black", "Gray"] },
-  "2": { name: "Jacket Hoodie", price: 750, colors: ["Black", "Gray"] },
-  "3": { name: "Supreme Hoodie", price: 650, colors: ["Black", "Gray"] },
-  "4": { name: "Scuffer Hoodie", price: 650, colors: ["Blue", "White"] },
-  "5": { name: "British Hoodie", price: 650, colors: ["British"] }
-};
-
 const SHIPPING = 80;
 const SIZES = ["S", "M", "L", "XL", "XXL"];
+const MAX_ITEMS = 30;
+const MAX_QUANTITY = 20;
 
 const ALLOWED_STATUSES = [
   "Order Received",
@@ -21,7 +15,7 @@ const ALLOWED_STATUSES = [
 ];
 
 function send(res, status, data) {
-  res.status(status).json(data);
+  return res.status(status).json(data);
 }
 
 function getSupabaseConfig() {
@@ -33,7 +27,7 @@ function getSupabaseConfig() {
   }
 
   return {
-    url: url.replace(/\/$/, ""),
+    url: url.replace(/\/+$/, ""),
     key
   };
 }
@@ -73,6 +67,83 @@ function cleanText(value, maxLength = 250) {
   return value.trim().slice(0, maxLength);
 }
 
+function normalizeStatus(value) {
+  const status = cleanText(value, 50).toLowerCase();
+
+  const statuses = {
+    "order received": "Order Received",
+    "new": "Order Received",
+    "received": "Order Received",
+    "confirmed": "Confirmed",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "canceled": "Cancelled"
+  };
+
+  return statuses[status] || null;
+}
+
+async function getActiveProducts(productIds) {
+  const uniqueIds = [...new Set(productIds)];
+
+  const query = new URLSearchParams({
+    select: "id,name,price,sale_price,colors,active",
+    active: "eq.true",
+    id: `in.(${uniqueIds.join(",")})`
+  });
+
+  const rows = await supabaseRequest(
+    `products?${query.toString()}`,
+    { method: "GET" }
+  );
+
+  return new Map(
+    (Array.isArray(rows) ? rows : []).map(product => [
+      String(product.id),
+      product
+    ])
+  );
+}
+
+function getValidColors(product) {
+  if (!Array.isArray(product.colors)) return [];
+
+  return product.colors
+    .map(item => {
+      if (typeof item === "string") return item.trim();
+
+      if (item && typeof item.name === "string") {
+        return item.name.trim();
+      }
+
+      return "";
+    })
+    .filter(Boolean);
+}
+
+function getProductPrice(product) {
+  const regularPrice = Number(product.price);
+
+  if (!Number.isFinite(regularPrice) || regularPrice < 0) {
+    throw new Error("Invalid product price in database.");
+  }
+
+  if (product.sale_price !== null && product.sale_price !== undefined) {
+    const salePrice = Number(product.sale_price);
+
+    if (
+      Number.isFinite(salePrice) &&
+      salePrice >= 0 &&
+      salePrice < regularPrice
+    ) {
+      return salePrice;
+    }
+  }
+
+  return regularPrice;
+}
+
 async function createOrder(req, res) {
   const body = req.body || {};
 
@@ -95,37 +166,44 @@ async function createOrder(req, res) {
     });
   }
 
-  if (body.items.length > 30) {
+  if (body.items.length > MAX_ITEMS) {
     return send(res, 400, {
       success: false,
       message: "Too many cart items."
     });
   }
 
-  const items = [];
+  const requestedItems = [];
+  const productIds = [];
 
   for (const item of body.items) {
-    const productId = String(
-      item.product_id ?? item.productId ?? item.id ?? ""
+    if (!item || typeof item !== "object") {
+      return send(res, 400, {
+        success: false,
+        message: "Invalid cart item."
+      });
+    }
+
+    const productId = cleanText(
+      String(item.product_id ?? item.productId ?? item.id ?? ""),
+      100
     );
 
-    const product = PRODUCTS[productId];
+    const quantity = Number(item.quantity);
+    const size = cleanText(item.size, 10);
+    const color = cleanText(item.color, 30);
 
-    if (!product) {
+    if (!productId) {
       return send(res, 400, {
         success: false,
         message: "An invalid product was selected."
       });
     }
 
-    const quantity = Number(item.quantity);
-    const size = cleanText(item.size, 10);
-    const color = cleanText(item.color, 30);
-
     if (
       !Number.isInteger(quantity) ||
       quantity < 1 ||
-      quantity > 20
+      quantity > MAX_QUANTITY
     ) {
       return send(res, 400, {
         success: false,
@@ -140,29 +218,64 @@ async function createOrder(req, res) {
       });
     }
 
-    if (!product.colors.includes(color)) {
+    if (!color) {
       return send(res, 400, {
         success: false,
         message: "Please select a valid product color."
       });
     }
 
-    items.push({
-      product_id: productId,
-      name: product.name,
-      price: product.price,
-      color,
-      size,
+    requestedItems.push({
+      productId,
       quantity,
-      line_total: product.price * quantity
+      size,
+      color
+    });
+
+    productIds.push(productId);
+  }
+
+  const products = await getActiveProducts(productIds);
+  const items = [];
+
+  for (const requested of requestedItems) {
+    const product = products.get(requested.productId);
+
+    if (!product) {
+      return send(res, 400, {
+        success: false,
+        message: "A product is unavailable. Please refresh your cart."
+      });
+    }
+
+    const colors = getValidColors(product);
+
+    if (!colors.includes(requested.color)) {
+      return send(res, 400, {
+        success: false,
+        message: "A selected color is unavailable. Please refresh your cart."
+      });
+    }
+
+    const price = getProductPrice(product);
+    const lineTotal = Math.round(price * requested.quantity * 100) / 100;
+
+    items.push({
+      product_id: String(product.id),
+      name: cleanText(product.name, 150),
+      price,
+      color: requested.color,
+      size: requested.size,
+      quantity: requested.quantity,
+      line_total: lineTotal
     });
   }
 
-  const subtotal = items.reduce(
-    (sum, item) => sum + item.line_total,
-    0
-  );
+  const subtotal = Math.round(
+    items.reduce((sum, item) => sum + item.line_total, 0) * 100
+  ) / 100;
 
+  const total = Math.round((subtotal + SHIPPING) * 100) / 100;
   const tracking_token = crypto.randomBytes(24).toString("hex");
 
   const order = {
@@ -201,11 +314,11 @@ async function createOrder(req, res) {
     success: true,
     message: "Order placed successfully.",
     order_id: savedOrder.id,
-    status: savedOrder.status,
+    status: normalizeStatus(savedOrder.status) || "Order Received",
     tracking_token,
     subtotal,
     shipping: SHIPPING,
-    total: subtotal + SHIPPING
+    total
   });
 }
 
@@ -239,7 +352,9 @@ async function getOrderStatus(req, res) {
     });
   }
 
-  if (!ALLOWED_STATUSES.includes(order.status)) {
+  const status = normalizeStatus(order.status);
+
+  if (!status || !ALLOWED_STATUSES.includes(status)) {
     return send(res, 500, {
       success: false,
       message: "The order status is invalid."
@@ -250,7 +365,7 @@ async function getOrderStatus(req, res) {
     success: true,
     order: {
       id: order.id,
-      status: order.status,
+      status,
       created_at: order.created_at
     }
   });
@@ -267,6 +382,7 @@ module.exports = async function handler(req, res) {
     }
 
     res.setHeader("Allow", "GET, POST");
+
     return send(res, 405, {
       success: false,
       message: "Method not allowed."
