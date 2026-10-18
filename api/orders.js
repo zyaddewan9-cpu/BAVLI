@@ -78,7 +78,11 @@ module.exports = async (req, res) => {
       return fail(res, 400, "Please enter a complete address.");
     }
 
-    if (!["COD", "cash_on_delivery", "Cash on Delivery"].includes(payment_method)) {
+    if (
+      !["COD", "cash_on_delivery", "Cash on Delivery"].includes(
+        payment_method
+      )
+    ) {
       return fail(res, 400, "Unsupported payment method.");
     }
 
@@ -93,7 +97,9 @@ module.exports = async (req, res) => {
     const items = [];
 
     for (const item of body.items) {
-      const id = String(item.product_id ?? item.productId ?? item.id ?? "");
+      const id = String(
+        item.product_id ?? item.productId ?? item.id ?? ""
+      );
       const product = PRODUCTS[id];
 
       if (!product) {
@@ -147,10 +153,11 @@ module.exports = async (req, res) => {
 
     if (!supabaseUrl || !supabaseKey) {
       console.error("Missing Supabase environment variables.");
+
       return fail(
         res,
         500,
-        "Order service is not configured. Please contact the store."
+        "Order service is not configured. Check Vercel environment variables."
       );
     }
 
@@ -163,7 +170,6 @@ module.exports = async (req, res) => {
       payment_method: "COD",
       subtotal,
       shipping: SHIPPING,
-      total,
     };
 
     const response = await fetch(
@@ -192,7 +198,7 @@ module.exports = async (req, res) => {
       return fail(
         res,
         500,
-        "Order could not be saved. Check the orders table columns and Supabase settings."
+        "Order could not be saved. Check Vercel logs for the exact database error."
       );
     }
 
