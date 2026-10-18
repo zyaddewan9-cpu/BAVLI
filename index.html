@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>BALVI — Hoodies Only</title>
+<meta name="theme-color" content="#ffffff">
+<title>BALVI — Streetwear</title>
 <style>
 :root{--red:#f01422;--black:#111;--line:#e9e9e9}
 *{box-sizing:border-box}
@@ -30,6 +32,9 @@ nav{display:flex;gap:25px;font-size:12px;font-weight:800;text-transform:uppercas
 .heading small{font-size:10px;color:var(--red);letter-spacing:2px;font-weight:900}
 .heading h2{margin:5px 0 0;font-size:30px}
 .heading>span{font-size:12px}
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
+.category-btn{background:#fff;border:1px solid #ddd;padding:12px 17px;font-size:10px;font-weight:900;letter-spacing:1px;transition:.2s}
+.category-btn.active,.category-btn:hover{background:#111;color:#fff;border-color:#111}
 .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
 .product{border:1px solid var(--line);min-width:0}
 .photo{height:300px;background:#f7f7f7;position:relative;overflow:hidden;display:block}
@@ -39,8 +44,11 @@ nav{display:flex;gap:25px;font-size:12px;font-weight:800;text-transform:uppercas
 .pinfo{padding:13px}
 .pname{font-size:13px;font-weight:900}
 .desc{color:#777;font-size:10px;margin-top:5px}
-.price-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:900;margin-top:13px}
-.add{border:1px solid #eee;background:#f5f5f5;width:34px;height:34px;display:grid;place-items:center}
+.price-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;font-weight:900;margin-top:13px}
+.add{border:1px solid #eee;background:#f5f5f5;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0}
+.old-price{color:#888;text-decoration:line-through;font-size:11px;margin-right:5px}
+.sale-price{color:var(--red)}
+.load-message{grid-column:1/-1;padding:30px 12px;text-align:center;color:#777;font-size:13px;line-height:1.7}
 .banner{background:#111;color:white;margin:18px 0 35px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:15px}
 .banner h3{margin:0;font-size:24px}
 .banner p,footer p{color:#777;font-size:12px;line-height:1.7}
@@ -58,12 +66,12 @@ footer{border-top:1px solid #eee;padding:25px 4% 14px}
 .cartitem small{display:block;color:#777;margin-top:6px;font-size:10px}
 .qty{display:flex;gap:8px;align-items:center;margin-top:8px}
 .qty button{width:24px;height:24px;background:#fff;border:1px solid #ddd}
-.total{display:flex;justify-content:space-between;font-weight:900;margin:14px 0;font-size:12px}
+.total{display:flex;justify-content:space-between;gap:10px;font-weight:900;margin:14px 0;font-size:12px}
 .form{display:grid;gap:10px}
 .form h3{font-size:15px;margin:18px 0 0}
 .form input,.form select,.form textarea{padding:12px;border:1px solid #ddd;width:100%;font-size:12px}
 .form .btn{width:100%;margin:0;justify-content:center}
-.notice{display:none;padding:10px;font-size:12px;background:#fff1f1;color:#900}
+.notice{display:none;padding:10px;font-size:12px;background:#fff1f1;color:#900;line-height:1.6}
 .empty{text-align:center;padding:35px 0;color:#777;font-size:13px}
 @media(max-width:800px){
 .top{height:58px;padding:0 12px}.logo{font-size:23px;letter-spacing:3px}
@@ -77,131 +85,498 @@ nav{gap:10px;font-size:9px}.hero{min-height:540px;background-position:58% center
 nav{gap:7px}nav a{font-size:8px}.hero{min-height:500px;background-position:58% center}
 .hero h1{font-size:47px}.photo{height:190px}.pinfo{padding:9px}
 .heading h2{font-size:21px}.heading>span{font-size:10px}
+.category-btn{padding:10px 12px;font-size:9px}
 }
 </style>
 </head>
 <body>
 <header class="top">
   <a href="index.html" class="logo">BAL<span class="v">V</span>I</a>
-  <nav><a href="index.html">Home</a><a href="#shop">Hoodies</a><a href="#about">About</a></nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+  </nav>
   <button class="icon" onclick="openCart()" aria-label="Open bag">♧ <span class="badge" id="count">0</span></button>
 </header>
+
 <main>
-  <section class="hero"><div class="hero-copy">
-    <div class="kicker">BALVI / HOODIE DROP</div>
-    <h1>HOODIES<br>FOR THE<br><span>STREETS.</span></h1>
-    <p>Not made to fit in.<br>Made to stand out.</p>
-    <a class="btn" href="#shop">SHOP HOODIES →</a>
-  </div></section>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">BALVI / STREETWEAR DROP</div>
+      <h1>OWN<br>YOUR<br><span>STYLE.</span></h1>
+      <p>Not made to fit in.<br>Made to stand out.</p>
+      <a class="btn" href="#shop">SHOP COLLECTION →</a>
+    </div>
+  </section>
+
   <div class="wrap">
     <section class="section" id="shop">
-      <div class="heading"><div><small>FRESH FROM BALVI</small><h2>HOODIE COLLECTION</h2></div><span>5 STYLES / NEW DROP</span></div>
-      <div class="products" id="products"></div>
+      <div class="heading">
+        <div><small>FRESH FROM BALVI</small><h2>BALVI COLLECTION</h2></div>
+        <span id="productCount">LOADING...</span>
+      </div>
+
+      <div class="categories" aria-label="Product categories">
+        <button class="category-btn active" data-category="all" aria-pressed="true" onclick="setCategory('all')">ALL</button>
+        <button class="category-btn" data-category="hoodies" aria-pressed="false" onclick="setCategory('hoodies')">HOODIES</button>
+        <button class="category-btn" data-category="crewnecks" aria-pressed="false" onclick="setCategory('crewnecks')">CREWNECKS</button>
+        <button class="category-btn" data-category="zip-ups" aria-pressed="false" onclick="setCategory('zip-ups')">ZIP-UPS</button>
+      </div>
+
+      <div class="products" id="products">
+        <div class="load-message">LOADING BALVI COLLECTION...</div>
+      </div>
     </section>
-    <section class="banner"><div><h3>ONLY HOODIES. ALL ATTITUDE.</h3><p>Choose your style, pick your size, and order cash on delivery.</p></div><a class="btn" href="#shop">EXPLORE DROP →</a></section>
+
+    <section class="banner">
+      <div>
+        <h3>BUILT FOR YOUR STYLE.</h3>
+        <p>Choose your style, pick your size, and order cash on delivery.</p>
+      </div>
+      <a class="btn" href="#shop">EXPLORE COLLECTION →</a>
+    </section>
   </div>
 </main>
+
 <footer id="about">
   <div class="footgrid">
-    <div><div class="footlogo">BAL<span class="v">V</span>I</div><p>Streetwear for those who move differently. Express yourself. Own your style.</p></div>
-    <div><h4>ORDER & DELIVERY</h4><p>Cash on delivery available.<br>Shipping: EGP 80.</p><p>Choose your hoodie, size, and color before adding it to your bag.</p></div>
+    <div>
+      <div class="footlogo">BAL<span class="v">V</span>I</div>
+      <p>Streetwear for those who move differently. Express yourself. Own your style.</p>
+    </div>
+    <div>
+      <h4>ORDER & DELIVERY</h4>
+      <p>Cash on delivery available.<br>Shipping: EGP 80.</p>
+      <p>Choose your product, size, and color before adding it to your bag.</p>
+    </div>
   </div>
-  <div class="legal"><span>© 2026 BALVI. ALL RIGHTS RESERVED.</span><span>MADE FOR THE STREETS.</span></div>
+  <div class="legal">
+    <span>© 2026 BALVI. ALL RIGHTS RESERVED.</span>
+    <span>MADE FOR THE STREETS.</span>
+  </div>
 </footer>
+
 <div class="cartpanel" id="cartPanel" onclick="if(event.target===this)closeCart()">
   <div class="cart">
-    <div class="carthead"><h2>YOUR BAG (<span id="cartCount">0</span>)</h2><button class="icon" onclick="closeCart()">×</button></div>
-    <div id="cartItems"></div><div id="checkoutArea"></div>
+    <div class="carthead">
+      <h2>YOUR BAG (<span id="cartCount">0</span>)</h2>
+      <button class="icon" onclick="closeCart()" aria-label="Close bag">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="checkoutArea"></div>
   </div>
 </div>
+
 <script>
-const productsData=[
-  {id:1,name:"Essentials Hoodie",price:650,tag:"NEW DROP",colors:[{name:"Black",hex:"#111111",image:"Black_esstnials.JPG"},{name:"Gray",hex:"#b9b9b9",image:"Gray_essential.JPG"}]},
-  {id:2,name:"Jacket Hoodie",price:750,tag:"NEW",colors:[{name:"Black",hex:"#111111",image:"Black_jacket.JPG"},{name:"Gray",hex:"#b9b9b9",image:"Gray_jacket.JPG"}]},
-  {id:3,name:"Supreme Hoodie",price:650,tag:"STATEMENT",colors:[{name:"Black",hex:"#111111",image:"Black_superme.JPG"},{name:"Gray",hex:"#b9b9b9",image:"Gray_superme.JPG"}]},
-  {id:4,name:"Scuffer Hoodie",price:650,tag:"NEW DROP",colors:[{name:"Blue",hex:"#183b78",image:"Blue_scuffer.JPG"},{name:"White",hex:"#fff",image:"White_scuffer.JPG"}]},
-  {id:5,name:"British Hoodie",price:650,tag:"ICONIC",colors:[{name:"British",hex:"#182746",image:"British.JPG"}]}
-];
-let cart=[];
-try{cart=JSON.parse(localStorage.getItem("balvi-cart")||"[]");if(!Array.isArray(cart))cart=[]}catch(e){cart=[]}
-const money=n=>"EGP "+Number(n).toLocaleString("en-US");
-function renderProducts(){
-  document.getElementById("products").innerHTML=productsData.map(p=>{
-    const firstImage=p.colors[0].image;
-    return `<article class="product">
-      <a class="photo" href="product.html?id=${p.id}">
-        <img src="${firstImage}" alt="${p.name}" loading="lazy"
-          onerror="this.onerror=null;this.src='${p.id===1?"Black_essentials.JPG":firstImage}';this.onerror=function(){this.style.display='none'}">
-        <span class="tag">${p.tag}</span>
-      </a>
-      <div class="pinfo"><a class="pname" href="product.html?id=${p.id}">${p.name}</a>
-        <div class="desc">HOODIES / ${p.colors.length} ${p.colors.length===1?"STYLE":"COLORS"}</div>
-        <div class="price-row"><span>${money(p.price)}</span><a class="add" href="product.html?id=${p.id}" aria-label="Choose ${p.name}">＋</a></div>
-      </div></article>`;
+"use strict";
+
+const SHIPPING_FEE = 80;
+
+const productPresentation = {
+  "1": {
+    tag: "NEW DROP",
+    colors: {
+      Black: {hex:"#111111",image:"Black_esstnials.JPG"},
+      Gray: {hex:"#b9b9b9",image:"Gray_essential.JPG"}
+    }
+  },
+  "2": {
+    tag: "NEW",
+    colors: {
+      Black: {hex:"#111111",image:"Black_jacket.JPG"},
+      Gray: {hex:"#b9b9b9",image:"Gray_jacket.JPG"}
+    }
+  },
+  "3": {
+    tag: "STATEMENT",
+    colors: {
+      Black: {hex:"#111111",image:"Black_superme.JPG"},
+      Gray: {hex:"#b9b9b9",image:"Gray_superme.JPG"}
+    }
+  },
+  "4": {
+    tag: "NEW DROP",
+    colors: {
+      Blue: {hex:"#183b78",image:"Blue_scuffer.JPG"},
+      White: {hex:"#ffffff",image:"White_scuffer.JPG"}
+    }
+  },
+  "5": {
+    tag: "ICONIC",
+    colors: {
+      British: {hex:"#182746",image:"British.JPG"}
+    }
+  }
+};
+
+let productsData = [];
+let selectedCategory = "all";
+let cart = [];
+
+try {
+  const savedCart = JSON.parse(localStorage.getItem("balvi-cart") || "[]");
+  if (Array.isArray(savedCart)) cart = savedCart;
+} catch (error) {
+  cart = [];
+}
+
+const money = n => "EGP " + Number(n || 0).toLocaleString("en-US");
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+function safeImage(value) {
+  const image = String(value || "").trim();
+  if (!image) return "";
+  if (/^(https?:\/\/|\/|\.\/|[a-zA-Z0-9_-])/.test(image) &&
+      !image.startsWith("//") &&
+      !image.includes("..")) {
+    return image;
+  }
+  return "";
+}
+
+function normalizeProduct(product) {
+  const idString = String(product.id);
+  const presentation = productPresentation[idString] || {};
+  const imageColors = presentation.colors || {};
+  const rawColors = Array.isArray(product.colors) ? product.colors : [];
+
+  const colors = rawColors.map(color => {
+    const name = typeof color === "string" ? color : color?.name;
+    const imageInfo = imageColors[name] || {};
+    return {
+      name: String(name || ""),
+      hex: imageInfo.hex || (typeof color === "object" ? color.hex : "") || "#cccccc",
+      image: safeImage(
+        imageInfo.image ||
+        (typeof color === "object" ? color.image : "") ||
+        product.image
+      )
+    };
+  }).filter(color => color.name);
+
+  return {
+    id: /^\d+$/.test(idString) ? Number(idString) : idString,
+    name: String(product.name || ""),
+    category: String(product.category || "hoodies").toLowerCase(),
+    price: Number(product.price),
+    sale_price: product.sale_price == null || product.sale_price === ""
+      ? null
+      : Number(product.sale_price),
+    image: safeImage(product.image),
+    colors,
+    tag: presentation.tag || "BALVI DROP"
+  };
+}
+
+async function loadProducts() {
+  const container = document.getElementById("products");
+  const count = document.getElementById("productCount");
+
+  container.innerHTML = '<div class="load-message">LOADING BALVI COLLECTION...</div>';
+  count.textContent = "LOADING...";
+
+  try {
+    const response = await fetch("/api/products", {
+      method: "GET",
+      headers: {Accept:"application/json"}
+    });
+
+    if (!response.ok) throw new Error("Products request failed");
+
+    const data = await response.json();
+    if (!data.success || !Array.isArray(data.products)) {
+      throw new Error("Invalid products response");
+    }
+
+    productsData = data.products
+      .map(normalizeProduct)
+      .filter(product =>
+        product.name &&
+        Number.isFinite(product.price) &&
+        product.price >= 0
+      );
+
+    renderProducts();
+  } catch (error) {
+    console.error("BALVI product loading error:", error);
+    count.textContent = "PLEASE RETRY";
+    container.innerHTML =
+      '<div class="load-message">COULD NOT LOAD PRODUCTS.<br>Please refresh the page or try again later.</div>';
+  }
+}
+
+function setCategory(category) {
+  selectedCategory = category;
+
+  document.querySelectorAll(".category-btn").forEach(button => {
+    const active = button.dataset.category === category;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+
+  renderProducts();
+}
+
+function renderProducts() {
+  const container = document.getElementById("products");
+  const count = document.getElementById("productCount");
+
+  const visibleProducts = productsData.filter(product =>
+    selectedCategory === "all" || product.category === selectedCategory
+  );
+
+  const headingNames = {
+    all: "BALVI COLLECTION",
+    hoodies: "HOODIE COLLECTION",
+    crewnecks: "CREWNECK COLLECTION",
+    "zip-ups": "ZIP-UP COLLECTION"
+  };
+
+  document.querySelector("#shop .heading h2").textContent =
+    headingNames[selectedCategory] || headingNames.all;
+
+  count.textContent =
+    `${visibleProducts.length} ${visibleProducts.length === 1 ? "STYLE" : "STYLES"}`;
+
+  if (!visibleProducts.length) {
+    const message = productsData.length
+      ? "NEW STYLES COMING SOON."
+      : "NO PRODUCTS AVAILABLE RIGHT NOW.";
+
+    container.innerHTML = `<div class="load-message">${message}</div>`;
+    return;
+  }
+
+  container.innerHTML = visibleProducts.map(product => {
+    const firstColor = product.colors[0] || {};
+    const image = firstColor.image || product.image || "";
+    const id = encodeURIComponent(String(product.id));
+    const name = escapeHTML(product.name);
+    const tag = escapeHTML(product.tag);
+    const category = escapeHTML(product.category.toUpperCase());
+    const colorsCount = product.colors.length;
+    const hasSale = product.sale_price !== null &&
+      product.sale_price < product.price;
+    const currentPrice = hasSale ? product.sale_price : product.price;
+
+    const priceHTML = hasSale
+      ? `<span><span class="old-price">${money(product.price)}</span><span class="sale-price">${money(currentPrice)}</span></span>`
+      : `<span>${money(currentPrice)}</span>`;
+
+    const imageHTML = image
+      ? `<img src="${escapeHTML(image)}" alt="${name}" loading="lazy" onerror="this.style.display='none'">`
+      : "";
+
+    return `
+      <article class="product">
+        <a class="photo" href="product.html?id=${id}">
+          ${imageHTML}
+          <span class="tag">${tag}</span>
+        </a>
+        <div class="pinfo">
+          <a class="pname" href="product.html?id=${id}">${name}</a>
+          <div class="desc">${category} / ${colorsCount} ${colorsCount === 1 ? "STYLE" : "COLORS"}</div>
+          <div class="price-row">
+            ${priceHTML}
+            <a class="add" href="product.html?id=${id}" aria-label="Choose ${name}">＋</a>
+          </div>
+        </div>
+      </article>`;
   }).join("");
 }
-function changeCartQty(key,n){const item=cart.find(x=>x.key===key);if(!item)return;item.quantity+=n;if(item.quantity<=0)cart=cart.filter(x=>x.key!==key);renderCart()}
-function removeItem(key){cart=cart.filter(x=>x.key!==key);renderCart()}
-function subtotal(){return cart.reduce((s,i)=>s+Number(i.price)*Number(i.quantity),0)}
-function renderCart(){
-  localStorage.setItem("balvi-cart",JSON.stringify(cart));
-  const n=cart.reduce((s,i)=>s+Number(i.quantity||0),0);
-  document.getElementById("count").textContent=n;document.getElementById("cartCount").textContent=n;
-  document.getElementById("cartItems").innerHTML=cart.length?cart.map(i=>`
-    <div class="cartitem"><img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'">
-      <div><strong>${i.name}</strong><small>${i.color} / ${i.size}</small><small>${money(i.price)}</small>
-        <div class="qty"><button onclick="changeCartQty('${i.key}',-1)">−</button>${i.quantity}<button onclick="changeCartQty('${i.key}',1)">+</button></div>
-      </div><div><strong>${money(i.price*i.quantity)}</strong><button class="icon" onclick="removeItem('${i.key}')">×</button></div>
-    </div>`).join(""):'<div class="empty">Your bag is empty.<br><br>Time to find your style.</div>';
-  document.getElementById("checkoutArea").innerHTML=cart.length?`
+
+function changeCartQty(key, amount) {
+  const item = cart.find(entry => entry.key === key);
+  if (!item) return;
+
+  item.quantity = Number(item.quantity) + amount;
+
+  if (item.quantity <= 0) {
+    cart = cart.filter(entry => entry.key !== key);
+  }
+
+  renderCart();
+}
+
+function removeItem(key) {
+  cart = cart.filter(entry => entry.key !== key);
+  renderCart();
+}
+
+function subtotal() {
+  return cart.reduce((sum, item) =>
+    sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
+}
+
+function renderCart() {
+  localStorage.setItem("balvi-cart", JSON.stringify(cart));
+
+  const itemCount = cart.reduce((sum, item) =>
+    sum + Number(item.quantity || 0), 0);
+
+  document.getElementById("count").textContent = itemCount;
+  document.getElementById("cartCount").textContent = itemCount;
+
+  document.getElementById("cartItems").innerHTML = cart.length
+    ? cart.map(item => {
+        const key = escapeHTML(item.key);
+        const name = escapeHTML(item.name);
+        const color = escapeHTML(item.color);
+        const size = escapeHTML(item.size);
+        const image = safeImage(item.image);
+        const imageHTML = image
+          ? `<img src="${escapeHTML(image)}" alt="${name}" onerror="this.style.visibility='hidden'">`
+          : `<div></div>`;
+
+        return `
+          <div class="cartitem">
+            ${imageHTML}
+            <div>
+              <strong>${name}</strong>
+              <small>${color} / ${size}</small>
+              <small>${money(item.price)}</small>
+              <div class="qty">
+                <button onclick="changeCartQty('${key}',-1)" aria-label="Decrease quantity">−</button>
+                ${Number(item.quantity)}
+                <button onclick="changeCartQty('${key}',1)" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div>
+              <strong>${money(Number(item.price) * Number(item.quantity))}</strong>
+              <button class="icon" onclick="removeItem('${key}')" aria-label="Remove item">×</button>
+            </div>
+          </div>`;
+      }).join("")
+    : '<div class="empty">Your bag is empty.<br><br>Time to find your style.</div>';
+
+  document.getElementById("checkoutArea").innerHTML = cart.length ? `
     <div class="total"><span>Subtotal</span><span>${money(subtotal())}</span></div>
-    <div class="total"><span>Shipping</span><span>EGP 80</span></div>
-    <div class="total"><span>Total</span><span>${money(subtotal()+80)}</span></div>
-    <div class="form"><h3>Checkout — Cash on Delivery</h3>
+    <div class="total"><span>Shipping</span><span>${money(SHIPPING_FEE)}</span></div>
+    <div class="total"><span>Total</span><span>${money(subtotal() + SHIPPING_FEE)}</span></div>
+    <div class="form">
+      <h3>Checkout — Cash on Delivery</h3>
       <input id="customerName" placeholder="Full name" autocomplete="name" required>
       <input id="customerPhone" type="tel" placeholder="Phone number" autocomplete="tel" required>
-      <select id="governorate" required><option value="">Choose governorate</option>
-        <option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option>
-        <option>Monufia</option><option>Sharqia</option><option>Beheira</option><option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option>
-        <option>Ismailia</option><option>Suez</option><option>Fayoum</option><option>Beni Suef</option><option>Minya</option><option>Assiut</option>
-        <option>Sohag</option><option>Qena</option><option>Luxor</option><option>Aswan</option><option>Red Sea</option><option>Matrouh</option>
+      <select id="governorate" required>
+        <option value="">Choose governorate</option>
+        <option>Cairo</option><option>Giza</option><option>Alexandria</option>
+        <option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option>
+        <option>Monufia</option><option>Sharqia</option><option>Beheira</option>
+        <option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option>
+        <option>Ismailia</option><option>Suez</option><option>Fayoum</option>
+        <option>Beni Suef</option><option>Minya</option><option>Assiut</option>
+        <option>Sohag</option><option>Qena</option><option>Luxor</option>
+        <option>Aswan</option><option>Red Sea</option><option>Matrouh</option>
         <option>New Valley</option><option>North Sinai</option><option>South Sinai</option>
       </select>
       <textarea id="customerAddress" placeholder="Full address" rows="2" autocomplete="street-address" required></textarea>
-      <div class="notice" id="checkoutNotice"></div><button class="btn" onclick="placeOrder()">CONFIRM ORDER →</button>
-    </div>`:"";
+      <div class="notice" id="checkoutNotice"></div>
+      <button class="btn" onclick="placeOrder()">CONFIRM ORDER →</button>
+    </div>` : "";
 }
-function openCart(){renderCart();document.getElementById("cartPanel").classList.add("open");document.body.style.overflow="hidden"}
-function closeCart(){document.getElementById("cartPanel").classList.remove("open");document.body.style.overflow=""}
-async function placeOrder(){
-  const name=document.getElementById("customerName").value.trim();
-  const phone=document.getElementById("customerPhone").value.trim();
-  const governorate=document.getElementById("governorate").value;
-  const address=document.getElementById("customerAddress").value.trim();
-  const notice=document.getElementById("checkoutNotice");
-  const button=document.querySelector("#checkoutArea .btn");
-  const err=m=>{notice.style.display="block";notice.textContent=m};
-  if(!cart.length){err("Your bag is empty.");return}
-  if(!name||!phone||!governorate||!address){err("Please fill in all fields.");return}
-  const payload={customer_name:name,phone,governorate,address,
-    items:cart.map(i=>({id:i.id,name:i.name,quantity:i.quantity,price:i.price,size:i.size,color:i.color})),
-    subtotal:subtotal(),shipping:80,payment_method:"COD"};
-  button.disabled=true;button.textContent="SENDING ORDER...";
-  try{
-    const response=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const data=await response.json().catch(()=>({}));
-    if(!response.ok||!data.success)throw new Error(data.error||"Order could not be saved.");
-    const trackingToken=data.tracking_token||data.order?.tracking_token;
-    if(!trackingToken)throw new Error("Order saved, but the tracking link was not returned. Please contact support.");
-    cart=[];localStorage.removeItem("balvi-cart");
-    window.location.href="/track.html?token="+encodeURIComponent(trackingToken);
+
+function openCart() {
+  renderCart();
+  document.getElementById("cartPanel").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCart() {
+  document.getElementById("cartPanel").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+async function placeOrder() {
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const governorate = document.getElementById("governorate").value;
+  const address = document.getElementById("customerAddress").value.trim();
+  const notice = document.getElementById("checkoutNotice");
+  const button = document.querySelector("#checkoutArea .btn");
+
+  const showError = message => {
+    notice.style.display = "block";
+    notice.textContent = message;
+  };
+
+  if (!cart.length) {
+    showError("Your bag is empty.");
     return;
-  }catch(error){err("Couldn't submit the order. "+error.message)}
-  finally{button.disabled=false;button.textContent="CONFIRM ORDER →"}
+  }
+
+  if (!name || !phone || !governorate || !address) {
+    showError("Please fill in all fields.");
+    return;
+  }
+
+  const payload = {
+    customer_name: name,
+    phone,
+    governorate,
+    address,
+    items: cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      size: item.size,
+      color: item.color
+    })),
+    subtotal: subtotal(),
+    shipping: SHIPPING_FEE,
+    payment_method: "COD"
+  };
+
+  button.disabled = true;
+  button.textContent = "SENDING ORDER...";
+
+  try {
+    const response = await fetch("/api/orders", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || data.message || "Order could not be saved.");
+    }
+
+    const trackingToken = data.tracking_token || data.order?.tracking_token;
+
+    if (!trackingToken) {
+      throw new Error("Order saved, but the tracking link was not returned. Please contact support.");
+    }
+
+    cart = [];
+    localStorage.removeItem("balvi-cart");
+    window.location.href = "/track.html?token=" + encodeURIComponent(trackingToken);
+  } catch (error) {
+    showError("Couldn't submit the order. " + error.message);
+    button.disabled = false;
+    button.textContent = "CONFIRM ORDER →";
+  }
 }
-renderProducts();renderCart();
-const params=new URLSearchParams(window.location.search);
-if(params.get("checkout")==="1"){openCart();history.replaceState({},document.title,window.location.pathname)}
+
+renderCart();
+loadProducts();
+
+const params = new URLSearchParams(window.location.search);
+if (params.get("checkout") === "1") {
+  openCart();
+  history.replaceState({}, document.title, window.location.pathname);
+}
 </script>
 </body>
 </html>
