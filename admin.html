@@ -1,217 +1,81 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BALVI | Admin Dashboard</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #111;
-      color: #f5f1e9;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .brand {
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: 4px;
-    }
-
-    .brand span {
-      color: #d92828;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background: #1c1c1c;
-      border: 1px solid #333;
-      padding: 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-    }
-
-    input, select, button {
-      font: inherit;
-      padding: 12px;
-      border-radius: 5px;
-    }
-
-    input, select {
-      width: 100%;
-      background: #111;
-      border: 1px solid #444;
-      color: white;
-      margin: 7px 0 15px;
-    }
-
-    button {
-      border: 0;
-      background: #d92828;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:disabled {
-      opacity: .6;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .message {
-      margin: 12px 0;
-      line-height: 1.7;
-      overflow-wrap: anywhere;
-    }
-
-    .error {
-      color: #ff7777;
-    }
-
-    .success {
-      color: #7ee59b;
-    }
-
-    .toolbar {
-      display: grid;
-      grid-template-columns: 1fr 200px;
-      gap: 12px;
-    }
-
-    .orders {
-      display: grid;
-      gap: 15px;
-    }
-
-    .order {
-      background: #1c1c1c;
-      border: 1px solid #383838;
-      padding: 18px;
-      border-radius: 8px;
-    }
-
-    .order-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      border-bottom: 1px solid #383838;
-      padding-bottom: 12px;
-    }
-
-    .order h3 {
-      margin: 0 0 10px;
-    }
-
-    .details {
-      line-height: 1.9;
-      color: #ddd;
-      overflow-wrap: anywhere;
-    }
-
-    .items {
-      background: #111;
-      padding: 12px;
-      margin: 12px 0;
-      border-radius: 5px;
-      line-height: 1.9;
-    }
-
-    .status-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .status-row select {
-      margin: 0;
-    }
-
-    .empty {
-      text-align: center;
-      color: #aaa;
-      padding: 30px 10px;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding: 14px;
-      }
-
-      .toolbar {
-        grid-template-columns: 1fr;
-        gap: 0;
-      }
-
-      .status-row {
-        grid-template-columns: 1fr;
-      }
-
-      .status-row button {
-        width: 100%;
-      }
+    *{box-sizing:border-box}
+    body{margin:0;padding:20px;background:#111;color:#f5f1e9;font-family:Arial,sans-serif}
+    .container{max-width:1100px;margin:auto}
+    .brand{font-size:32px;font-weight:900;letter-spacing:4px}
+    .brand span{color:#d92828}
+    h1{font-size:24px;margin-top:30px}
+    h2{font-size:21px}
+    .card,.order,.product{background:#1c1c1c;border:1px solid #383838;padding:18px;border-radius:8px;margin:15px 0}
+    input,select,button{font:inherit;padding:12px;border-radius:5px}
+    input,select{width:100%;background:#111;border:1px solid #444;color:white;margin:7px 0 15px}
+    button{border:0;background:#d92828;color:white;font-weight:bold;cursor:pointer}
+    button:disabled{opacity:.6;cursor:wait}
+    .hidden{display:none!important}
+    .message{margin:12px 0;line-height:1.7;overflow-wrap:anywhere}
+    .error{color:#ff7777}.success{color:#7ee59b}
+    .toolbar{display:grid;grid-template-columns:1fr 200px;gap:12px}
+    .orders,.products{display:grid;gap:15px}
+    .order-top,.product-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #383838;padding-bottom:12px}
+    .details{line-height:1.9;color:#ddd;overflow-wrap:anywhere}
+    .items{background:#111;padding:12px;margin:12px 0;border-radius:5px;line-height:1.9}
+    .status-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin-top:15px}
+    .status-row select{margin:0}
+    .empty{text-align:center;color:#aaa;padding:30px 10px}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}
+    .tabs button{background:#333}
+    .tabs button.active{background:#d92828}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}
+    .field label{display:block;margin-top:8px}
+    .muted{color:#aaa;font-size:14px;line-height:1.7}
+    .product-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .secondary{background:#444}
+    .product-status{font-size:13px;color:#ddd}
+    .product-image{width:100%;max-width:130px;max-height:150px;object-fit:contain;background:#111;border-radius:5px;margin-top:10px}
+    @media(max-width:600px){
+      body{padding:14px}
+      .toolbar,.form-grid,.status-row{grid-template-columns:1fr}
+      .status-row button{width:100%}
     }
   </style>
 </head>
-
 <body>
-  <main class="container">
-    <div class="brand">BAL<span>V</span>I</div>
-    <h1>لوحة إدارة الطلبات</h1>
+<main class="container">
+  <div class="brand">BAL<span>V</span>I</div>
+  <h1>لوحة إدارة BALVI</h1>
 
-    <section class="card" id="loginCard">
-      <h3>تسجيل دخول المدير</h3>
+  <section class="card" id="loginCard">
+    <h3>تسجيل دخول المدير</h3>
+    <p>أدخل مفتاح الإدارة المحفوظ في Vercel باسم ADMIN_API_TOKEN.</p>
+    <form id="loginForm">
+      <label for="token">مفتاح الإدارة</label>
+      <input id="token" type="password" autocomplete="current-password" required placeholder="أدخل المفتاح السري">
+      <button type="submit" id="loginButton">دخول</button>
+    </form>
+    <div id="loginMessage" class="message"></div>
+  </section>
 
-      <p>
-        أدخل مفتاح الإدارة السري الذي حفظته في Vercel
-        باسم ADMIN_API_TOKEN.
-      </p>
+  <section id="dashboard" class="hidden">
+    <div class="tabs">
+      <button type="button" class="active" data-tab="ordersPanel">الطلبات</button>
+      <button type="button" data-tab="productsPanel">إدارة المنتجات</button>
+      <button type="button" id="logoutButton" class="secondary">تسجيل الخروج</button>
+    </div>
 
-      <form id="loginForm">
-        <label for="token">مفتاح الإدارة</label>
-        <input
-          id="token"
-          type="password"
-          autocomplete="current-password"
-          required
-          placeholder="أدخل المفتاح السري"
-        >
+    <div id="dashboardMessage" class="message"></div>
 
-        <button type="submit" id="loginButton">
-          دخول
-        </button>
-      </form>
-
-      <div id="loginMessage" class="message"></div>
-    </section>
-
-    <section id="dashboard" class="hidden">
+    <section id="ordersPanel">
       <div class="card">
+        <h2>الطلبات</h2>
         <div class="toolbar">
-          <input
-            id="search"
-            placeholder="ابحث بالاسم أو رقم الهاتف أو رقم الطلب"
-          >
-
+          <input id="search" placeholder="ابحث بالاسم أو الهاتف أو رقم الطلب">
           <select id="filterStatus">
             <option value="">كل الحالات</option>
             <option value="new">جديد</option>
@@ -221,286 +85,439 @@
             <option value="cancelled">ملغي</option>
           </select>
         </div>
-
-        <button id="refreshButton" type="button">
-          تحديث الطلبات
-        </button>
-
-        <button id="logoutButton" type="button"
-          style="background:#444;margin-right:8px">
-          تسجيل الخروج
-        </button>
-
-        <div id="dashboardMessage" class="message"></div>
+        <button id="refreshButton" type="button">تحديث الطلبات</button>
       </div>
-
       <div id="orders" class="orders"></div>
     </section>
-  </main>
 
-  <script>
-    const STATUS_LABELS = {
-      new: "جديد",
-      confirmed: "تم التأكيد",
-      shipped: "تم الشحن",
-      delivered: "تم التسليم",
-      cancelled: "ملغي"
+    <section id="productsPanel" class="hidden">
+      <div class="card">
+        <h2 id="productFormTitle">إضافة منتج جديد</h2>
+        <p class="muted">املأ البيانات ثم اضغط حفظ. اكتب الألوان مفصولة بفواصل، مثل: Black, Gray.</p>
+        <form id="productForm">
+          <input id="productId" type="hidden">
+          <div class="form-grid">
+            <div class="field">
+              <label for="productName">اسم المنتج</label>
+              <input id="productName" required maxlength="150" placeholder="اسم المنتج">
+            </div>
+            <div class="field">
+              <label for="productCategory">القسم</label>
+              <select id="productCategory" required>
+                <option value="hoodies">Hoodies</option>
+                <option value="crewnecks">Crewnecks</option>
+                <option value="zip-ups">Zip-ups</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="productPrice">السعر الأصلي بالجنيه</label>
+              <input id="productPrice" type="number" min="0" max="10000000" step="0.01" required>
+            </div>
+            <div class="field">
+              <label for="productSalePrice">سعر التخفيض (اختياري)</label>
+              <input id="productSalePrice" type="number" min="0" max="10000000" step="0.01" placeholder="اتركه فارغًا بدون تخفيض">
+            </div>
+            <div class="field">
+              <label for="productImage">رابط الصورة HTTPS</label>
+              <input id="productImage" type="url" placeholder="https://...">
+            </div>
+            <div class="field">
+              <label for="productColors">الألوان</label>
+              <input id="productColors" required placeholder="Black, Gray">
+            </div>
+            <div class="field">
+              <label for="productActive">حالة المنتج</label>
+              <select id="productActive">
+                <option value="true">ظاهر في المتجر</option>
+                <option value="false">مخفي من المتجر</option>
+              </select>
+            </div>
+          </div>
+          <button id="saveProductButton" type="submit">حفظ المنتج</button>
+          <button id="cancelEditButton" class="secondary hidden" type="button">إلغاء التعديل</button>
+          <div id="productFormMessage" class="message"></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="toolbar">
+          <input id="productSearch" placeholder="ابحث عن منتج">
+          <select id="productFilter">
+            <option value="">كل الأقسام</option>
+            <option value="hoodies">Hoodies</option>
+            <option value="crewnecks">Crewnecks</option>
+            <option value="zip-ups">Zip-ups</option>
+          </select>
+        </div>
+        <button id="refreshProductsButton" type="button">تحديث المنتجات</button>
+      </div>
+      <div id="products" class="products"></div>
+    </section>
+  </section>
+</main>
+
+<script>
+  const STATUS_LABELS = {
+    new:"جديد", confirmed:"تم التأكيد", shipped:"تم الشحن",
+    delivered:"تم التسليم", cancelled:"ملغي"
+  };
+  const CATEGORY_LABELS = {
+    hoodies:"Hoodies", crewnecks:"Crewnecks", "zip-ups":"Zip-ups"
+  };
+
+  let adminToken = "";
+  let allOrders = [];
+  let allProducts = [];
+
+  const $ = id => document.getElementById(id);
+  const loginCard = $("loginCard");
+  const dashboard = $("dashboard");
+  const loginMessage = $("loginMessage");
+  const dashboardMessage = $("dashboardMessage");
+  const ordersElement = $("orders");
+  const productsElement = $("products");
+
+  function showMessage(element,message,type="") {
+    element.textContent = message;
+    element.className = "message " + type;
+  }
+
+  async function apiRequest(url,options={}) {
+    const response = await fetch(url,{
+      ...options,
+      headers:{
+        ...(options.headers || {}),
+        Authorization:"Bearer " + adminToken
+      }
+    });
+    const data = await response.json().catch(()=>({}));
+    if (!response.ok) throw new Error(data.error || data.message || "حصل خطأ في الاتصال بالخادم.");
+    return data;
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g,char=>({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    })[char]);
+  }
+
+  $("loginForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+    const button=$("loginButton");
+    adminToken=$("token").value.trim();
+    if(!adminToken){
+      showMessage(loginMessage,"أدخل مفتاح الإدارة.","error");
+      return;
+    }
+    button.disabled=true;
+    button.textContent="جاري التحقق...";
+    try{
+      await loadOrders();
+      loginCard.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+      showMessage(dashboardMessage,"تم تسجيل الدخول بنجاح.","success");
+    }catch(error){
+      adminToken="";
+      showMessage(loginMessage,error.message,"error");
+    }finally{
+      button.disabled=false;
+      button.textContent="دخول";
+    }
+  });
+
+  async function loadOrders(){
+    showMessage(dashboardMessage,"جاري تحميل الطلبات...");
+    const data=await apiRequest("/api/admin/orders");
+    allOrders=Array.isArray(data)?data:Array.isArray(data.orders)?data.orders:[];
+    renderOrders();
+    showMessage(dashboardMessage,"عدد الطلبات: "+allOrders.length,"success");
+  }
+
+  function renderOrders(){
+    const query=$("search").value.trim().toLowerCase();
+    const statusFilter=$("filterStatus").value;
+    const filtered=allOrders.filter(order=>{
+      const searchable=[
+        order.order_number,order.id,order.customer_name,order.phone,order.governorate
+      ].join(" ").toLowerCase();
+      return searchable.includes(query)&&(!statusFilter||order.status===statusFilter);
+    });
+
+    if(!filtered.length){
+      ordersElement.innerHTML='<div class="card empty">مفيش طلبات مطابقة للبحث.</div>';
+      return;
+    }
+
+    ordersElement.innerHTML=filtered.map((order,index)=>{
+      const orderId=String(order.id||"");
+      const displayId=order.order_number||order.id||"غير متاح";
+      const items=Array.isArray(order.items)?order.items.map(item=>`
+        <div>${escapeHTML(item.name||item.product_id||"منتج")}
+        — المقاس: ${escapeHTML(item.size||"-")}
+        — الكمية: ${Number(item.quantity)||0}
+        — السعر: ${Number(item.price)||0} جنيه</div>
+      `).join(""):"تفاصيل المنتجات غير متاحة";
+      const subtotal=Number(order.subtotal)||0;
+      const shipping=Number(order.shipping)||0;
+      const total=order.total!=null?Number(order.total):subtotal+shipping;
+      const createdAt=order.created_at?new Date(order.created_at).toLocaleString("ar-EG"):"غير متاح";
+
+      return `
+        <article class="order">
+          <div class="order-top">
+            <h3>طلب #${escapeHTML(displayId)}</h3>
+            <strong>${escapeHTML(STATUS_LABELS[order.status]||order.status||"غير محدد")}</strong>
+          </div>
+          <div class="details">
+            <div>👤 العميل: ${escapeHTML(order.customer_name||"-")}</div>
+            <div>📞 الهاتف: ${escapeHTML(order.phone||"-")}</div>
+            <div>📍 المحافظة: ${escapeHTML(order.governorate||"-")}</div>
+            <div>🏠 العنوان: ${escapeHTML(order.address||"-")}</div>
+            <div>🕒 تاريخ الطلب: ${escapeHTML(createdAt)}</div>
+            <div>💵 الدفع: الدفع عند الاستلام</div>
+          </div>
+          <div class="items">${items}</div>
+          <div class="details">
+            قيمة المنتجات: ${subtotal} جنيه<br>
+            الشحن: ${shipping} جنيه<br>
+            <strong>الإجمالي: ${total} جنيه</strong>
+          </div>
+          <div class="status-row">
+            <select id="status-${index}" aria-label="حالة الطلب">
+              ${Object.entries(STATUS_LABELS).map(([value,label])=>`
+                <option value="${value}" ${order.status===value?"selected":""}>${label}</option>
+              `).join("")}
+            </select>
+            <button type="button" data-order-id="${escapeHTML(orderId)}"
+              data-status-index="${index}" class="save-status">حفظ الحالة</button>
+          </div>
+        </article>`;
+    }).join("");
+
+    ordersElement.querySelectorAll(".save-status").forEach(button=>{
+      button.addEventListener("click",()=>updateStatus(button));
+    });
+  }
+
+  async function updateStatus(button){
+    const orderId=button.dataset.orderId;
+    const index=button.dataset.statusIndex;
+    const status=$("status-"+index).value;
+    if(!orderId){alert("رقم الطلب غير متاح.");return;}
+    button.disabled=true;
+    button.textContent="جاري الحفظ...";
+    try{
+      await apiRequest("/api/admin/orders",{
+        method:"PATCH",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({id:orderId,status})
+      });
+      showMessage(dashboardMessage,"تم تحديث حالة الطلب.","success");
+      await loadOrders();
+    }catch(error){
+      showMessage(dashboardMessage,error.message,"error");
+    }finally{
+      button.disabled=false;
+      button.textContent="حفظ الحالة";
+    }
+  }
+
+  async function loadProducts(){
+    showMessage(dashboardMessage,"جاري تحميل المنتجات...");
+    const data=await apiRequest("/api/admin/products");
+    allProducts=Array.isArray(data.products)?data.products:[];
+    renderProducts();
+    showMessage(dashboardMessage,"عدد المنتجات: "+allProducts.length,"success");
+  }
+
+  function getColorNames(colors){
+    if(!Array.isArray(colors)) return "";
+    return colors.map(color=>typeof color==="string"?color:color?.name||"").filter(Boolean).join(", ");
+  }
+
+  function renderProducts(){
+    const query=$("productSearch").value.trim().toLowerCase();
+    const category=$("productFilter").value;
+    const filtered=allProducts.filter(product=>
+      String(product.name||"").toLowerCase().includes(query) &&
+      (!category||product.category===category)
+    );
+
+    if(!filtered.length){
+      productsElement.innerHTML='<div class="card empty">مفيش منتجات مطابقة.</div>';
+      return;
+    }
+
+    productsElement.innerHTML=filtered.map(product=>{
+      const original=Number(product.price)||0;
+      const sale=product.sale_price==null?null:Number(product.sale_price);
+      const colors=getColorNames(product.colors)||"غير محدد";
+      return `
+        <article class="product">
+          <div class="product-top">
+            <h3>${escapeHTML(product.name)}</h3>
+            <span class="product-status">${product.active?"ظاهر في المتجر":"مخفي"}</span>
+          </div>
+          <div class="details">
+            القسم: ${escapeHTML(CATEGORY_LABELS[product.category]||product.category||"-")}<br>
+            السعر الأصلي: ${original} جنيه<br>
+            ${sale!==null?`سعر التخفيض: ${sale} جنيه<br>`:""}
+            الألوان: ${escapeHTML(colors)}
+          </div>
+          ${product.image?`<img class="product-image" src="${escapeHTML(product.image)}" alt="" loading="lazy" onerror="this.style.display='none'">`:""}
+          <div class="product-actions">
+            <button type="button" data-edit-id="${escapeHTML(product.id)}" class="edit-product">تعديل</button>
+            <button type="button" data-toggle-id="${escapeHTML(product.id)}" class="toggle-product secondary">${product.active?"إخفاء المنتج":"إظهار المنتج"}</button>
+          </div>
+        </article>`;
+    }).join("");
+
+    productsElement.querySelectorAll(".edit-product").forEach(button=>{
+      button.addEventListener("click",()=>startEdit(button.dataset.editId));
+    });
+    productsElement.querySelectorAll(".toggle-product").forEach(button=>{
+      button.addEventListener("click",()=>toggleProduct(button.dataset.toggleId));
+    });
+  }
+
+  function startEdit(id){
+    const product=allProducts.find(item=>String(item.id)===String(id));
+    if(!product){showMessage($("productFormMessage"),"المنتج غير موجود.","error");return;}
+    $("productId").value=product.id;
+    $("productName").value=product.name||"";
+    $("productCategory").value=product.category||"hoodies";
+    $("productPrice").value=Number(product.price)||0;
+    $("productSalePrice").value=product.sale_price==null?"":product.sale_price;
+    $("productImage").value=product.image||"";
+    $("productColors").value=getColorNames(product.colors);
+    $("productActive").value=String(Boolean(product.active));
+    $("productFormTitle").textContent="تعديل المنتج";
+    $("saveProductButton").textContent="حفظ التعديلات";
+    $("cancelEditButton").classList.remove("hidden");
+    showMessage($("productFormMessage"),"أنت تعدّل: "+product.name);
+    $("productForm").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function resetProductForm(){
+    $("productForm").reset();
+    $("productId").value="";
+    $("productActive").value="true";
+    $("productFormTitle").textContent="إضافة منتج جديد";
+    $("saveProductButton").textContent="حفظ المنتج";
+    $("cancelEditButton").classList.add("hidden");
+    showMessage($("productFormMessage"),"");
+  }
+
+  $("cancelEditButton").addEventListener("click",resetProductForm);
+
+  $("productForm").addEventListener("submit",async event=>{
+    event.preventDefault();
+    const button=$("saveProductButton");
+    const id=$("productId").value.trim();
+    const price=Number($("productPrice").value);
+    const saleText=$("productSalePrice").value.trim();
+    const salePrice=saleText===""?null:Number(saleText);
+    const colors=$("productColors").value.split(",").map(name=>name.trim()).filter(Boolean);
+
+    if(!Number.isFinite(price)||price<0){
+      showMessage($("productFormMessage"),"أدخل سعرًا صحيحًا.","error");return;
+    }
+    if(salePrice!==null&&(!Number.isFinite(salePrice)||salePrice<0||salePrice>price)){
+      showMessage($("productFormMessage"),"سعر التخفيض يجب أن يكون صحيحًا ولا يتجاوز السعر الأصلي.","error");return;
+    }
+    if(!colors.length){
+      showMessage($("productFormMessage"),"أدخل لونًا واحدًا على الأقل.","error");return;
+    }
+
+    const payload={
+      name:$("productName").value.trim(),
+      category:$("productCategory").value,
+      price,
+      sale_price:salePrice,
+      image:$("productImage").value.trim()||null,
+      colors:colors.map(name=>({name})),
+      active:$("productActive").value==="true"
     };
 
-    let adminToken = "";
-    let allOrders = [];
-
-    const loginCard = document.getElementById("loginCard");
-    const dashboard = document.getElementById("dashboard");
-    const loginMessage = document.getElementById("loginMessage");
-    const dashboardMessage = document.getElementById("dashboardMessage");
-    const ordersElement = document.getElementById("orders");
-
-    function showMessage(element, message, type = "") {
-      element.textContent = message;
-      element.className = "message " + type;
-    }
-
-    async function apiRequest(url, options = {}) {
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...(options.headers || {}),
-          Authorization: "Bearer " + adminToken
-        }
+    button.disabled=true;
+    button.textContent="جاري الحفظ...";
+    try{
+      await apiRequest("/api/admin/products",{
+        method:id?"PATCH":"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(id?{id,...payload}:payload)
       });
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(data.error || "حصل خطأ في الاتصال بالخادم.");
-      }
-
-      return data;
+      showMessage($("productFormMessage"),id?"تم تعديل المنتج بنجاح.":"تمت إضافة المنتج بنجاح.","success");
+      resetProductForm();
+      await loadProducts();
+    }catch(error){
+      showMessage($("productFormMessage"),error.message,"error");
+    }finally{
+      button.disabled=false;
+      button.textContent=$("productId").value?"حفظ التعديلات":"حفظ المنتج";
     }
+  });
 
-    document.getElementById("loginForm").addEventListener(
-      "submit",
-      async event => {
-        event.preventDefault();
+  async function toggleProduct(id){
+    const product=allProducts.find(item=>String(item.id)===String(id));
+    if(!product)return;
+    const nextActive=!product.active;
+    const action=nextActive?"إظهار":"إخفاء";
+    if(!confirm(`هل تريد ${action} المنتج "${product.name}"؟`))return;
 
-        const button = document.getElementById("loginButton");
-        adminToken = document.getElementById("token").value.trim();
-
-        if (!adminToken) {
-          showMessage(loginMessage, "أدخل مفتاح الإدارة.", "error");
-          return;
-        }
-
-        button.disabled = true;
-        button.textContent = "جاري التحقق...";
-
-        try {
-          await loadOrders();
-
-          loginCard.classList.add("hidden");
-          dashboard.classList.remove("hidden");
-        } catch (error) {
-          adminToken = "";
-          showMessage(loginMessage, error.message, "error");
-        } finally {
-          button.disabled = false;
-          button.textContent = "دخول";
-        }
-      }
-    );
-
-    async function loadOrders() {
-      showMessage(dashboardMessage, "جاري تحميل الطلبات...");
-
-      const data = await apiRequest("/api/admin/orders");
-
-      allOrders = Array.isArray(data)
-        ? data
-        : Array.isArray(data.orders)
-          ? data.orders
-          : [];
-
-      renderOrders();
-
-      showMessage(
-        dashboardMessage,
-        "عدد الطلبات: " + allOrders.length,
-        "success"
-      );
-    }
-
-    function renderOrders() {
-      const query = document.getElementById("search")
-        .value.trim().toLowerCase();
-
-      const statusFilter = document.getElementById("filterStatus").value;
-
-      const filtered = allOrders.filter(order => {
-        const searchable = [
-          order.order_number,
-          order.id,
-          order.customer_name,
-          order.phone,
-          order.governorate
-        ].join(" ").toLowerCase();
-
-        return searchable.includes(query) &&
-          (!statusFilter || order.status === statusFilter);
+    try{
+      await apiRequest("/api/admin/products",{
+        method:"PATCH",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({id:product.id,active:nextActive})
       });
-
-      if (!filtered.length) {
-        ordersElement.innerHTML =
-          '<div class="card empty">مفيش طلبات مطابقة للبحث.</div>';
-        return;
-      }
-
-      ordersElement.innerHTML = filtered.map((order, index) => {
-        const orderId = String(order.id || "");
-        const displayId = order.order_number || order.id || "غير متاح";
-
-        const items = Array.isArray(order.items)
-          ? order.items.map(item => `
-              <div>
-                ${escapeHTML(item.name || item.product_id || "منتج")}
-                — المقاس: ${escapeHTML(item.size || "-")}
-                — الكمية: ${Number(item.quantity) || 0}
-                — السعر: ${Number(item.price) || 0} جنيه
-              </div>
-            `).join("")
-          : "تفاصيل المنتجات غير متاحة";
-
-        const subtotal = Number(order.subtotal) || 0;
-        const shipping = Number(order.shipping) || 0;
-        const total = order.total != null
-          ? Number(order.total)
-          : subtotal + shipping;
-
-        const createdAt = order.created_at
-          ? new Date(order.created_at).toLocaleString("ar-EG")
-          : "غير متاح";
-
-        return `
-          <article class="order">
-            <div class="order-top">
-              <h3>طلب #${escapeHTML(displayId)}</h3>
-              <strong>${escapeHTML(STATUS_LABELS[order.status] || order.status || "غير محدد")}</strong>
-            </div>
-
-            <div class="details">
-              <div>👤 العميل: ${escapeHTML(order.customer_name || "-")}</div>
-              <div>📞 الهاتف: ${escapeHTML(order.phone || "-")}</div>
-              <div>📍 المحافظة: ${escapeHTML(order.governorate || "-")}</div>
-              <div>🏠 العنوان: ${escapeHTML(order.address || "-")}</div>
-              <div>🕒 تاريخ الطلب: ${escapeHTML(createdAt)}</div>
-              <div>💵 الدفع: الدفع عند الاستلام</div>
-            </div>
-
-            <div class="items">${items}</div>
-
-            <div class="details">
-              قيمة المنتجات: ${subtotal} جنيه<br>
-              الشحن: ${shipping} جنيه<br>
-              <strong>الإجمالي: ${total} جنيه</strong>
-            </div>
-
-            <div class="status-row" style="margin-top:15px">
-              <select id="status-${index}" aria-label="حالة الطلب">
-                ${Object.entries(STATUS_LABELS).map(([value, label]) => `
-                  <option value="${value}" ${order.status === value ? "selected" : ""}>
-                    ${label}
-                  </option>
-                `).join("")}
-              </select>
-
-              <button type="button"
-                data-order-id="${escapeHTML(orderId)}"
-                data-status-index="${index}"
-                class="save-status">
-                حفظ الحالة
-              </button>
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      ordersElement.querySelectorAll(".save-status").forEach(button => {
-        button.addEventListener("click", async () => {
-          await updateStatus(button);
-        });
-      });
+      showMessage(dashboardMessage,nextActive?"تم إظهار المنتج.":"تم إخفاء المنتج.","success");
+      await loadProducts();
+    }catch(error){
+      showMessage(dashboardMessage,error.message,"error");
     }
+  }
 
-    async function updateStatus(button) {
-      const orderId = button.dataset.orderId;
-      const index = button.dataset.statusIndex;
-      const status = document.getElementById("status-" + index).value;
-
-      if (!orderId) {
-        alert("رقم الطلب غير متاح.");
-        return;
-      }
-
-      button.disabled = true;
-      button.textContent = "جاري الحفظ...";
-
-      try {
-        await apiRequest("/api/admin/orders", {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            id: orderId,
-            status
-          })
-        });
-
-        showMessage(dashboardMessage, "تم تحديث حالة الطلب.", "success");
-        await loadOrders();
-      } catch (error) {
-        showMessage(dashboardMessage, error.message, "error");
-      } finally {
-        button.disabled = false;
-        button.textContent = "حفظ الحالة";
-      }
-    }
-
-    function escapeHTML(value) {
-      return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[char]);
-    }
-
-    document.getElementById("refreshButton").addEventListener(
-      "click",
-      async () => {
-        try {
-          await loadOrders();
-        } catch (error) {
-          showMessage(dashboardMessage, error.message, "error");
+  document.querySelectorAll("[data-tab]").forEach(button=>{
+    button.addEventListener("click",async()=>{
+      const target=button.dataset.tab;
+      document.querySelectorAll("[data-tab]").forEach(tab=>tab.classList.toggle("active",tab===button));
+      $("ordersPanel").classList.toggle("hidden",target!=="ordersPanel");
+      $("productsPanel").classList.toggle("hidden",target!=="productsPanel");
+      if(target==="productsPanel"&&!button.dataset.loaded){
+        try{
+          await loadProducts();
+          button.dataset.loaded="true";
+        }catch(error){
+          showMessage(dashboardMessage,error.message,"error");
         }
       }
-    );
-
-    document.getElementById("search").addEventListener("input", renderOrders);
-    document.getElementById("filterStatus").addEventListener("change", renderOrders);
-
-    document.getElementById("logoutButton").addEventListener("click", () => {
-      adminToken = "";
-      allOrders = [];
-
-      document.getElementById("token").value = "";
-      dashboard.classList.add("hidden");
-      loginCard.classList.remove("hidden");
-
-      ordersElement.innerHTML = "";
-      showMessage(loginMessage, "تم تسجيل الخروج.");
     });
-  </script>
+  });
+
+  $("refreshButton").addEventListener("click",async()=>{
+    try{await loadOrders();}catch(error){showMessage(dashboardMessage,error.message,"error");}
+  });
+  $("refreshProductsButton").addEventListener("click",async()=>{
+    try{await loadProducts();}catch(error){showMessage(dashboardMessage,error.message,"error");}
+  });
+  $("search").addEventListener("input",renderOrders);
+  $("filterStatus").addEventListener("change",renderOrders);
+  $("productSearch").addEventListener("input",renderProducts);
+  $("productFilter").addEventListener("change",renderProducts);
+
+  $("logoutButton").addEventListener("click",()=>{
+    adminToken="";
+    allOrders=[];
+    allProducts=[];
+    $("token").value="";
+    dashboard.classList.add("hidden");
+    loginCard.classList.remove("hidden");
+    ordersElement.innerHTML="";
+    productsElement.innerHTML="";
+    document.querySelectorAll("[data-tab]").forEach(button=>delete button.dataset.loaded);
+    showMessage(loginMessage,"تم تسجيل الخروج.");
+  });
+</script>
 </body>
 </html>
