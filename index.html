@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BALVI — Hoodies Only</title>
+
+<style>
+:root{--red:#f01422;--black:#111;--line:#e9e9e9}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#111}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+
+.top{
+height:64px;padding:0 5%;display:flex;align-items:center;
+justify-content:space-between;border-bottom:1px solid #eee;
+position:sticky;top:0;background:#fff;z-index:10
+}
+.logo,.footlogo{font-weight:1000;font-size:30px;letter-spacing:5px}
+.v{color:var(--red)}
+nav{display:flex;gap:25px;font-size:12px;font-weight:800;text-transform:uppercase}
+.icon{border:0;background:none;font-size:21px}
+.badge{background:var(--red);color:#fff;border-radius:50%;font-size:10px;padding:3px 5px}
+
+/* HERO: one background image inside the hero section */
+.hero{
+position:relative;display:flex;align-items:center;
+min-height:560px;color:#fff;background-color:#111;
+background-image:
+linear-gradient(90deg,rgba(0,0,0,.88) 0%,rgba(0,0,0,.56) 48%,rgba(0,0,0,.12) 100%),
+url("balvi-streetwear-hero.png");
+background-size:cover;background-position:center 40%;overflow:hidden
+}
+.hero-copy{position:relative;z-index:1;width:58%;padding:55px 5%;align-self:center}
+.kicker{font-size:11px;letter-spacing:3px;color:var(--red);font-weight:900}
+.hero h1{font-size:clamp(45px,6vw,78px);line-height:.92;letter-spacing:-3px;font-weight:1000;font-style:italic;margin:18px 0}
+.hero h1 span{color:var(--red)}
+.hero p{font-size:12px;letter-spacing:1px;line-height:1.8;font-weight:700}
+.btn{display:inline-flex;justify-content:space-between;align-items:center;gap:25px;background:var(--red);color:#fff;border:0;padding:14px 20px;font-size:11px;font-weight:900;margin-top:14px}
+
+/* PRODUCTS */
+.wrap{max-width:1300px;padding:0 4%;margin:auto}
+.section{padding:34px 0 22px}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:20px}
+.heading small{font-size:10px;color:var(--red);letter-spacing:2px;font-weight:900}
+.heading h2{margin:5px 0 0;font-size:30px}
+.heading>span{font-size:12px}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.product{border:1px solid var(--line);min-width:0}
+.photo{height:300px;background:#f7f7f7;position:relative;overflow:hidden;display:block}
+.photo img{width:100%;height:100%;object-fit:contain;transition:.3s}
+.product:hover .photo img{transform:scale(1.03)}
+.tag{position:absolute;top:9px;left:9px;background:var(--red);color:white;font-size:9px;font-weight:900;padding:5px 7px}
+.pinfo{padding:13px}
+.pname{font-size:13px;font-weight:900}
+.desc{color:#777;font-size:10px;margin-top:5px}
+.price-row{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:900;margin-top:13px}
+.add{border:1px solid #eee;background:#f5f5f5;width:34px;height:34px;display:grid;place-items:center}
+
+/* BANNER + FOOTER */
+.banner{background:#111;color:white;margin:18px 0 35px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.banner h3{margin:0;font-size:24px}
+.banner p,footer p{color:#777;font-size:12px;line-height:1.7}
+footer{border-top:1px solid #eee;padding:25px 4% 14px}
+.footgrid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.legal{border-top:1px solid #eee;margin-top:20px;padding-top:13px;display:flex;justify-content:space-between;font-size:9px;color:#777}
+
+/* CART */
+.cartpanel{position:fixed;inset:0;background:#0007;z-index:40;display:none;justify-content:flex-end}
+.cartpanel.open{display:flex}
+.cart{background:#fff;width:min(440px,100%);height:100%;overflow:auto;padding:22px}
+.carthead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:14px}
+.carthead h2{font-size:20px;margin:0}
+.cartitem{display:grid;grid-template-columns:70px 1fr auto;gap:11px;padding:14px 0;border-bottom:1px solid #eee}
+.cartitem img{width:70px;height:80px;object-fit:contain;background:#f7f7f7}
+.cartitem strong{font-size:12px}
+.cartitem small{display:block;color:#777;margin-top:6px;font-size:10px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:8px}
+.qty button{width:24px;height:24px;background:#fff;border:1px solid #ddd}
+.total{display:flex;justify-content:space-between;font-weight:900;margin:14px 0;font-size:12px}
+.form{display:grid;gap:10px}
+.form h3{font-size:15px;margin:18px 0 0}
+.form input,.form select,.form textarea{padding:12px;border:1px solid #ddd;width:100%;font-size:12px}
+.form .btn{width:100%;margin:0;justify-content:center}
+.notice{display:none;padding:10px;font-size:12px;background:#fff1f1;color:#900}
+.empty{text-align:center;padding:35px 0;color:#777;font-size:13px}
+
+@media(max-width:800px){
+.top{height:58px;padding:0 12px}
+.logo{font-size:23px;letter-spacing:3px}
+nav{gap:10px;font-size:9px}
+.hero{min-height:540px;background-position:58% center}
+.hero-copy{width:100%;padding:35px 22px;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.08))}
+.hero h1{font-size:53px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.photo{height:230px}
+.heading h2{font-size:24px}
+.banner{align-items:flex-start;flex-direction:column}
+.footgrid{grid-template-columns:1fr}
+}
+@media(max-width:430px){
+nav{gap:7px}
+nav a{font-size:8px}
+.hero{min-height:500px;background-position:58% center}
+.hero h1{font-size:47px}
+.photo{height:190px}
+.pinfo{padding:9px}
+.heading h2{font-size:21px}
+.heading>span{font-size:10px}
+}
+</style>
+</head>
+
+<body>
+<header class="top">
+  <a href="index.html" class="logo">BAL<span class="v">V</span>I</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#shop">Hoodies</a>
+    <a href="#about">About</a>
+  </nav>
+  <button class="icon" onclick="openCart()" aria-label="Open bag">♧ <span class="badge" id="count">0</span></button>
+</header>
+
+<main>
+  <!-- One hero section: the streetwear image is the background -->
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">BALVI / HOODIE DROP</div>
+      <h1>HOODIES<br>FOR THE<br><span>STREETS.</span></h1>
+      <p>Not made to fit in.<br>Made to stand out.</p>
+      <a class="btn" href="#shop">SHOP HOODIES →</a>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="section" id="shop">
+      <div class="heading">
+        <div>
+          <small>FRESH FROM BALVI</small>
+          <h2>HOODIE COLLECTION</h2>
+        </div>
+        <span>5 STYLES / NEW DROP</span>
+      </div>
+      <div class="products" id="products"></div>
+    </section>
+
+    <section class="banner">
+      <div>
+        <h3>ONLY HOODIES. ALL ATTITUDE.</h3>
+        <p>Choose your style, pick your size, and order cash on delivery.</p>
+      </div>
+      <a class="btn" href="#shop">EXPLORE DROP →</a>
+    </section>
+  </div>
+</main>
+
+<footer id="about">
+  <div class="footgrid">
+    <div>
+      <div class="footlogo">BAL<span class="v">V</span>I</div>
+      <p>Streetwear for those who move differently. Express yourself. Own your style.</p>
+    </div>
+    <div>
+      <h4>ORDER & DELIVERY</h4>
+      <p>Cash on delivery available.<br>Shipping: EGP 80.</p>
+      <p>Choose your hoodie, size, and color before adding it to your bag.</p>
+    </div>
+  </div>
+  <div class="legal">
+    <span>© 2026 BALVI. ALL RIGHTS RESERVED.</span>
+    <span>MADE FOR THE STREETS.</span>
+  </div>
+</footer>
+
+<div class="cartpanel" id="cartPanel" onclick="if(event.target===this)closeCart()">
+  <div class="cart">
+    <div class="carthead">
+      <h2>YOUR BAG (<span id="cartCount">0</span>)</h2>
+      <button class="icon" onclick="closeCart()">×</button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="checkoutArea"></div>
+  </div>
+</div>
+
+<script>
+const productsData=[
+  {id:1,name:"Essentials Hoodie",price:650,tag:"NEW DROP",colors:[
+    {name:"Black",hex:"#111111",image:"Black_esstnials.JPG"},
+    {name:"Gray",hex:"#b9b9b9",image:"Gray_essential.JPG"}
+  ]},
+  {id:2,name:"Jacket Hoodie",price:750,tag:"NEW",colors:[
+    {name:"Black",hex:"#111111",image:"Black_jacket.JPG"},
+    {name:"Gray",hex:"#b9b9b9",image:"Gray_jacket.JPG"}
+  ]},
+  {id:3,name:"Supreme Hoodie",price:650,tag:"STATEMENT",colors:[
+    {name:"Black",hex:"#111111",image:"Black_superme.JPG"},
+    {name:"Gray",hex:"#b9b9b9",image:"Gray_superme.JPG"}
+  ]},
+  {id:4,name:"Scuffer Hoodie",price:650,tag:"NEW DROP",colors:[
+    {name:"Blue",hex:"#183b78",image:"Blue_scuffer.JPG"},
+    {name:"White",hex:"#fff",image:"White_scuffer.JPG"}
+  ]},
+  {id:5,name:"British Hoodie",price:650,tag:"ICONIC",colors:[
+    {name:"British",hex:"#182746",image:"British.JPG"}
+  ]}
+];
+
+let cart=[];
+try{
+  cart=JSON.parse(localStorage.getItem("balvi-cart")||"[]");
+  if(!Array.isArray(cart))cart=[];
+}catch(e){cart=[]}
+
+const money=n=>"EGP "+Number(n).toLocaleString("en-US");
+
+function renderProducts(){
+  document.getElementById("products").innerHTML=productsData.map(p=>{
+    const firstImage=p.colors[0].image;
+    return `
+      <article class="product">
+        <a class="photo" href="product.html?id=${p.id}">
+          <img
+            src="${firstImage}"
+            alt="${p.name}"
+            loading="lazy"
+            onerror="this.onerror=null;this.src='${p.id===1?"Black_essentials.JPG":firstImage}';this.onerror=function(){this.style.display='none'}"
+          >
+          <span class="tag">${p.tag}</span>
+        </a>
+        <div class="pinfo">
+          <a class="pname" href="product.html?id=${p.id}">${p.name}</a>
+          <div class="desc">HOODIES / ${p.colors.length} ${p.colors.length===1?"STYLE":"COLORS"}</div>
+          <div class="price-row">
+            <span>${money(p.price)}</span>
+            <a class="add" href="product.html?id=${p.id}" aria-label="Choose ${p.name}">＋</a>
+          </div>
+        </div>
+      </article>`;
+  }).join("");
+}
+
+function changeCartQty(key,n){
+  const item=cart.find(x=>x.key===key);
+  if(!item)return;
+  item.quantity+=n;
+  if(item.quantity<=0)cart=cart.filter(x=>x.key!==key);
+  renderCart();
+}
+
+function removeItem(key){
+  cart=cart.filter(x=>x.key!==key);
+  renderCart();
+}
+
+function subtotal(){
+  return cart.reduce((s,i)=>s+Number(i.price)*Number(i.quantity),0);
+}
+
+function renderCart(){
+  localStorage.setItem("balvi-cart",JSON.stringify(cart));
+  const n=cart.reduce((s,i)=>s+Number(i.quantity||0),0);
+  document.getElementById("count").textContent=n;
+  document.getElementById("cartCount").textContent=n;
+
+  document.getElementById("cartItems").innerHTML=cart.length
+    ?cart.map(i=>`
+      <div class="cartitem">
+        <img src="${i.image}" alt="${i.name}" onerror="this.style.visibility='hidden'">
+        <div>
+          <strong>${i.name}</strong>
+          <small>${i.color} / ${i.size}</small>
+          <small>${money(i.price)}</small>
+          <div class="qty">
+            <button onclick="changeCartQty('${i.key}',-1)">−</button>
+            ${i.quantity}
+            <button onclick="changeCartQty('${i.key}',1)">+</button>
+          </div>
+        </div>
+        <div>
+          <strong>${money(i.price*i.quantity)}</strong>
+          <button class="icon" onclick="removeItem('${i.key}')">×</button>
+        </div>
+      </div>`).join("")
+    :'<div class="empty">Your bag is empty.<br><br>Time to find your style.</div>';
+
+  document.getElementById("checkoutArea").innerHTML=cart.length?`
+    <div class="total"><span>Subtotal</span><span>${money(subtotal())}</span></div>
+    <div class="total"><span>Shipping</span><span>EGP 80</span></div>
+    <div class="total"><span>Total</span><span>${money(subtotal()+80)}</span></div>
+    <div class="form">
+      <h3>Checkout — Cash on Delivery</h3>
+      <input id="customerName" placeholder="Full name" autocomplete="name" required>
+      <input id="customerPhone" type="tel" placeholder="Phone number" autocomplete="tel" required>
+      <select id="governorate" required>
+        <option value="">Choose governorate</option>
+        <option>Cairo</option><option>Giza</option><option>Alexandria</option>
+        <option>Gharbia</option><option>Dakahlia</option><option>Qalyubia</option>
+        <option>Monufia</option><option>Sharqia</option><option>Beheira</option>
+        <option>Kafr El Sheikh</option><option>Damietta</option><option>Port Said</option>
+        <option>Ismailia</option><option>Suez</option><option>Fayoum</option>
+        <option>Beni Suef</option><option>Minya</option><option>Assiut</option>
+        <option>Sohag</option><option>Qena</option><option>Luxor</option>
+        <option>Aswan</option><option>Red Sea</option><option>Matrouh</option>
+        <option>New Valley</option><option>North Sinai</option><option>South Sinai</option>
+      </select>
+      <textarea id="customerAddress" placeholder="Full address" rows="2" autocomplete="street-address" required></textarea>
+      <div class="notice" id="checkoutNotice"></div>
+      <button class="btn" onclick="placeOrder()">CONFIRM ORDER →</button>
+    </div>`:"";
+}
+
+function openCart(){
+  renderCart();
+  document.getElementById("cartPanel").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function closeCart(){
+  document.getElementById("cartPanel").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+async function placeOrder(){
+  const name=document.getElementById("customerName").value.trim();
+  const phone=document.getElementById("customerPhone").value.trim();
+  const governorate=document.getElementById("governorate").value;
+  const address=document.getElementById("customerAddress").value.trim();
+  const notice=document.getElementById("checkoutNotice");
+  const button=document.querySelector("#checkoutArea .btn");
+
+  const err=m=>{
+    notice.style.display="block";
+    notice.textContent=m;
+  };
+
+  if(!cart.length){err("Your bag is empty.");return}
+  if(!name||!phone||!governorate||!address){
+    err("Please fill in all fields.");
+    return;
+  }
+
+  const payload={
+    customer_name:name,
+    phone,
+    governorate,
+    address,
+    items:cart.map(i=>({
+      id:i.id,name:i.name,quantity:i.quantity,
+      price:i.price,size:i.size,color:i.color
+    })),
+    subtotal:subtotal(),
+    shipping:80,
+    payment_method:"COD"
+  };
+
+  button.disabled=true;
+  button.textContent="SENDING ORDER...";
+
+  try{
+    const response=await fetch("/api/orders",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    const data=await response.json().catch(()=>({}));
+
+    if(!response.ok||!data.success){
+      throw new Error(data.error||"Order could not be saved.");
+    }
+
+    alert("Thank you! Your order number is "+
+      (data.order_number||data.order?.order_number||"confirmed")+".");
+    cart=[];
+    renderCart();
+    closeCart();
+  }catch(error){
+    err("Couldn't submit the order. Please try again. "+error.message);
+  }finally{
+    button.disabled=false;
+    button.textContent="CONFIRM ORDER →";
+  }
+}
+
+renderProducts();
+renderCart();
+
+/* Open the bag automatically after returning from product checkout */
+const params=new URLSearchParams(window.location.search);
+if(params.get("checkout")==="1"){
+  openCart();
+  history.replaceState({},document.title,window.location.pathname);
+}
+</script>
+</body>
+</html>
