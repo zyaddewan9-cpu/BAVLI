@@ -9,426 +9,100 @@
 <title>BALVI — Streetwear</title>
 
 <style>
-:root {
-  --red: #f01422;
-  --black: #111111;
-  --white: #ffffff;
-  --line: #e9e9e9;
-  --muted: #777777;
+:root{--red:#f01422;--black:#111;--white:#fff;--line:#e9e9e9;--muted:#777}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--black);background:var(--white)}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+button{cursor:pointer}
+.top{height:64px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:10}
+.logo,.footlogo{font-weight:1000;font-size:30px;letter-spacing:5px}
+.v{color:var(--red)}
+nav{display:flex;gap:25px;font-size:12px;font-weight:800;text-transform:uppercase}
+nav a:hover{color:var(--red)}
+.icon{border:0;background:none;font-size:22px}
+.badge{display:inline-block;background:var(--red);color:#fff;border-radius:20px;font-size:10px;padding:3px 6px;vertical-align:middle}
+.hero{position:relative;display:flex;align-items:center;min-height:560px;color:#fff;background-color:#111;background-image:linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.5) 50%,rgba(0,0,0,.12)),url("balvi-streetwear-hero.png");background-size:cover;background-position:center 40%;overflow:hidden}
+.hero-copy{width:58%;padding:55px 5%}
+.kicker{font-size:11px;letter-spacing:3px;color:var(--red);font-weight:900}
+.hero h1{font-size:clamp(45px,6vw,78px);line-height:.92;letter-spacing:-3px;font-weight:1000;font-style:italic;margin:18px 0}
+.hero h1 span{color:var(--red)}
+.hero p{font-size:12px;letter-spacing:1px;line-height:1.8;font-weight:700}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:15px;background:var(--red);color:#fff;border:0;padding:14px 20px;font-size:11px;font-weight:900;margin-top:14px;transition:.2s}
+.btn:hover{background:#c80e1a}
+.btn:disabled{opacity:.6;cursor:wait}
+.wrap{max-width:1300px;padding:0 4%;margin:auto}
+.section{padding:34px 0 22px}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:20px}
+.heading small{font-size:10px;color:var(--red);letter-spacing:2px;font-weight:900}
+.heading h2{margin:5px 0 0;font-size:30px}
+.heading>span{font-size:12px}
+.categories{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 22px}
+.category-btn{background:#fff;border:1px solid #ddd;padding:12px 17px;font-size:10px;font-weight:900;letter-spacing:1px;transition:.2s}
+.category-btn.active,.category-btn:hover{background:#111;color:#fff;border-color:#111}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.product{border:1px solid var(--line);min-width:0;background:#fff}
+.photo{height:300px;background:#f7f7f7;position:relative;overflow:hidden;display:block}
+.photo img{width:100%;height:100%;object-fit:contain;transition:transform .3s}
+.product:hover .photo img{transform:scale(1.035)}
+.tag{position:absolute;top:9px;left:9px;background:var(--red);color:white;font-size:9px;font-weight:900;padding:5px 7px}
+.pinfo{padding:13px}
+.pname{display:block;font-size:13px;font-weight:900}
+.pname:hover{color:var(--red)}
+.desc{color:var(--muted);font-size:10px;margin-top:5px}
+.swatches{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px}
+.swatch{width:17px;height:17px;border-radius:50%;border:1px solid #ccc;display:inline-block}
+.more-colors{font-size:10px;color:var(--muted)}
+.price-row{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px;font-weight:900;margin-top:13px}
+.add{border:1px solid #eee;background:#f5f5f5;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;font-size:20px}
+.add:hover{background:var(--red);color:#fff}
+.old-price{color:#888;text-decoration:line-through;font-size:11px;display:block;margin-bottom:3px}
+.sale-price{color:var(--red)}
+.load-message{grid-column:1/-1;padding:30px 12px;text-align:center;color:#777;font-size:13px;line-height:1.7}
+.banner{background:#111;color:white;margin:18px 0 35px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.banner h3{margin:0;font-size:24px}
+.banner p,footer p{color:#777;font-size:12px;line-height:1.7}
+footer{border-top:1px solid #eee;padding:25px 4% 14px}
+.footgrid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.legal{border-top:1px solid #eee;margin-top:20px;padding-top:13px;display:flex;justify-content:space-between;gap:10px;font-size:9px;color:#777}
+.cartpanel{position:fixed;inset:0;background:#0007;z-index:40;display:none;justify-content:flex-end}
+.cartpanel.open{display:flex}
+.cart{background:#fff;width:min(440px,100%);height:100%;overflow:auto;padding:22px}
+.carthead{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:14px}
+.carthead h2{font-size:20px;margin:0}
+.cartitem{display:grid;grid-template-columns:70px 1fr auto;gap:11px;padding:14px 0;border-bottom:1px solid #eee}
+.cartitem img{width:70px;height:80px;object-fit:contain;background:#f7f7f7}
+.cartitem strong{font-size:12px}
+.cartitem small{display:block;color:#777;margin-top:6px;font-size:10px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:8px}
+.qty button{width:24px;height:24px;background:#fff;border:1px solid #ddd}
+.total{display:flex;justify-content:space-between;gap:10px;font-weight:900;margin:14px 0;font-size:12px}
+.form{display:grid;gap:10px}
+.form h3{font-size:15px;margin:18px 0 0}
+.form input,.form select,.form textarea{padding:12px;border:1px solid #ddd;width:100%;font-size:12px;background:white}
+.form .btn{width:100%;margin:0}
+.notice{display:none;padding:10px;font-size:12px;background:#fff1f1;color:#900;line-height:1.6}
+.empty{text-align:center;padding:35px 0;color:#777;font-size:13px}
+@media(max-width:800px){
+.top{height:58px;padding:0 12px}.logo{font-size:23px;letter-spacing:3px}
+nav{gap:10px;font-size:9px}
+.hero{min-height:540px;background-position:58% center}
+.hero-copy{width:100%;padding:35px 22px;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.08))}
+.hero h1{font-size:53px}
+.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.photo{height:230px}.heading h2{font-size:24px}
+.banner{align-items:flex-start;flex-direction:column}
+.footgrid{grid-template-columns:1fr}
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  color: var(--black);
-  background: var(--white);
-}
-a { color: inherit; text-decoration: none; }
-button, input, select, textarea { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button { cursor: pointer; }
-
-.top {
-  height: 64px;
-  padding: 0 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  background: #fff;
-  z-index: 10;
-}
-.logo, .footlogo {
-  font-weight: 1000;
-  font-size: 30px;
-  letter-spacing: 5px;
-}
-.v { color: var(--red); }
-nav {
-  display: flex;
-  gap: 25px;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-nav a:hover { color: var(--red); }
-.icon {
-  border: 0;
-  background: none;
-  font-size: 22px;
-}
-.badge {
-  display: inline-block;
-  background: var(--red);
-  color: #fff;
-  border-radius: 20px;
-  font-size: 10px;
-  padding: 3px 6px;
-  vertical-align: middle;
-}
-
-.hero {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 560px;
-  color: #fff;
-  background-color: #111;
-  background-image:
-    linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.5) 50%, rgba(0,0,0,.12)),
-    url("balvi-streetwear-hero.png");
-  background-size: cover;
-  background-position: center 40%;
-  overflow: hidden;
-}
-.hero-copy {
-  width: 58%;
-  padding: 55px 5%;
-}
-.kicker {
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--red);
-  font-weight: 900;
-}
-.hero h1 {
-  font-size: clamp(45px, 6vw, 78px);
-  line-height: .92;
-  letter-spacing: -3px;
-  font-weight: 1000;
-  font-style: italic;
-  margin: 18px 0;
-}
-.hero h1 span { color: var(--red); }
-.hero p {
-  font-size: 12px;
-  letter-spacing: 1px;
-  line-height: 1.8;
-  font-weight: 700;
-}
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  background: var(--red);
-  color: #fff;
-  border: 0;
-  padding: 14px 20px;
-  font-size: 11px;
-  font-weight: 900;
-  margin-top: 14px;
-  transition: .2s;
-}
-.btn:hover { background: #c80e1a; }
-.btn:disabled { opacity: .6; cursor: wait; }
-
-.wrap {
-  max-width: 1300px;
-  padding: 0 4%;
-  margin: auto;
-}
-.section { padding: 34px 0 22px; }
-.heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.heading small {
-  font-size: 10px;
-  color: var(--red);
-  letter-spacing: 2px;
-  font-weight: 900;
-}
-.heading h2 {
-  margin: 5px 0 0;
-  font-size: 30px;
-}
-.heading > span { font-size: 12px; }
-
-.categories {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin: 0 0 22px;
-}
-.category-btn {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 12px 17px;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  transition: .2s;
-}
-.category-btn.active,
-.category-btn:hover {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 15px;
-}
-.product {
-  border: 1px solid var(--line);
-  min-width: 0;
-  background: #fff;
-}
-.photo {
-  height: 300px;
-  background: #f7f7f7;
-  position: relative;
-  overflow: hidden;
-  display: block;
-}
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform .3s;
-}
-.product:hover .photo img { transform: scale(1.035); }
-.tag {
-  position: absolute;
-  top: 9px;
-  left: 9px;
-  background: var(--red);
-  color: white;
-  font-size: 9px;
-  font-weight: 900;
-  padding: 5px 7px;
-}
-.pinfo { padding: 13px; }
-.pname {
-  display: block;
-  font-size: 13px;
-  font-weight: 900;
-}
-.pname:hover { color: var(--red); }
-.desc {
-  color: var(--muted);
-  font-size: 10px;
-  margin-top: 5px;
-}
-.swatches {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-.swatch {
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  display: inline-block;
-}
-.more-colors {
-  font-size: 10px;
-  color: var(--muted);
-}
-.price-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 900;
-  margin-top: 13px;
-}
-.add {
-  border: 1px solid #eee;
-  background: #f5f5f5;
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  font-size: 20px;
-}
-.add:hover { background: var(--red); color: #fff; }
-.old-price {
-  color: #888;
-  text-decoration: line-through;
-  font-size: 11px;
-  display: block;
-  margin-bottom: 3px;
-}
-.sale-price { color: var(--red); }
-.load-message {
-  grid-column: 1 / -1;
-  padding: 30px 12px;
-  text-align: center;
-  color: #777;
-  font-size: 13px;
-  line-height: 1.7;
-}
-.banner {
-  background: #111;
-  color: white;
-  margin: 18px 0 35px;
-  padding: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-.banner h3 { margin: 0; font-size: 24px; }
-.banner p, footer p {
-  color: #777;
-  font-size: 12px;
-  line-height: 1.7;
-}
-footer {
-  border-top: 1px solid #eee;
-  padding: 25px 4% 14px;
-}
-.footgrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px;
-}
-.legal {
-  border-top: 1px solid #eee;
-  margin-top: 20px;
-  padding-top: 13px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 9px;
-  color: #777;
-}
-
-.cartpanel {
-  position: fixed;
-  inset: 0;
-  background: #0007;
-  z-index: 40;
-  display: none;
-  justify-content: flex-end;
-}
-.cartpanel.open { display: flex; }
-.cart {
-  background: #fff;
-  width: min(440px, 100%);
-  height: 100%;
-  overflow: auto;
-  padding: 22px;
-}
-.carthead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 14px;
-}
-.carthead h2 { font-size: 20px; margin: 0; }
-.cartitem {
-  display: grid;
-  grid-template-columns: 70px 1fr auto;
-  gap: 11px;
-  padding: 14px 0;
-  border-bottom: 1px solid #eee;
-}
-.cartitem img {
-  width: 70px;
-  height: 80px;
-  object-fit: contain;
-  background: #f7f7f7;
-}
-.cartitem strong { font-size: 12px; }
-.cartitem small {
-  display: block;
-  color: #777;
-  margin-top: 6px;
-  font-size: 10px;
-}
-.qty {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 8px;
-}
-.qty button {
-  width: 24px;
-  height: 24px;
-  background: #fff;
-  border: 1px solid #ddd;
-}
-.total {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  font-weight: 900;
-  margin: 14px 0;
-  font-size: 12px;
-}
-.form { display: grid; gap: 10px; }
-.form h3 { font-size: 15px; margin: 18px 0 0; }
-.form input, .form select, .form textarea {
-  padding: 12px;
-  border: 1px solid #ddd;
-  width: 100%;
-  font-size: 12px;
-  background: white;
-}
-.form .btn {
-  width: 100%;
-  margin: 0;
-}
-.notice {
-  display: none;
-  padding: 10px;
-  font-size: 12px;
-  background: #fff1f1;
-  color: #900;
-  line-height: 1.6;
-}
-.empty {
-  text-align: center;
-  padding: 35px 0;
-  color: #777;
-  font-size: 13px;
-}
-
-@media (max-width: 800px) {
-  .top { height: 58px; padding: 0 12px; }
-  .logo { font-size: 23px; letter-spacing: 3px; }
-  nav { gap: 10px; font-size: 9px; }
-  .hero { min-height: 540px; background-position: 58% center; }
-  .hero-copy {
-    width: 100%;
-    padding: 35px 22px;
-    background: linear-gradient(90deg, rgba(0,0,0,.55), rgba(0,0,0,.08));
-  }
-  .hero h1 { font-size: 53px; }
-  .products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-  .photo { height: 230px; }
-  .heading h2 { font-size: 24px; }
-  .banner { align-items: flex-start; flex-direction: column; }
-  .footgrid { grid-template-columns: 1fr; }
-}
-@media (max-width: 430px) {
-  nav { gap: 7px; }
-  nav a { font-size: 8px; }
-  .hero { min-height: 500px; background-position: 58% center; }
-  .hero h1 { font-size: 47px; }
-  .photo { height: 190px; }
-  .pinfo { padding: 9px; }
-  .heading h2 { font-size: 21px; }
-  .heading > span { font-size: 10px; }
-  .category-btn { padding: 10px 12px; font-size: 9px; }
+@media(max-width:430px){
+nav{gap:7px}nav a{font-size:8px}
+.hero{min-height:500px;background-position:58% center}
+.hero h1{font-size:47px}.photo{height:190px}
+.pinfo{padding:9px}.heading h2{font-size:21px}
+.heading>span{font-size:10px}
+.category-btn{padding:10px 12px;font-size:9px}
 }
 </style>
 </head>
@@ -436,13 +110,11 @@ footer {
 <body>
 <header class="top">
   <a href="index.html" class="logo">BAL<span class="v">V</span>I</a>
-
   <nav>
     <a href="index.html">Home</a>
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
   </nav>
-
   <button class="icon" onclick="openCart()" aria-label="Open bag">
     ♧ <span class="badge" id="count">0</span>
   </button>
@@ -461,22 +133,15 @@ footer {
   <div class="wrap">
     <section class="section" id="shop">
       <div class="heading">
-        <div>
-          <small>FRESH FROM BALVI</small>
-          <h2>BALVI COLLECTION</h2>
-        </div>
+        <div><small>FRESH FROM BALVI</small><h2>BALVI COLLECTION</h2></div>
         <span id="productCount">LOADING...</span>
       </div>
 
       <div class="categories" aria-label="Product categories">
-        <button class="category-btn active" data-category="all"
-          aria-pressed="true" onclick="setCategory('all')">ALL</button>
-        <button class="category-btn" data-category="hoodies"
-          aria-pressed="false" onclick="setCategory('hoodies')">HOODIES</button>
-        <button class="category-btn" data-category="crewnecks"
-          aria-pressed="false" onclick="setCategory('crewnecks')">CREWNECKS</button>
-        <button class="category-btn" data-category="zip-ups"
-          aria-pressed="false" onclick="setCategory('zip-ups')">ZIP-UPS</button>
+        <button class="category-btn active" data-category="all" aria-pressed="true" onclick="setCategory('all')">ALL</button>
+        <button class="category-btn" data-category="hoodies" aria-pressed="false" onclick="setCategory('hoodies')">HOODIES</button>
+        <button class="category-btn" data-category="crewnecks" aria-pressed="false" onclick="setCategory('crewnecks')">CREWNECKS</button>
+        <button class="category-btn" data-category="zip-ups" aria-pressed="false" onclick="setCategory('zip-ups')">ZIP-UPS</button>
       </div>
 
       <div class="products" id="products">
@@ -527,15 +192,14 @@ footer {
 "use strict";
 
 const SHIPPING_FEE = 80;
-const SIZES = ["S", "M", "L", "XL", "XXL"];
-
+const SIZES = ["S","M","L","XL","XXL"];
 let productsData = [];
 let selectedCategory = "all";
 let cart = [];
 
 try {
-  const savedCart = JSON.parse(localStorage.getItem("balvi-cart") || "[]");
-  if (Array.isArray(savedCart)) cart = savedCart;
+  const saved = JSON.parse(localStorage.getItem("balvi-cart") || "[]");
+  if (Array.isArray(saved)) cart = saved;
 } catch {
   cart = [];
 }
@@ -545,62 +209,115 @@ const money = value =>
 
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[char]);
 }
 
 function safeImage(value) {
-  const image = String(value || "").trim();
-
+  if (typeof value !== "string") return "";
+  const image = value.trim();
   if (!image || image.startsWith("//") || image.includes("..")) return "";
-
-  if (/^(https?:\/\/|\/|\.\/|[a-zA-Z0-9_-])/.test(image)) {
-    return image;
-  }
-
+  if (/^https?:\/\/\S+$/i.test(image)) return image;
+  if (/^\/(?!\/)[\w./ ()-]+$/u.test(image)) return image;
+  if (/^\.\/[\w./ ()-]+$/u.test(image)) return image;
+  if (/^[\w. ()-]+$/u.test(image)) return image;
   return "";
 }
 
-function normalizeProduct(product) {
-  const rawColors = Array.isArray(product.colors) ? product.colors : [];
+/* Convert category labels from the database into the filter keys. */
+function normalizeCategory(value) {
+  const text = String(value || "").trim().toLowerCase();
+
+  if (
+    text.includes("hoodie") ||
+    text.includes("هودي")
+  ) return "hoodies";
+
+  if (
+    text.includes("crewneck") ||
+    text.includes("crew neck") ||
+    text.includes("crew-neck") ||
+    text.includes("sweatshirt") ||
+    text.includes("سويت شيرت") ||
+    text.includes("كرو")
+  ) return "crewnecks";
+
+  if (
+    text.includes("zip") ||
+    text.includes("jacket") ||
+    text.includes("جاكيت") ||
+    text.includes("زيب")
+  ) return "zip-ups";
+
+  return text;
+}
+
+/* Colors can be stored in Supabase as JSON or as a JSON string. */
+function parseColors(value) {
+  if (Array.isArray(value)) return value;
+  if (value && typeof value === "object") return [];
+  if (typeof value !== "string" || !value.trim()) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed)) return parsed;
+  } catch {}
+
+  return value.split(",").map(name => name.trim()).filter(Boolean);
+}
+
+function normalizeProduct(raw) {
+  const image = safeImage(raw.image || raw.image_url || "");
+  const rawColors = parseColors(raw.colors);
 
   const colors = rawColors.map(color => {
-    const isObject = color && typeof color === "object";
-    const name = isObject ? color.name : color;
+    const object = color && typeof color === "object";
+    const name = String(
+      object ? (color.name || color.color || color.label || "") : color
+    ).trim();
+
+    if (!name) return null;
+
+    const hexValue = object ? String(color.hex || color.code || "") : "";
+    const hex = /^#[0-9a-f]{3,8}$/i.test(hexValue) ? hexValue : "";
 
     return {
-      name: String(name || ""),
-      hex: isObject && color.hex ? color.hex : "#cccccc",
+      name,
+      hex,
       image: safeImage(
-        (isObject && color.image) || product.image
+        object ? (color.image || color.image_url || color.photo || image) : image
       )
     };
-  }).filter(color => color.name);
+  }).filter(Boolean);
+
+  const price = Number(raw.price);
+  const salePrice = raw.sale_price == null || raw.sale_price === ""
+    ? null : Number(raw.sale_price);
 
   return {
-    id: product.id,
-    name: String(product.name || ""),
-    category: String(product.category || "").toLowerCase(),
-    price: Number(product.price),
-    sale_price: product.sale_price == null || product.sale_price === ""
-      ? null
-      : Number(product.sale_price),
-    image: safeImage(product.image),
-    colors,
-    tag: "BALVI DROP"
+    id: String(raw.id),
+    name: String(raw.name || "BALVI Essential"),
+    category: normalizeCategory(raw.category),
+    price: Number.isFinite(price) ? price : 0,
+    sale_price: Number.isFinite(salePrice) ? salePrice : null,
+    image,
+    colors
   };
+}
+
+function currentPrice(product) {
+  return product.sale_price !== null &&
+    product.sale_price > 0 &&
+    product.sale_price < product.price
+      ? product.sale_price
+      : product.price;
 }
 
 async function loadProducts() {
   const container = document.getElementById("products");
   const count = document.getElementById("productCount");
 
-  container.innerHTML =
-    '<div class="load-message">LOADING BALVI COLLECTION...</div>';
+  container.innerHTML = '<div class="load-message">LOADING BALVI COLLECTION...</div>';
   count.textContent = "LOADING...";
 
   try {
@@ -613,25 +330,23 @@ async function loadProducts() {
     if (!response.ok) throw new Error("Products request failed");
 
     const data = await response.json();
-
     if (!data.success || !Array.isArray(data.products)) {
       throw new Error("Invalid products response");
     }
 
     productsData = data.products
       .map(normalizeProduct)
-      .filter(product =>
-        product.name &&
-        Number.isFinite(product.price) &&
-        product.price > 0
-      );
+      .filter(product => product.name && product.price > 0);
 
     renderProducts();
   } catch (error) {
     console.error("BALVI product loading error:", error);
     count.textContent = "PLEASE RETRY";
-    container.innerHTML =
-      '<div class="load-message">COULD NOT LOAD PRODUCTS.<br>Please refresh the page or try again later.</div>';
+    container.innerHTML = `
+      <div class="load-message">
+        COULD NOT LOAD PRODUCTS.<br>
+        Please refresh the page or try again later.
+      </div>`;
   }
 }
 
@@ -652,10 +367,11 @@ function renderSwatches(colors, productName) {
 
   const visible = colors.slice(0, 5);
   const swatches = visible.map(color => {
-    const hex = /^#[0-9a-f]{3,8}$/i.test(color.hex) ? color.hex : "#cccccc";
-    const title = escapeHTML(color.name);
-
-    return `<span class="swatch" style="background:${hex}" title="${title}" aria-label="${title}"></span>`;
+    const hex = color.hex || "#ccc";
+    return `<span class="swatch"
+      style="background:${escapeHTML(hex)}"
+      title="${escapeHTML(color.name)}"
+      aria-label="${escapeHTML(color.name)}"></span>`;
   }).join("");
 
   const extra = colors.length > 5
@@ -669,11 +385,11 @@ function renderProducts() {
   const container = document.getElementById("products");
   const count = document.getElementById("productCount");
 
-  const visibleProducts = productsData.filter(product =>
+  const visible = productsData.filter(product =>
     selectedCategory === "all" || product.category === selectedCategory
   );
 
-  const headingNames = {
+  const headings = {
     all: "BALVI COLLECTION",
     hoodies: "HOODIE COLLECTION",
     crewnecks: "CREWNECK COLLECTION",
@@ -681,12 +397,11 @@ function renderProducts() {
   };
 
   document.querySelector("#shop .heading h2").textContent =
-    headingNames[selectedCategory] || headingNames.all;
+    headings[selectedCategory] || headings.all;
 
-  count.textContent =
-    `${visibleProducts.length} ${visibleProducts.length === 1 ? "STYLE" : "STYLES"}`;
+  count.textContent = `${visible.length} ${visible.length === 1 ? "STYLE" : "STYLES"}`;
 
-  if (!visibleProducts.length) {
+  if (!visible.length) {
     container.innerHTML = `
       <div class="load-message">
         ${productsData.length
@@ -696,24 +411,22 @@ function renderProducts() {
     return;
   }
 
-  container.innerHTML = visibleProducts.map(product => {
+  container.innerHTML = visible.map(product => {
     const firstColor = product.colors[0] || {};
-    const image = firstColor.image || product.image || "";
-    const id = encodeURIComponent(String(product.id));
+    const image = firstColor.image || product.image;
+    const id = encodeURIComponent(product.id);
     const name = escapeHTML(product.name);
     const category = escapeHTML(product.category.toUpperCase());
     const colorCount = product.colors.length;
-
-    const hasSale = product.sale_price !== null &&
-      product.sale_price < product.price;
-    const currentPrice = hasSale ? product.sale_price : product.price;
+    const price = currentPrice(product);
+    const hasSale = price < product.price;
 
     const priceHTML = hasSale
       ? `<span>
            <span class="old-price">${money(product.price)}</span>
-           <span class="sale-price">${money(currentPrice)}</span>
+           <span class="sale-price">${money(price)}</span>
          </span>`
-      : `<span>${money(currentPrice)}</span>`;
+      : `<span>${money(price)}</span>`;
 
     const imageHTML = image
       ? `<img src="${escapeHTML(image)}" alt="${name}" loading="lazy"
@@ -724,20 +437,15 @@ function renderProducts() {
       <article class="product">
         <a class="photo" href="product.html?id=${id}" aria-label="View ${name}">
           ${imageHTML}
-          <span class="tag">${escapeHTML(product.tag)}</span>
+          ${hasSale ? '<span class="tag">SALE</span>' : ""}
         </a>
-
         <div class="pinfo">
           <a class="pname" href="product.html?id=${id}">${name}</a>
-          <div class="desc">${category} / ${
-            colorCount ? `${colorCount} COLORS` : "SELECT OPTIONS"
-          }</div>
+          <div class="desc">${category} / ${colorCount ? `${colorCount} COLORS` : "SELECT OPTIONS"}</div>
           ${renderSwatches(product.colors, product.name)}
-
           <div class="price-row">
             ${priceHTML}
-            <a class="add" href="product.html?id=${id}"
-               aria-label="Choose ${name}">＋</a>
+            <a class="add" href="product.html?id=${id}" aria-label="Choose ${name}">＋</a>
           </div>
         </div>
       </article>`;
@@ -748,7 +456,7 @@ function changeCartQty(key, amount) {
   const item = cart.find(entry => String(entry.key) === String(key));
   if (!item) return;
 
-  item.quantity = Number(item.quantity) + amount;
+  item.quantity = Math.min(99, Number(item.quantity || 0) + amount);
 
   if (item.quantity <= 0) {
     cart = cart.filter(entry => String(entry.key) !== String(key));
@@ -768,10 +476,14 @@ function subtotal() {
 }
 
 function renderCart() {
-  localStorage.setItem("balvi-cart", JSON.stringify(cart));
+  try {
+    localStorage.setItem("balvi-cart", JSON.stringify(cart));
+  } catch (error) {
+    console.error("Could not save cart", error);
+  }
 
   const itemCount = cart.reduce((sum, item) =>
-    sum + Number(item.quantity || 0), 0);
+    sum + Math.max(0, Number(item.quantity || 0)), 0);
 
   document.getElementById("count").textContent = itemCount;
   document.getElementById("cartCount").textContent = itemCount;
@@ -783,7 +495,6 @@ function renderCart() {
         const color = escapeHTML(item.color);
         const size = escapeHTML(item.size);
         const image = safeImage(item.image);
-
         const imageHTML = image
           ? `<img src="${escapeHTML(image)}" alt="${name}"
                onerror="this.style.visibility='hidden'">`
@@ -797,17 +508,14 @@ function renderCart() {
               <small>${color} / ${size}</small>
               <small>${money(item.price)}</small>
               <div class="qty">
-                <button onclick="changeCartQty('${key}',-1)"
-                  aria-label="Decrease quantity">−</button>
+                <button onclick="changeCartQty('${key}',-1)" aria-label="Decrease quantity">−</button>
                 ${Number(item.quantity)}
-                <button onclick="changeCartQty('${key}',1)"
-                  aria-label="Increase quantity">+</button>
+                <button onclick="changeCartQty('${key}',1)" aria-label="Increase quantity">+</button>
               </div>
             </div>
             <div>
               <strong>${money(Number(item.price) * Number(item.quantity))}</strong>
-              <button class="icon" onclick="removeItem('${key}')"
-                aria-label="Remove item">×</button>
+              <button class="icon" onclick="removeItem('${key}')" aria-label="Remove item">×</button>
             </div>
           </div>`;
       }).join("")
@@ -822,7 +530,6 @@ function renderCart() {
       <h3>Checkout — Cash on Delivery</h3>
       <input id="customerName" placeholder="Full name" autocomplete="name" required>
       <input id="customerPhone" type="tel" placeholder="Phone number" autocomplete="tel" required>
-
       <select id="governorate" required>
         <option value="">Choose governorate</option>
         <option>Cairo</option><option>Giza</option><option>Alexandria</option>
@@ -835,9 +542,7 @@ function renderCart() {
         <option>Aswan</option><option>Red Sea</option><option>Matrouh</option>
         <option>New Valley</option><option>North Sinai</option><option>South Sinai</option>
       </select>
-
-      <textarea id="customerAddress" placeholder="Full address"
-        rows="2" autocomplete="street-address" required></textarea>
+      <textarea id="customerAddress" placeholder="Full address" rows="2" autocomplete="street-address" required></textarea>
       <div class="notice" id="checkoutNotice"></div>
       <button class="btn" onclick="placeOrder()">CONFIRM ORDER →</button>
     </div>` : "";
@@ -867,14 +572,9 @@ async function placeOrder() {
     notice.textContent = message;
   };
 
-  if (!cart.length) {
-    showError("Your bag is empty.");
-    return;
-  }
-
+  if (!cart.length) return showError("Your bag is empty.");
   if (!name || !phone || !governorate || !address) {
-    showError("Please fill in all fields.");
-    return;
+    return showError("Please fill in all fields.");
   }
 
   const payload = {
@@ -900,7 +600,7 @@ async function placeOrder() {
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type":"application/json"},
       body: JSON.stringify(payload)
     });
 
@@ -910,19 +610,15 @@ async function placeOrder() {
       throw new Error(data.message || "Order could not be saved.");
     }
 
-    const trackingToken = data.tracking_token ||
-      data.order?.tracking_token;
+    const token = data.tracking_token || data.order?.tracking_token;
 
-    if (!trackingToken) {
-      throw new Error(
-        "Order saved, but the tracking link was not returned. Please contact support."
-      );
+    if (!token) {
+      throw new Error("Order saved, but no tracking link was returned. Please contact support.");
     }
 
     cart = [];
     localStorage.removeItem("balvi-cart");
-    window.location.href =
-      "/track.html?token=" + encodeURIComponent(trackingToken);
+    window.location.href = "/track.html?token=" + encodeURIComponent(token);
   } catch (error) {
     showError("Couldn't submit the order. " + error.message);
     button.disabled = false;
