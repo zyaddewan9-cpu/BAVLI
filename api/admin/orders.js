@@ -34,6 +34,7 @@ module.exports = async function handler(req, res) {
   }
 
   const baseUrl = supabaseUrl.replace(/\/+$/, "");
+
   const headers = {
     apikey: serviceKey,
     Authorization: `Bearer ${serviceKey}`,
@@ -81,7 +82,14 @@ module.exports = async function handler(req, res) {
     }
 
     if (!response.ok) {
-      console.error("Admin orders Supabase status:", response.status);
+      console.error("Admin orders Supabase error:", {
+        status: response.status,
+        code: data?.code,
+        message: data?.message,
+        details: data?.details,
+        hint: data?.hint
+      });
+
       throw new Error("SUPABASE_REQUEST_FAILED");
     }
 
@@ -89,7 +97,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // GET: تحميل الطلبات من قاعدة البيانات.
+    // تحميل الطلبات
     if (req.method === "GET") {
       const query = new URLSearchParams({
         select: "*",
@@ -97,7 +105,10 @@ module.exports = async function handler(req, res) {
         limit: "100"
       });
 
-      const rows = await supabaseRequest(`orders?${query.toString()}`);
+      const rows = await supabaseRequest(
+        `orders?${query.toString()}`
+      );
+
       const orders = (Array.isArray(rows) ? rows : []).map(order => ({
         ...order,
         status: normalizeStatus(order.status)
@@ -109,7 +120,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // PATCH: تحديث حالة طلب محدد.
+    // تحديث حالة طلب
     const body = req.body || {};
     const id = String(body.id || "").trim();
     const status = normalizeStatus(body.status);
@@ -144,7 +155,7 @@ module.exports = async function handler(req, res) {
 
     if (!Array.isArray(updated) || updated.length === 0) {
       return res.status(404).json({
-        error: "الطلب غير موجود."
+        error: "الطلب غير موجود أو لم يتم تحديثه."
       });
     }
 
@@ -160,7 +171,7 @@ module.exports = async function handler(req, res) {
 
     return res.status(500).json({
       error: error.message === "SUPABASE_REQUEST_FAILED"
-        ? "تعذر قراءة الطلبات أو تحديثها. راجع أسماء الأعمدة وصلاحيات قاعدة البيانات."
+        ? "فشل الاتصال بقاعدة البيانات. راجع Vercel Runtime Logs لمعرفة السبب."
         : "حدث خطأ داخلي في الخادم."
     });
   }
