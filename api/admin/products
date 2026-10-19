@@ -1,0 +1,131 @@
+
+module.exports = async function handler(req, res) {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-store");
+
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const adminToken = process.env.ADMIN_API_TOKEN;
+
+  if (!supabaseUrl || !serviceKey || !adminToken) {
+    return res.status(500).json({
+      success: false,
+      message: "Server configuration is incomplete"
+    });
+  }
+
+  if (req.headers["x-admin-token"] !== adminToken) {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized"
+    });
+  }
+
+  const baseUrl = supabaseUrl.replace(/\/+$/, "");
+  const headers = {
+    apikey: serviceKey,
+    Authorization: `Bearer ${serviceKey}`,
+    "Content-Type": "application/json",
+    Prefer: "return=representation"
+  };
+
+  try {
+    if (req.method === "GET") {
+      const response = await fetch(
+        `${baseUrl}/rest/v1/products?select=id,name,category,price,sale_price,image,colors,active,created_at&order=created_at.desc`,
+        { headers }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Admin products GET:", data);
+        return res.status(502).json({
+          success: false,
+          message: "Could not load products"
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        products: data
+      });
+    }
+
+    if (req.method === "POST") {
+      const body = req.body || {};
+      const products = body.products;
+
+      if (!Array.isArray(products) || products.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: "Send a non-empty products array"
+        });
+      }
+
+      const allowedCategories = ["hoodies", "crewnecks", "zip-ups"];
+
+      const invalidProduct = products.find(product => {
+        return (
+          !product ||
+          typeof product.name !== "string" ||
+          !product.name.trim() ||
+          !allowedCategories.includes(product.category) ||
+          !Number.isFinite(Number(product.price)) ||
+          Number(product.price) <= 0 ||
+          typeof product.image !== "string" ||
+          !product.image.trim()
+        );
+      });
+
+      if (invalidProduct) {
+        return res.status(400).json({
+          success: false,
+          message: "Each product needs a name, valid category, price and image"
+        });
+      }
+
+      const preparedProducts = products.map(product => {
+        const category = product.category;
+        const price = Number(product.price);
+
+        const salePrice =
+          category === "crewnecks" ? 800 : 900;
+
+        const regularPrice =
+          category === "crewnecks" ? 1100 : 1200;
+
+        return {
+          name: product.name.trim(),
+          category,
+          price: regularPrice,
+          sale_price: salePrice,
+          image: product.image.trim(),
+          colors: Array.isArray(product.colors) ? product.colors : [],
+          active: true
+        };
+      });
+
+      return res.status(409).json({
+        success: false,
+        message:
+          "Products validated. No data was changed. Confirm the product images and database schema before replacement.",
+        count: preparedProducts.length,
+        products: preparedProducts
+      });
+    }
+
+    res.setHeader("Allow", "GET, POST");
+    return res.status(405).json({
+      success: false,
+      message: "Method not allowed"
+    });
+  } catch (error) {
+    console.error("Admin products API error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
