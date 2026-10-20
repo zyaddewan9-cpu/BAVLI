@@ -134,19 +134,16 @@ nav{gap:7px}nav a{font-size:8px}
     <section class="section" id="shop">
       <div class="heading">
         <div><small>FRESH FROM BALVI</small><h2>BALVI COLLECTION</h2></div>
-        <span id="productCount">LOADING...</span>
+        <span id="productCount"></span>
       </div>
 
       <div class="categories" aria-label="Product categories">
         <button class="category-btn active" data-category="all" aria-pressed="true" onclick="setCategory('all')">ALL</button>
-        <button class="category-btn" data-category="hoodies" aria-pressed="false" onclick="setCategory('hoodies')">HOODIES</button>
-        <button class="category-btn" data-category="crewnecks" aria-pressed="false" onclick="setCategory('crewnecks')">CREWNECKS</button>
+        <button class="category-btn" data-category="tops" aria-pressed="false" onclick="setCategory('tops')">HOODIES &amp; CREWNECKS</button>
         <button class="category-btn" data-category="zip-ups" aria-pressed="false" onclick="setCategory('zip-ups')">ZIP-UPS</button>
       </div>
 
-      <div class="products" id="products">
-        <div class="load-message">LOADING BALVI COLLECTION...</div>
-      </div>
+      <div class="products" id="products"></div>
     </section>
 
     <section class="banner">
@@ -224,23 +221,8 @@ function safeImage(value) {
   return "";
 }
 
-/* Convert category labels from the database into the filter keys. */
 function normalizeCategory(value) {
   const text = String(value || "").trim().toLowerCase();
-
-  if (
-    text.includes("hoodie") ||
-    text.includes("هودي")
-  ) return "hoodies";
-
-  if (
-    text.includes("crewneck") ||
-    text.includes("crew neck") ||
-    text.includes("crew-neck") ||
-    text.includes("sweatshirt") ||
-    text.includes("سويت شيرت") ||
-    text.includes("كرو")
-  ) return "crewnecks";
 
   if (
     text.includes("zip") ||
@@ -249,10 +231,40 @@ function normalizeCategory(value) {
     text.includes("زيب")
   ) return "zip-ups";
 
+  if (
+    text.includes("hoodie") ||
+    text.includes("هودي") ||
+    text.includes("crewneck") ||
+    text.includes("crew neck") ||
+    text.includes("crew-neck") ||
+    text.includes("sweatshirt") ||
+    text.includes("سويت شيرت") ||
+    text.includes("كرو")
+  ) return "tops";
+
   return text;
 }
 
-/* Colors can be stored in Supabase as JSON or as a JSON string. */
+function sortRank(product) {
+  const text = String(product.originalCategory || "").toLowerCase();
+
+  if (text.includes("hoodie") || text.includes("هودي")) return 0;
+  if (
+    text.includes("crewneck") ||
+    text.includes("crew neck") ||
+    text.includes("crew-neck") ||
+    text.includes("sweatshirt") ||
+    text.includes("كرو")
+  ) return 1;
+  if (
+    text.includes("zip") ||
+    text.includes("jacket") ||
+    text.includes("جاكيت")
+  ) return 2;
+
+  return 3;
+}
+
 function parseColors(value) {
   if (Array.isArray(value)) return value;
   if (value && typeof value === "object") return [];
@@ -298,6 +310,7 @@ function normalizeProduct(raw) {
     id: String(raw.id),
     name: String(raw.name || "BALVI Essential"),
     category: normalizeCategory(raw.category),
+    originalCategory: String(raw.category || ""),
     price: Number.isFinite(price) ? price : 0,
     sale_price: Number.isFinite(salePrice) ? salePrice : null,
     image,
@@ -317,8 +330,9 @@ async function loadProducts() {
   const container = document.getElementById("products");
   const count = document.getElementById("productCount");
 
-  container.innerHTML = '<div class="load-message">LOADING BALVI COLLECTION...</div>';
-  count.textContent = "LOADING...";
+  // Keep the products area blank while fetching.
+  container.innerHTML = "";
+  count.textContent = "";
 
   try {
     const response = await fetch("/api/products", {
@@ -336,12 +350,13 @@ async function loadProducts() {
 
     productsData = data.products
       .map(normalizeProduct)
-      .filter(product => product.name && product.price > 0);
+      .filter(product => product.name && product.price > 0)
+      .sort((a, b) => sortRank(a) - sortRank(b));
 
     renderProducts();
   } catch (error) {
     console.error("BALVI product loading error:", error);
-    count.textContent = "PLEASE RETRY";
+    count.textContent = "";
     container.innerHTML = `
       <div class="load-message">
         COULD NOT LOAD PRODUCTS.<br>
@@ -391,8 +406,7 @@ function renderProducts() {
 
   const headings = {
     all: "BALVI COLLECTION",
-    hoodies: "HOODIE COLLECTION",
-    crewnecks: "CREWNECK COLLECTION",
+    tops: "HOODIES & CREWNECKS",
     "zip-ups": "ZIP-UP COLLECTION"
   };
 
@@ -416,7 +430,7 @@ function renderProducts() {
     const image = firstColor.image || product.image;
     const id = encodeURIComponent(product.id);
     const name = escapeHTML(product.name);
-    const category = escapeHTML(product.category.toUpperCase());
+    const category = escapeHTML(product.originalCategory.toUpperCase());
     const colorCount = product.colors.length;
     const price = currentPrice(product);
     const hasSale = price < product.price;
