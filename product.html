@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#111111">
-  <title>BALVI | تفاصيل المنتج</title>
-
+  <meta name="description" content="Shop BALVI streetwear. Choose your color, size and fit.">
+  <title>BALVI | Product Details</title>
   <style>
     :root {
       --black: #111;
@@ -14,31 +14,16 @@
       --light: #f5f5f5;
       --border: #e5e5e5;
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       background: var(--white);
       color: var(--black);
       font-family: Arial, Helvetica, sans-serif;
     }
-
-    button, a {
-      font: inherit;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
+    button, a { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
     .announcement {
       background: var(--black);
       color: var(--white);
@@ -47,7 +32,6 @@
       font-size: 12px;
       letter-spacing: 1px;
     }
-
     header {
       height: 76px;
       padding: 0 6%;
@@ -57,63 +41,47 @@
       justify-content: space-between;
       gap: 20px;
     }
-
     .logo {
       font-size: 30px;
       font-weight: 900;
       letter-spacing: 4px;
     }
-
     .header-link {
       font-size: 13px;
       font-weight: bold;
     }
-
-    .header-link:hover {
-      opacity: .6;
-    }
-
+    .header-link:hover { opacity: .6; }
     main {
       max-width: 1200px;
       margin: 35px auto 70px;
       padding: 0 22px;
+      min-height: 300px;
     }
-
     .breadcrumb {
       margin-bottom: 25px;
       color: var(--gray);
       font-size: 12px;
     }
-
     .product-layout {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
       gap: 55px;
       align-items: start;
     }
-
-    .gallery {
-      min-width: 0;
-    }
-
+    .gallery { min-width: 0; }
     .main-image-wrap {
       background: var(--light);
       position: relative;
       aspect-ratio: 4 / 5;
       overflow: hidden;
     }
-
     .main-image {
       width: 100%;
       height: 100%;
       object-fit: contain;
       display: block;
     }
-
-    .main-image.hidden {
-      display: none;
-    }
-
+    .main-image.hidden { display: none; }
     .image-placeholder {
       display: none;
       height: 100%;
@@ -125,11 +93,7 @@
       text-align: center;
       padding: 20px;
     }
-
-    .image-placeholder.visible {
-      display: flex;
-    }
-
+    .image-placeholder.visible { display: flex; }
     .thumbnails {
       display: flex;
       gap: 10px;
@@ -137,7 +101,6 @@
       overflow-x: auto;
       padding-bottom: 5px;
     }
-
     .thumbnail {
       width: 75px;
       height: 90px;
@@ -147,22 +110,16 @@
       padding: 0;
       overflow: hidden;
     }
-
-    .thumbnail.active {
-      border: 2px solid var(--black);
-    }
-
+    .thumbnail.active { border: 2px solid var(--black); }
     .thumbnail img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-
     .details {
       padding-top: 5px;
       min-width: 0;
     }
-
     .category {
       color: var(--gray);
       font-size: 12px;
@@ -170,14 +127,12 @@
       letter-spacing: 1px;
       margin-bottom: 12px;
     }
-
     h1 {
       font-size: clamp(26px, 3vw, 38px);
       line-height: 1.25;
       margin: 0 0 18px;
       font-weight: 800;
     }
-
     .price-row {
       display: flex;
       align-items: center;
@@ -185,18 +140,12 @@
       margin-bottom: 25px;
       flex-wrap: wrap;
     }
-
-    .price {
-      font-size: 22px;
-      font-weight: 800;
-    }
-
+    .price { font-size: 22px; font-weight: 800; }
     .old-price {
       font-size: 16px;
       color: #888;
       text-decoration: line-through;
     }
-
     .sale-label {
       background: var(--black);
       color: var(--white);
@@ -204,33 +153,28 @@
       font-size: 10px;
       letter-spacing: .5px;
     }
-
     .section {
       border-top: 1px solid var(--border);
       padding: 20px 0;
     }
-
     .section-title {
       font-size: 13px;
       font-weight: bold;
       margin-bottom: 14px;
     }
-
     .selected-value {
       color: var(--gray);
       font-weight: normal;
-      margin-right: 5px;
+      margin-left: 5px;
     }
-
     .color-options {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
     }
-
     .color-option {
       min-width: 44px;
-      height: 44px;
+      min-height: 44px;
       padding: 4px 10px;
       border: 1px solid var(--border);
       background: var(--white);
@@ -240,11 +184,7 @@
       gap: 7px;
       font-size: 12px;
     }
-
-    .color-option.active {
-      border: 2px solid var(--black);
-    }
-
+    .color-option.active { border: 2px solid var(--black); }
     .color-dot {
       width: 18px;
       height: 18px;
@@ -253,13 +193,11 @@
       display: inline-block;
       flex: 0 0 auto;
     }
-
     .size-options {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
-
     .size-option {
       min-width: 48px;
       height: 45px;
@@ -267,26 +205,18 @@
       background: var(--white);
       font-size: 12px;
     }
-
     .size-option.active {
       color: var(--white);
       background: var(--black);
       border-color: var(--black);
     }
-
-    .quantity-row {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
+    .quantity-row { display: flex; align-items: center; gap: 15px; }
     .quantity-control {
       display: flex;
       align-items: center;
       border: 1px solid var(--border);
       height: 44px;
     }
-
     .quantity-control button {
       width: 40px;
       height: 42px;
@@ -294,13 +224,11 @@
       background: var(--white);
       font-size: 20px;
     }
-
     .quantity-control span {
       width: 32px;
       text-align: center;
       font-size: 14px;
     }
-
     .action-button {
       width: 100%;
       min-height: 53px;
@@ -312,20 +240,16 @@
       margin-top: 12px;
       transition: .2s;
     }
-
-    .action-button:hover {
-      background: #333;
-    }
-
+    .action-button:hover { background: #333; }
     .action-button.secondary {
       background: var(--white);
       color: var(--black);
     }
-
-    .action-button.secondary:hover {
-      background: var(--light);
+    .action-button.secondary:hover { background: var(--light); }
+    .action-button:disabled {
+      opacity: .6;
+      cursor: wait;
     }
-
     .shipping-note {
       margin-top: 20px;
       padding: 16px;
@@ -334,29 +258,19 @@
       line-height: 1.9;
       color: #555;
     }
-
     .status-message {
       min-height: 18px;
       font-size: 12px;
       line-height: 1.7;
       margin-top: 12px;
     }
-
-    .status-message.error {
-      color: #b42318;
-    }
-
-    .status-message.success {
-      color: #167447;
-    }
-
-    .loading,
+    .status-message.error { color: #b42318; }
+    .status-message.success { color: #167447; }
     .error-screen {
       padding: 80px 20px;
       text-align: center;
       line-height: 2;
     }
-
     .error-screen a {
       display: inline-block;
       margin-top: 15px;
@@ -364,7 +278,6 @@
       background: var(--black);
       color: var(--white);
     }
-
     footer {
       border-top: 1px solid var(--border);
       text-align: center;
@@ -373,39 +286,24 @@
       font-size: 11px;
       letter-spacing: 1px;
     }
-
     @media (max-width: 760px) {
       header {
         height: 65px;
         padding: 0 18px;
       }
-
-      .logo {
-        font-size: 25px;
-      }
-
+      .logo { font-size: 25px; }
+      .header-link { font-size: 11px; }
       main {
         margin-top: 22px;
         padding: 0 15px;
       }
-
       .product-layout {
         grid-template-columns: 1fr;
         gap: 28px;
       }
-
-      .main-image-wrap {
-        aspect-ratio: 4 / 4.5;
-      }
-
-      .details {
-        padding-top: 0;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
+      .main-image-wrap { aspect-ratio: 4 / 4.5; }
+      .details { padding-top: 0; }
+      h1 { font-size: 28px; }
       .thumbnail {
         width: 65px;
         height: 78px;
@@ -413,38 +311,29 @@
     }
   </style>
 </head>
-
 <body>
   <div class="announcement">BALVI — STREETWEAR ESSENTIALS</div>
-
   <header>
-    <a class="header-link" href="index.html">العودة للمتجر</a>
+    <a class="header-link" href="index.html">← Back to Shop</a>
     <a class="logo" href="index.html">BALVI</a>
-    <a class="header-link" href="index.html#cart">
-      الشنطة (<span id="cartCount">0</span>)
+    <a class="header-link" href="index.html?checkout=1">
+      Bag (<span id="cartCount">0</span>)
     </a>
   </header>
-
-  <main id="pageContent">
-    <div class="loading">جاري تحميل المنتج...</div>
-  </main>
-
+  <main id="pageContent"></main>
   <footer>BALVI © 2026 — ALL RIGHTS RESERVED</footer>
-
   <script>
+    "use strict";
     const CART_KEY = "balvi-cart";
     const SHIPPING_COST = 80;
     const AVAILABLE_SIZES = ["S", "M", "L", "XL", "XXL"];
-
     let product = null;
     let selectedColor = null;
     let selectedSize = "";
     let quantity = 1;
     let galleryImages = [];
     let activeImage = "";
-
     const pageContent = document.getElementById("pageContent");
-
     function escapeHTML(value) {
       return String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;",
@@ -454,67 +343,41 @@
         "'": "&#39;"
       })[char]);
     }
-
     function safeImage(value) {
       if (typeof value !== "string") return "";
-
       const image = value.trim();
-
-      if (!image) return "";
-
-      if (
-        image.startsWith("/") &&
-        !image.startsWith("//") &&
-        !image.includes("..")
-      ) {
-        return image;
+      if (!image || image.startsWith("//") || image.includes("..")) {
+        return "";
       }
-
-      if (
-        image.startsWith("./") &&
-        !image.includes("..")
-      ) {
-        return image;
-      }
-
-      if (/^https?:\/\/\S+$/i.test(image)) {
-        return image;
-      }
-
-      // Allow simple filenames such as product-black.jpg
-      if (/^[\w.\- ()]+$/u.test(image) && !image.includes("..")) {
-        return image;
-      }
-
+      if (/^https?:\/\/\S+$/i.test(image)) return image;
+      if (/^\/(?!\/)[\w./ ()-]+$/u.test(image)) return image;
+      if (/^\.\/[\w./ ()-]+$/u.test(image)) return image;
+      if (/^[\w.\- ()]+$/u.test(image)) return image;
       return "";
     }
-
     function normalizeCategory(value) {
       const category = String(value || "").trim().toLowerCase();
-
       if (category.includes("hoodie") || category.includes("هودي")) {
         return "Hoodies";
       }
-
       if (
         category.includes("zip") ||
+        category.includes("jacket") ||
         category.includes("جاكيت") ||
         category.includes("زيب")
       ) {
         return "Zip-Ups";
       }
-
       if (
         category.includes("crew") ||
+        category.includes("sweatshirt") ||
         category.includes("سويت شيرت") ||
         category.includes("كرو")
       ) {
         return "Crewnecks";
       }
-
       return value || "Streetwear";
     }
-
     function normalizeColor(rawColor, fallbackImage) {
       if (typeof rawColor === "string") {
         return {
@@ -523,20 +386,14 @@
           image: fallbackImage
         };
       }
-
-      if (!rawColor || typeof rawColor !== "object") {
-        return null;
-      }
-
+      if (!rawColor || typeof rawColor !== "object") return null;
       const name = String(
         rawColor.name ||
         rawColor.color ||
         rawColor.label ||
         ""
       ).trim();
-
       if (!name) return null;
-
       return {
         name,
         hex: String(rawColor.hex || rawColor.code || "").trim(),
@@ -548,12 +405,9 @@
         )
       };
     }
-
     function normalizeProduct(raw) {
       const baseImage = safeImage(raw.image || raw.image_url || "");
-
       let rawColors = raw.colors;
-
       if (typeof rawColors === "string") {
         try {
           rawColors = JSON.parse(rawColors);
@@ -561,30 +415,24 @@
           rawColors = rawColors.split(",").map(item => item.trim());
         }
       }
-
-      if (!Array.isArray(rawColors)) {
-        rawColors = [];
-      }
-
+      if (!Array.isArray(rawColors)) rawColors = [];
       const colors = rawColors
         .map(color => normalizeColor(color, baseImage))
         .filter(Boolean);
-
       if (!colors.length) {
         colors.push({
-          name: "اللون الأساسي",
+          name: "Default",
           hex: "",
           image: baseImage
         });
       }
-
       const price = Number(raw.price);
       const salePrice =
-        raw.sale_price === null || raw.sale_price === undefined ||
+        raw.sale_price === null ||
+        raw.sale_price === undefined ||
         raw.sale_price === ""
           ? null
           : Number(raw.sale_price);
-
       return {
         id: String(raw.id),
         name: String(raw.name || "BALVI Essential"),
@@ -595,7 +443,6 @@
         colors
       };
     }
-
     function currentPrice() {
       if (
         product.sale_price !== null &&
@@ -604,14 +451,11 @@
       ) {
         return product.sale_price;
       }
-
       return product.price;
     }
-
     function formatPrice(value) {
-      return `${Number(value).toLocaleString("en-US")} EGP`;
+      return `EGP ${Number(value || 0).toLocaleString("en-US")}`;
     }
-
     function getCart() {
       try {
         const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
@@ -620,136 +464,108 @@
         return [];
       }
     }
-
     function saveCart(cart) {
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
       updateCartCount();
     }
-
     function updateCartCount() {
       const cart = getCart();
       const count = cart.reduce(
         (total, item) => total + Math.max(0, Number(item.quantity) || 0),
         0
       );
-
       document.getElementById("cartCount").textContent = count;
     }
-
     function getColorImage(color) {
       return safeImage(color?.image || "") ||
-        safeImage(product.image || "");
+        safeImage(product?.image || "");
     }
-
     function setMainImage(image) {
       const main = document.getElementById("mainImage");
       const placeholder = document.getElementById("imagePlaceholder");
-
       if (!main || !placeholder) return;
-
       const safe = safeImage(image);
-
       if (!safe) {
         main.classList.add("hidden");
         placeholder.classList.add("visible");
         return;
       }
-
       main.onerror = () => {
         main.classList.add("hidden");
         placeholder.classList.add("visible");
         main.onerror = null;
       };
-
       main.onload = () => {
         main.classList.remove("hidden");
         placeholder.classList.remove("visible");
       };
-
       main.src = safe;
       activeImage = safe;
-
       document.querySelectorAll(".thumbnail").forEach(button => {
-        button.classList.toggle(
-          "active",
-          button.dataset.image === safe
-        );
+        button.classList.toggle("active", button.dataset.image === safe);
       });
     }
-
     function buildGallery() {
       const colorImage = getColorImage(selectedColor);
       galleryImages = [];
-
-      if (colorImage) {
-        galleryImages.push(colorImage);
-      }
-
-      // Add other color photos as gallery thumbnails when available.
+      if (colorImage) galleryImages.push(colorImage);
       product.colors.forEach(color => {
         const image = getColorImage(color);
         if (image && !galleryImages.includes(image)) {
           galleryImages.push(image);
         }
       });
-
       if (!galleryImages.length && product.image) {
         galleryImages.push(product.image);
       }
-
       renderGallery();
     }
-
     function renderGallery() {
       const thumbnails = document.getElementById("thumbnails");
       if (!thumbnails) return;
-
       thumbnails.innerHTML = galleryImages.map(image => `
         <button
           type="button"
           class="thumbnail ${image === activeImage ? "active" : ""}"
           data-image="${escapeHTML(image)}"
-          aria-label="عرض صورة المنتج"
+          aria-label="View product image"
         >
-          <img src="${escapeHTML(image)}" alt="${escapeHTML(product.name)}"
-               loading="lazy">
+          <img
+            src="${escapeHTML(image)}"
+            alt="${escapeHTML(product.name)}"
+            loading="lazy"
+          >
         </button>
       `).join("");
-
       thumbnails.querySelectorAll(".thumbnail").forEach(button => {
         button.addEventListener("click", () => {
           setMainImage(button.dataset.image);
         });
-
         const thumbImage = button.querySelector("img");
         thumbImage.onerror = () => {
           button.style.display = "none";
         };
       });
-
       if (galleryImages.length) {
-        setMainImage(galleryImages.includes(activeImage)
-          ? activeImage
-          : galleryImages[0]);
+        setMainImage(
+          galleryImages.includes(activeImage) ? activeImage : galleryImages[0]
+        );
       } else {
         setMainImage("");
       }
     }
-
     function render() {
       const price = currentPrice();
       const onSale =
         product.sale_price !== null &&
         product.sale_price > 0 &&
         product.sale_price < product.price;
-
       pageContent.innerHTML = `
         <div class="breadcrumb">
-          <a href="index.html">الرئيسية</a>
+          <a href="index.html">Home</a>
           <span> / </span>
           <span>${escapeHTML(product.category)}</span>
         </div>
-
         <div class="product-layout">
           <section class="gallery">
             <div class="main-image-wrap">
@@ -760,37 +576,32 @@
                 alt="${escapeHTML(product.name)}"
               >
               <div id="imagePlaceholder" class="image-placeholder">
-                الصورة غير متاحة حاليًا
+                Image currently unavailable
               </div>
             </div>
             <div id="thumbnails" class="thumbnails"></div>
           </section>
-
           <section class="details">
             <div class="category">${escapeHTML(product.category)}</div>
             <h1>${escapeHTML(product.name)}</h1>
-
             <div class="price-row">
               <span class="price">${formatPrice(price)}</span>
               ${onSale ? `
                 <span class="old-price">${formatPrice(product.price)}</span>
+                <span class="sale-label">SALE</span>
               ` : ""}
-              ${onSale ? `<span class="sale-label">SALE</span>` : ""}
             </div>
-
             <div class="section">
               <div class="section-title">
-                اللون:
+                Color:
                 <span class="selected-value" id="selectedColorLabel">
                   ${escapeHTML(selectedColor.name)}
                 </span>
               </div>
-
               <div class="color-options" id="colorOptions">
                 ${product.colors.map((color, index) => {
                   const dotColor = color.hex || color.name;
                   const isHex = /^#[0-9a-f]{3,8}$/i.test(dotColor);
-
                   return `
                     <button
                       type="button"
@@ -809,15 +620,13 @@
                 }).join("")}
               </div>
             </div>
-
             <div class="section">
               <div class="section-title">
-                المقاس:
+                Size:
                 <span class="selected-value" id="selectedSizeLabel">
-                  اختر المقاس
+                  Select a size
                 </span>
               </div>
-
               <div class="size-options" id="sizeOptions">
                 ${AVAILABLE_SIZES.map(size => `
                   <button
@@ -828,136 +637,107 @@
                 `).join("")}
               </div>
             </div>
-
             <div class="section">
-              <div class="section-title">الكمية</div>
+              <div class="section-title">Quantity</div>
               <div class="quantity-row">
                 <div class="quantity-control">
-                  <button type="button" id="decreaseQty" aria-label="تقليل الكمية">−</button>
+                  <button type="button" id="decreaseQty" aria-label="Decrease quantity">−</button>
                   <span id="quantityValue">1</span>
-                  <button type="button" id="increaseQty" aria-label="زيادة الكمية">+</button>
+                  <button type="button" id="increaseQty" aria-label="Increase quantity">+</button>
                 </div>
               </div>
             </div>
-
             <button type="button" class="action-button" id="addToCartButton">
-              أضف إلى الشنطة — ${formatPrice(price)}
+              ADD TO BAG — ${formatPrice(price)}
             </button>
-
             <button type="button" class="action-button secondary" id="buyNowButton">
-              اطلب الآن
+              BUY NOW
             </button>
-
             <div id="statusMessage" class="status-message" role="status"></div>
-
             <div class="shipping-note">
-              <strong>الدفع عند الاستلام</strong><br>
-              الشحن: ${formatPrice(SHIPPING_COST)} لكل طلب.<br>
-              اختر اللون والمقاس قبل إضافة المنتج إلى الشنطة.
+              <strong>Cash on Delivery</strong><br>
+              Shipping: ${formatPrice(SHIPPING_COST)} per order.<br>
+              Select your color and size before adding the item to your bag.
             </div>
           </section>
         </div>
       `;
-
       buildGallery();
       bindEvents();
       updateCartCount();
     }
-
     function bindEvents() {
       document.querySelectorAll("[data-color-index]").forEach(button => {
         button.addEventListener("click", () => {
           const index = Number(button.dataset.colorIndex);
           const nextColor = product.colors[index];
-
           if (!nextColor) return;
-
           selectedColor = nextColor;
-
           document.querySelectorAll("[data-color-index]").forEach(option => {
             option.classList.toggle(
               "active",
               Number(option.dataset.colorIndex) === index
             );
           });
-
           document.getElementById("selectedColorLabel").textContent =
             selectedColor.name;
-
-          // Show the image for the chosen color.
           activeImage = getColorImage(selectedColor);
           buildGallery();
-
           showMessage("");
         });
       });
-
       document.querySelectorAll("[data-size]").forEach(button => {
         button.addEventListener("click", () => {
           selectedSize = button.dataset.size;
-
           document.querySelectorAll("[data-size]").forEach(option => {
             option.classList.toggle(
               "active",
               option.dataset.size === selectedSize
             );
           });
-
           document.getElementById("selectedSizeLabel").textContent =
             selectedSize;
-
           showMessage("");
         });
       });
-
       document.getElementById("decreaseQty").addEventListener("click", () => {
         quantity = Math.max(1, quantity - 1);
         document.getElementById("quantityValue").textContent = quantity;
       });
-
       document.getElementById("increaseQty").addEventListener("click", () => {
         quantity = Math.min(99, quantity + 1);
         document.getElementById("quantityValue").textContent = quantity;
       });
-
       document.getElementById("addToCartButton").addEventListener("click", () => {
         addToCart(false);
       });
-
       document.getElementById("buyNowButton").addEventListener("click", () => {
         addToCart(true);
       });
     }
-
     function showMessage(message, type = "") {
       const element = document.getElementById("statusMessage");
       if (!element) return;
-
       element.textContent = message;
       element.className = `status-message ${type}`;
     }
-
     function addToCart(goToCheckout) {
       if (!product || !selectedColor) {
-        showMessage("تعذر تحميل المنتج. ارجع للمتجر وحاول مرة أخرى.", "error");
+        showMessage("The product could not be loaded. Please return to the shop and try again.", "error");
         return;
       }
-
       if (!selectedSize) {
-        showMessage("اختار المقاس الأول.", "error");
+        showMessage("Please select a size first.", "error");
         document.getElementById("sizeOptions")?.scrollIntoView({
           behavior: "smooth",
           block: "center"
         });
         return;
       }
-
       const cart = getCart();
       const price = currentPrice();
-
       const key = `${product.id}-${selectedColor.name}-${selectedSize}`;
       const existing = cart.find(item => item.key === key);
-
       if (existing) {
         existing.quantity = Math.min(
           99,
@@ -975,81 +755,64 @@
           image: getColorImage(selectedColor)
         });
       }
-
       try {
         saveCart(cart);
       } catch (error) {
-        showMessage("مساحة التخزين ممتلئة. حاول مرة أخرى.", "error");
+        showMessage("Unable to save your bag. Please try again.", "error");
         return;
       }
-
       if (goToCheckout) {
         window.location.href = "index.html?checkout=1";
         return;
       }
-
-      showMessage("اتضاف المنتج للشنطة بنجاح.", "success");
+      showMessage("Added to your bag successfully.", "success");
     }
-
     async function loadProduct() {
       const params = new URLSearchParams(window.location.search);
       const productId = params.get("id");
-
       if (!productId) {
-        showError("رابط المنتج غير مكتمل.");
+        showError("Product link is incomplete.");
         return;
       }
-
       try {
         const response = await fetch("/api/products", {
           method: "GET",
           cache: "no-store",
-          headers: {
-            "Accept": "application/json"
-          }
+          headers: { "Accept": "application/json" }
         });
-
         if (!response.ok) {
-          throw new Error("products request failed");
+          throw new Error("Products request failed");
         }
-
         const data = await response.json();
-
         if (!data.success || !Array.isArray(data.products)) {
-          throw new Error("invalid products response");
+          throw new Error("Invalid products response");
         }
-
         const rawProduct = data.products.find(item =>
           String(item.id) === String(productId)
         );
-
         if (!rawProduct) {
-          showError("المنتج مش موجود أو غير متاح حاليًا.");
+          showError("This product could not be found or is currently unavailable.");
           return;
         }
-
         product = normalizeProduct(rawProduct);
         selectedColor = product.colors[0] || null;
         selectedSize = "";
         quantity = 1;
         activeImage = getColorImage(selectedColor);
-
         render();
       } catch (error) {
-        console.error("Load product error:", error);
-        showError("حصلت مشكلة في تحميل المنتج. اتأكد من اتصال الإنترنت وحاول تاني.");
+        console.error("Product loading error:", error);
+        showError("Unable to load this product. Please check your connection and try again.");
       }
     }
-
     function showError(message) {
       pageContent.innerHTML = `
         <div class="error-screen">
           <h2>${escapeHTML(message)}</h2>
-          <a href="index.html">الرجوع للمتجر</a>
+          <a href="index.html">Back to Shop</a>
         </div>
       `;
     }
-
     updateCartCount();
     loadProduct();
   </script>
