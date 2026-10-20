@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,6 @@
 <meta name="theme-color" content="#ffffff">
 <meta name="description" content="BALVI Streetwear — Hoodies, Crewnecks and Zip-Ups.">
 <title>BALVI — Streetwear</title>
-
 <style>
 :root{--red:#f01422;--black:#111;--white:#fff;--line:#e9e9e9;--muted:#777}
 *{box-sizing:border-box}
@@ -106,7 +104,6 @@ nav{gap:7px}nav a{font-size:8px}
 }
 </style>
 </head>
-
 <body>
 <header class="top">
   <a href="index.html" class="logo">BAL<span class="v">V</span>I</a>
@@ -119,7 +116,6 @@ nav{gap:7px}nav a{font-size:8px}
     ♧ <span class="badge" id="count">0</span>
   </button>
 </header>
-
 <main>
   <section class="hero">
     <div class="hero-copy">
@@ -129,23 +125,19 @@ nav{gap:7px}nav a{font-size:8px}
       <a class="btn" href="#shop">SHOP COLLECTION →</a>
     </div>
   </section>
-
   <div class="wrap">
     <section class="section" id="shop">
       <div class="heading">
         <div><small>FRESH FROM BALVI</small><h2>BALVI COLLECTION</h2></div>
         <span id="productCount"></span>
       </div>
-
       <div class="categories" aria-label="Product categories">
         <button class="category-btn active" data-category="all" aria-pressed="true" onclick="setCategory('all')">ALL</button>
         <button class="category-btn" data-category="tops" aria-pressed="false" onclick="setCategory('tops')">HOODIES &amp; CREWNECKS</button>
         <button class="category-btn" data-category="zip-ups" aria-pressed="false" onclick="setCategory('zip-ups')">ZIP-UPS</button>
       </div>
-
       <div class="products" id="products"></div>
     </section>
-
     <section class="banner">
       <div>
         <h3>BUILT FOR YOUR STYLE.</h3>
@@ -155,7 +147,6 @@ nav{gap:7px}nav a{font-size:8px}
     </section>
   </div>
 </main>
-
 <footer id="about">
   <div class="footgrid">
     <div>
@@ -173,7 +164,6 @@ nav{gap:7px}nav a{font-size:8px}
     <span>MADE FOR THE STREETS.</span>
   </div>
 </footer>
-
 <div class="cartpanel" id="cartPanel" onclick="if(event.target===this)closeCart()">
   <div class="cart">
     <div class="carthead">
@@ -184,32 +174,25 @@ nav{gap:7px}nav a{font-size:8px}
     <div id="checkoutArea"></div>
   </div>
 </div>
-
 <script>
 "use strict";
-
 const SHIPPING_FEE = 80;
-const SIZES = ["S","M","L","XL","XXL"];
 let productsData = [];
 let selectedCategory = "all";
 let cart = [];
-
 try {
   const saved = JSON.parse(localStorage.getItem("balvi-cart") || "[]");
   if (Array.isArray(saved)) cart = saved;
 } catch {
   cart = [];
 }
-
 const money = value =>
   "EGP " + Number(value || 0).toLocaleString("en-US");
-
 function escapeHTML(value) {
   return String(value ?? "").replace(/[&<>"']/g, char => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   })[char]);
 }
-
 function safeImage(value) {
   if (typeof value !== "string") return "";
   const image = value.trim();
@@ -220,17 +203,14 @@ function safeImage(value) {
   if (/^[\w. ()-]+$/u.test(image)) return image;
   return "";
 }
-
 function normalizeCategory(value) {
   const text = String(value || "").trim().toLowerCase();
-
   if (
     text.includes("zip") ||
     text.includes("jacket") ||
     text.includes("جاكيت") ||
     text.includes("زيب")
   ) return "zip-ups";
-
   if (
     text.includes("hoodie") ||
     text.includes("هودي") ||
@@ -241,13 +221,10 @@ function normalizeCategory(value) {
     text.includes("سويت شيرت") ||
     text.includes("كرو")
   ) return "tops";
-
   return text;
 }
-
 function sortRank(product) {
   const text = String(product.originalCategory || "").toLowerCase();
-
   if (text.includes("hoodie") || text.includes("هودي")) return 0;
   if (
     text.includes("crewneck") ||
@@ -261,38 +238,29 @@ function sortRank(product) {
     text.includes("jacket") ||
     text.includes("جاكيت")
   ) return 2;
-
   return 3;
 }
-
 function parseColors(value) {
   if (Array.isArray(value)) return value;
   if (value && typeof value === "object") return [];
   if (typeof value !== "string" || !value.trim()) return [];
-
   try {
     const parsed = JSON.parse(value);
     if (Array.isArray(parsed)) return parsed;
   } catch {}
-
   return value.split(",").map(name => name.trim()).filter(Boolean);
 }
-
 function normalizeProduct(raw) {
   const image = safeImage(raw.image || raw.image_url || "");
   const rawColors = parseColors(raw.colors);
-
   const colors = rawColors.map(color => {
     const object = color && typeof color === "object";
     const name = String(
       object ? (color.name || color.color || color.label || "") : color
     ).trim();
-
     if (!name) return null;
-
     const hexValue = object ? String(color.hex || color.code || "") : "";
     const hex = /^#[0-9a-f]{3,8}$/i.test(hexValue) ? hexValue : "";
-
     return {
       name,
       hex,
@@ -301,11 +269,9 @@ function normalizeProduct(raw) {
       )
     };
   }).filter(Boolean);
-
   const price = Number(raw.price);
   const salePrice = raw.sale_price == null || raw.sale_price === ""
     ? null : Number(raw.sale_price);
-
   return {
     id: String(raw.id),
     name: String(raw.name || "BALVI Essential"),
@@ -317,7 +283,6 @@ function normalizeProduct(raw) {
     colors
   };
 }
-
 function currentPrice(product) {
   return product.sale_price !== null &&
     product.sale_price > 0 &&
@@ -325,34 +290,27 @@ function currentPrice(product) {
       ? product.sale_price
       : product.price;
 }
-
 async function loadProducts() {
   const container = document.getElementById("products");
   const count = document.getElementById("productCount");
-
   // Keep the products area blank while fetching.
   container.innerHTML = "";
   count.textContent = "";
-
   try {
     const response = await fetch("/api/products", {
       method: "GET",
       headers: { Accept: "application/json" },
       cache: "no-store"
     });
-
     if (!response.ok) throw new Error("Products request failed");
-
     const data = await response.json();
     if (!data.success || !Array.isArray(data.products)) {
       throw new Error("Invalid products response");
     }
-
     productsData = data.products
       .map(normalizeProduct)
       .filter(product => product.name && product.price > 0)
       .sort((a, b) => sortRank(a) - sortRank(b));
-
     renderProducts();
   } catch (error) {
     console.error("BALVI product loading error:", error);
@@ -364,22 +322,17 @@ async function loadProducts() {
       </div>`;
   }
 }
-
 function setCategory(category) {
   selectedCategory = category;
-
   document.querySelectorAll(".category-btn").forEach(button => {
     const active = button.dataset.category === category;
     button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
   });
-
   renderProducts();
 }
-
 function renderSwatches(colors, productName) {
   if (!colors.length) return "";
-
   const visible = colors.slice(0, 5);
   const swatches = visible.map(color => {
     const hex = color.hex || "#ccc";
@@ -388,33 +341,25 @@ function renderSwatches(colors, productName) {
       title="${escapeHTML(color.name)}"
       aria-label="${escapeHTML(color.name)}"></span>`;
   }).join("");
-
   const extra = colors.length > 5
     ? `<span class="more-colors">+${colors.length - 5}</span>`
     : "";
-
   return `<div class="swatches" aria-label="${escapeHTML(productName)} colors">${swatches}${extra}</div>`;
 }
-
 function renderProducts() {
   const container = document.getElementById("products");
   const count = document.getElementById("productCount");
-
   const visible = productsData.filter(product =>
     selectedCategory === "all" || product.category === selectedCategory
   );
-
   const headings = {
     all: "BALVI COLLECTION",
     tops: "HOODIES & CREWNECKS",
     "zip-ups": "ZIP-UP COLLECTION"
   };
-
   document.querySelector("#shop .heading h2").textContent =
     headings[selectedCategory] || headings.all;
-
   count.textContent = `${visible.length} ${visible.length === 1 ? "STYLE" : "STYLES"}`;
-
   if (!visible.length) {
     container.innerHTML = `
       <div class="load-message">
@@ -424,7 +369,6 @@ function renderProducts() {
       </div>`;
     return;
   }
-
   container.innerHTML = visible.map(product => {
     const firstColor = product.colors[0] || {};
     const image = firstColor.image || product.image;
@@ -434,19 +378,16 @@ function renderProducts() {
     const colorCount = product.colors.length;
     const price = currentPrice(product);
     const hasSale = price < product.price;
-
     const priceHTML = hasSale
       ? `<span>
            <span class="old-price">${money(product.price)}</span>
            <span class="sale-price">${money(price)}</span>
          </span>`
       : `<span>${money(price)}</span>`;
-
     const imageHTML = image
       ? `<img src="${escapeHTML(image)}" alt="${name}" loading="lazy"
            onerror="this.style.display='none'">`
       : "";
-
     return `
       <article class="product">
         <a class="photo" href="product.html?id=${id}" aria-label="View ${name}">
@@ -465,43 +406,33 @@ function renderProducts() {
       </article>`;
   }).join("");
 }
-
 function changeCartQty(key, amount) {
   const item = cart.find(entry => String(entry.key) === String(key));
   if (!item) return;
-
   item.quantity = Math.min(99, Number(item.quantity || 0) + amount);
-
   if (item.quantity <= 0) {
     cart = cart.filter(entry => String(entry.key) !== String(key));
   }
-
   renderCart();
 }
-
 function removeItem(key) {
   cart = cart.filter(entry => String(entry.key) !== String(key));
   renderCart();
 }
-
 function subtotal() {
   return cart.reduce((sum, item) =>
     sum + Number(item.price || 0) * Number(item.quantity || 0), 0);
 }
-
 function renderCart() {
   try {
     localStorage.setItem("balvi-cart", JSON.stringify(cart));
   } catch (error) {
     console.error("Could not save cart", error);
   }
-
   const itemCount = cart.reduce((sum, item) =>
     sum + Math.max(0, Number(item.quantity || 0)), 0);
-
   document.getElementById("count").textContent = itemCount;
   document.getElementById("cartCount").textContent = itemCount;
-
   document.getElementById("cartItems").innerHTML = cart.length
     ? cart.map(item => {
         const key = escapeHTML(item.key);
@@ -513,7 +444,6 @@ function renderCart() {
           ? `<img src="${escapeHTML(image)}" alt="${name}"
                onerror="this.style.visibility='hidden'">`
           : `<div></div>`;
-
         return `
           <div class="cartitem">
             ${imageHTML}
@@ -534,12 +464,10 @@ function renderCart() {
           </div>`;
       }).join("")
     : '<div class="empty">Your bag is empty.<br><br>Time to find your style.</div>';
-
   document.getElementById("checkoutArea").innerHTML = cart.length ? `
     <div class="total"><span>Subtotal</span><span>${money(subtotal())}</span></div>
     <div class="total"><span>Shipping</span><span>${money(SHIPPING_FEE)}</span></div>
     <div class="total"><span>Total</span><span>${money(subtotal() + SHIPPING_FEE)}</span></div>
-
     <div class="form">
       <h3>Checkout — Cash on Delivery</h3>
       <input id="customerName" placeholder="Full name" autocomplete="name" required>
@@ -561,18 +489,15 @@ function renderCart() {
       <button class="btn" onclick="placeOrder()">CONFIRM ORDER →</button>
     </div>` : "";
 }
-
 function openCart() {
   renderCart();
   document.getElementById("cartPanel").classList.add("open");
   document.body.style.overflow = "hidden";
 }
-
 function closeCart() {
   document.getElementById("cartPanel").classList.remove("open");
   document.body.style.overflow = "";
 }
-
 async function placeOrder() {
   const name = document.getElementById("customerName").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
@@ -580,17 +505,14 @@ async function placeOrder() {
   const address = document.getElementById("customerAddress").value.trim();
   const notice = document.getElementById("checkoutNotice");
   const button = document.querySelector("#checkoutArea .btn");
-
   const showError = message => {
     notice.style.display = "block";
     notice.textContent = message;
   };
-
   if (!cart.length) return showError("Your bag is empty.");
   if (!name || !phone || !governorate || !address) {
     return showError("Please fill in all fields.");
   }
-
   const payload = {
     customer_name: name,
     phone,
@@ -607,29 +529,22 @@ async function placeOrder() {
     })),
     payment_method: "COD"
   };
-
   button.disabled = true;
   button.textContent = "SENDING ORDER...";
-
   try {
     const response = await fetch("/api/orders", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
       body: JSON.stringify(payload)
     });
-
     const data = await response.json().catch(() => ({}));
-
     if (!response.ok || !data.success) {
       throw new Error(data.message || "Order could not be saved.");
     }
-
     const token = data.tracking_token || data.order?.tracking_token;
-
     if (!token) {
       throw new Error("Order saved, but no tracking link was returned. Please contact support.");
     }
-
     cart = [];
     localStorage.removeItem("balvi-cart");
     window.location.href = "/track.html?token=" + encodeURIComponent(token);
@@ -639,10 +554,8 @@ async function placeOrder() {
     button.textContent = "CONFIRM ORDER →";
   }
 }
-
 renderCart();
 loadProducts();
-
 const params = new URLSearchParams(window.location.search);
 if (params.get("checkout") === "1") {
   openCart();
